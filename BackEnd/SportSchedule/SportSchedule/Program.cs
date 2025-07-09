@@ -1,4 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using SportSchedule.Context;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Cau hinh PostgreSQL
+builder.Services.AddDbContext<ContextDB>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectedDB"));
+});
 
 // Add services to the container.
 
