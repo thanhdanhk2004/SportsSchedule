@@ -4,7 +4,7 @@
     {
         public string? CommentId {  get; set; }
         public string? Content {  get; set; }
-        public DateTime? Created {  get; set; }
+        public DateTime? Created { get; set; } = DateTime.UtcNow;
         public string? PostId {  get; set; }
         public string? UserId {  get; set; }
         public string? CommendIdReply { get; set; }

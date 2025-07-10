@@ -11,9 +11,9 @@ using SportSchedule.Context;
 
 namespace SportSchedule.Migrations
 {
-    [DbContext(typeof(Context))]
-    [Migration("20250709163731_create database footballdb")]
-    partial class createdatabasefootballdb
+    [DbContext(typeof(ContextDB))]
+    [Migration("20250710143350_create database football")]
+    partial class createdatabasefootball
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 9, 23, 37, 30, 802, DateTimeKind.Local).AddTicks(7480));
+                        .HasDefaultValue(new DateTime(2025, 7, 10, 14, 33, 49, 685, DateTimeKind.Utc).AddTicks(1733));
 
                     b.Property<string>("PostId")
                         .HasColumnType("text");
@@ -178,7 +178,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 9, 23, 37, 30, 859, DateTimeKind.Local).AddTicks(4424));
+                        .HasDefaultValue(new DateTime(2025, 7, 10, 14, 33, 49, 722, DateTimeKind.Utc).AddTicks(8349));
 
                     b.Property<string>("MatchId")
                         .HasColumnType("text");
@@ -272,7 +272,7 @@ namespace SportSchedule.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("07/09/2025 23:37:30");
+                        .HasDefaultValue("07/10/2025 14:33:49");
 
                     b.Property<string>("Venue")
                         .IsRequired()
@@ -389,7 +389,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 9, 23, 37, 30, 806, DateTimeKind.Local).AddTicks(6214));
+                        .HasDefaultValue(new DateTime(2025, 7, 10, 14, 33, 49, 687, DateTimeKind.Utc).AddTicks(3615));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
@@ -441,7 +441,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 9, 23, 37, 30, 795, DateTimeKind.Local).AddTicks(5899));
+                        .HasDefaultValue(new DateTime(2025, 7, 10, 14, 33, 49, 681, DateTimeKind.Utc).AddTicks(5426));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -576,7 +576,7 @@ namespace SportSchedule.Migrations
                     b.Property<string>("NameHome")
                         .HasColumnType("text");
 
-                    b.Property<int>("TeamType")
+                    b.Property<int?>("TeamType")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(1);
@@ -605,7 +605,7 @@ namespace SportSchedule.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<int>("Role")
+                    b.Property<int?>("Role")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(2);

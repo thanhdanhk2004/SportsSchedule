@@ -11,7 +11,7 @@ namespace SportSchedule.Configuration
             builder.ToTable("Comment");
             builder.HasKey(c => c.CommentId);
             builder.Property(c => c.Content).IsRequired();
-            builder.Property(c => c.Created).HasDefaultValue(DateTime.Now);
+            builder.Property(c => c.Created).HasDefaultValue(DateTime.UtcNow);
             builder.Property(c => c.CommendIdReply).IsRequired(false);
 
             //Khoa ngoai bang Post va bang Comment

@@ -6,7 +6,7 @@
         public string? Content {  get; set; }
         public string? Type {  get; set; }
         public string? Image {  get; set; }
-        public DateTime? SendTime { get; set; }
+        public DateTime? SendTime { get; set; } = DateTime.UtcNow;
         public string? UserIdSend {  get; set; }
         public string? UserIdRevice { get; set; }
 

@@ -15,7 +15,7 @@ namespace SportSchedule.Model
         public string? FirstName {  get; set; }
         [EmailAddress]
         public string? Email { get; set; }
-        public Role Role { get; set; }
+        public Role? Role { get; set; }
         public AccountModel? Account { get; set; }
         public List<PostModel>? Posts { get; set; }
         public List<CommentModel>? Comments { get; set; }

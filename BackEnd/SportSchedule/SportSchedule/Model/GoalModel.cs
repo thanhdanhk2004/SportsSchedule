@@ -3,7 +3,7 @@
     public class GoalModel
     {
         public string? GoalId {  get; set; }
-        public DateTime? GoalDate { get; set; }
+        public DateTime? GoalDate { get; set; } = DateTime.UtcNow;
         public string? GoalType {  get; set; }
         public string? PlayerId {  get; set; }
         public string? TeamId {  get; set; }

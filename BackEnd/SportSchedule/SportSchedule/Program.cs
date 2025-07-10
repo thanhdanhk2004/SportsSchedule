@@ -1,13 +1,22 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SportSchedule.Context;
+using SportSchedule.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Cau hinh PostgreSQL
 builder.Services.AddDbContext<ContextDB>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectedDB"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectedDB"))
+    .ConfigureWarnings(warnings =>
+               warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 });
+
+// Thêm HttpClient cho API-Football
+
+builder.Services.AddScoped<FootballApiService>();
+builder.Services.AddControllers();
 
 // Add services to the container.
 

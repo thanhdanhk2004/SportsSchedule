@@ -3,7 +3,7 @@
     public class GuessModel
     {
         public string? GuessId {  get; set; }
-        public DateTime? GuessTime { get; set; }
+        public DateTime? GuessTime { get; set; } = DateTime.UtcNow;
         public int? PredictHomeScore {  get; set; }
         public int? PredictAwayScore { get; set; }
         public string? MatchId {  get; set; }

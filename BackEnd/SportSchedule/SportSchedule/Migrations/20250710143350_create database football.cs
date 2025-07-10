@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SportSchedule.Migrations
 {
     /// <inheritdoc />
-    public partial class createdatabasefootballdb : Migration
+    public partial class createdatabasefootball : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -48,7 +48,7 @@ namespace SportSchedule.Migrations
                     Country = table.Column<string>(type: "text", nullable: false),
                     Logo = table.Column<string>(type: "text", nullable: true),
                     NameHome = table.Column<string>(type: "text", nullable: true),
-                    TeamType = table.Column<int>(type: "integer", nullable: false, defaultValue: 1)
+                    TeamType = table.Column<int>(type: "integer", nullable: true, defaultValue: 1)
                 },
                 constraints: table =>
                 {
@@ -63,7 +63,7 @@ namespace SportSchedule.Migrations
                     LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     FirstName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: false, defaultValue: 2)
+                    Role = table.Column<int>(type: "integer", nullable: true, defaultValue: 2)
                 },
                 constraints: table =>
                 {
@@ -162,7 +162,7 @@ namespace SportSchedule.Migrations
                     Content = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: true, defaultValue: "string"),
                     Image = table.Column<string>(type: "text", nullable: false),
-                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 9, 23, 37, 30, 806, DateTimeKind.Local).AddTicks(6214)),
+                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 687, DateTimeKind.Utc).AddTicks(3615)),
                     UserIdSend = table.Column<string>(type: "text", nullable: true),
                     UserIdRevice = table.Column<string>(type: "text", nullable: true)
                 },
@@ -189,7 +189,7 @@ namespace SportSchedule.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Image = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 9, 23, 37, 30, 795, DateTimeKind.Local).AddTicks(5899)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 681, DateTimeKind.Utc).AddTicks(5426)),
                     UserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -232,7 +232,7 @@ namespace SportSchedule.Migrations
                 {
                     MatchId = table.Column<string>(type: "text", nullable: false),
                     Venue = table.Column<string>(type: "text", nullable: false),
-                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/09/2025 23:37:30"),
+                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/10/2025 14:33:49"),
                     Status = table.Column<string>(type: "text", nullable: true, defaultValue: "Chưa đá"),
                     TeamIdHome = table.Column<string>(type: "text", nullable: true),
                     TeamIdAway = table.Column<string>(type: "text", nullable: true),
@@ -302,7 +302,7 @@ namespace SportSchedule.Migrations
                 {
                     CommentId = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 9, 23, 37, 30, 802, DateTimeKind.Local).AddTicks(7480)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 685, DateTimeKind.Utc).AddTicks(1733)),
                     PostId = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     CommendIdReply = table.Column<string>(type: "text", nullable: true)
@@ -333,7 +333,7 @@ namespace SportSchedule.Migrations
                 columns: table => new
                 {
                     GuessId = table.Column<string>(type: "text", nullable: false),
-                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 9, 23, 37, 30, 859, DateTimeKind.Local).AddTicks(4424)),
+                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 722, DateTimeKind.Utc).AddTicks(8349)),
                     PredictHomeScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     PredictAwayScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     MatchId = table.Column<string>(type: "text", nullable: true),

@@ -12,7 +12,7 @@
         public string? Country { get; set; } 
         public string? Logo { get; set; }
         public string? NameHome { get; set; }
-        public TeamType TeamType { get; set; }
+        public TeamType? TeamType { get; set; }
         public List<TeamMemberModel>? TeamMembers { get; set; }
         public List<LeagueTeamModel>? LeagueTeams { get; set; }
         public List<RankingModel>? Rankings { get; set; }

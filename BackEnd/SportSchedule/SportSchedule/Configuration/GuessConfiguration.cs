@@ -10,7 +10,7 @@ namespace SportSchedule.Configuration
         {
             builder.ToTable("Guess");
             builder.HasKey(g => g.GuessId);
-            builder.Property(g => g.GuessTime).HasDefaultValue(DateTime.Now);
+            builder.Property(g => g.GuessTime).HasDefaultValue(DateTime.UtcNow);
             builder.Property(g => g.PredictHomeScore).HasDefaultValue(0);
             builder.Property(g => g.PredictAwayScore).HasDefaultValue(0);
 

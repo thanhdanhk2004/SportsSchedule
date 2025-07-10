@@ -13,7 +13,7 @@ namespace SportSchedule.Configuration
             builder.Property(m => m.Content).IsRequired();
             builder.Property(m => m.Type).HasDefaultValue("string");
             builder.Property(m => m.Image).IsRequired();
-            builder.Property(m => m.SendTime).HasDefaultValue(DateTime.Now);
+            builder.Property(m => m.SendTime).HasDefaultValue(DateTime.UtcNow);
 
             //khoa ngoai giua Message va UserSend
             builder.HasOne(m => m.UserSend)

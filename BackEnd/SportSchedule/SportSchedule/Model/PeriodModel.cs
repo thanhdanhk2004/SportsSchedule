@@ -4,7 +4,7 @@
     {
         public string? PeriodId {  get; set; }
         public string? Name {  get; set; }
-        public DateTime? Time { get; set; }
+        public DateTime? Time { get; set; } = DateTime.UtcNow;
         public string? MatchId {  get; set; }
         public MatchModel? Match { get; set; }
         public List<CardModel>? Cards { get; set; }

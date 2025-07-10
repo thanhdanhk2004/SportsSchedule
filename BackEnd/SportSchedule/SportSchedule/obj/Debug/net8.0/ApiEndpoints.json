@@ -1,0 +1,12 @@
+[
+  {
+    "ContainingType": "SportSchedule.Controllers.LeaguesController",
+    "Method": "GetLeagues",
+    "RelativePath": "api/Leagues",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]
