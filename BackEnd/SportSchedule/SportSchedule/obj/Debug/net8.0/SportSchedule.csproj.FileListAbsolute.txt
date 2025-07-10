@@ -137,3 +137,4 @@ C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Deb
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Debug\net8.0\SportSchedule.pdb
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Debug\net8.0\SportSchedule.genruntimeconfig.cache
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Debug\net8.0\ref\SportSchedule.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\key.json

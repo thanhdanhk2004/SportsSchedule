@@ -14,7 +14,11 @@ builder.Services.AddDbContext<ContextDB>(options =>
 });
 
 // Thêm HttpClient cho API-Football
-
+builder.Services.AddHttpClient("FootballAPI", client =>
+{
+    client.BaseAddress = new Uri("https://v3.football.api-sports.io/");
+    client.DefaultRequestHeaders.Add("x-apisports-key", builder.Configuration["MyApiSettings:ApiKey"]);
+});
 builder.Services.AddScoped<FootballApiService>();
 builder.Services.AddControllers();
 
