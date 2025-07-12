@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "SportSchedule\\Program.cs",
               "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
               "RelativeToolTip": "SportSchedule\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-10T15:48:11.289Z",
               "IsPinned": true,
@@ -63,10 +63,6 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "key.json",
@@ -74,7 +70,7 @@
               "RelativeDocumentMoniker": "SportSchedule\\key.json",
               "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\key.json",
               "RelativeToolTip": "SportSchedule\\key.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-07-10T17:01:28.131Z",
               "EditorCaption": ""
@@ -89,8 +85,7 @@
               "RelativeToolTip": "SportSchedule\\.gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-07-10T16:45:04.522Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T16:45:04.522Z"
             },
             {
               "$type": "Document",
@@ -102,8 +97,7 @@
               "RelativeToolTip": "SportSchedule\\Controllers\\LeaguesController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAQwAYAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-10T15:55:43.785Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-10T15:55:43.785Z"
             },
             {
               "$type": "Document",

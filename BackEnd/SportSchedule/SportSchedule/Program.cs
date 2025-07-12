@@ -13,11 +13,13 @@ builder.Services.AddDbContext<ContextDB>(options =>
                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
 });
 
+
 // Thêm HttpClient cho API-Football
+builder.Configuration.AddJsonFile("key.json", optional: false, reloadOnChange: true);
 builder.Services.AddHttpClient("FootballAPI", client =>
 {
     client.BaseAddress = new Uri("https://v3.football.api-sports.io/");
-    client.DefaultRequestHeaders.Add("x-apisports-key", builder.Configuration["MyApiSettings:ApiKey"]);
+    client.DefaultRequestHeaders.Add("x-apisports-key", builder.Configuration["MyApiSettings:ApiKeySport"]);
 });
 builder.Services.AddScoped<FootballApiService>();
 builder.Services.AddControllers();
