@@ -30,7 +30,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <div className="text-center p-3" style={{ backgroundColor: '#2c2c2c' }}>
-                © 2020 Copyright: <a className="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                © 2020 Copyright: <a className="text-white" href="https://mdbootstrap.com/">Lê Thanh Dân</a>
             </div>
         </footer>
     );

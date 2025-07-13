@@ -8,5 +8,21 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "Register",
+    "RelativePath": "user/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "SportSchedule.DataTranserferObject.UserDataTransferObject",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

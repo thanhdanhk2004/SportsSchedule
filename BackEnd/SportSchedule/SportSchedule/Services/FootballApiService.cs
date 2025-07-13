@@ -24,7 +24,6 @@ namespace SportSchedule.Services
                     PropertyNameCaseInsensitive = true
                 });
             }
-
             return null;
         }
     }

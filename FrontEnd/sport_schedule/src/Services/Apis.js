@@ -1,23 +1,25 @@
 import axios from "axios"
-import cookie from "react-cookie"
+//import {Cookies } from "react-cookie"
 
-const REACT_APP_API_URL = "http://localhost:5023/api"
+const REACT_APP_API_URL = "http://localhost:5023"
 
 export const endpoints={
-    'register': '/users',
-    'login': '/login',
+    'register': '/user/register',
+    'login' : '/user/login'
 }
 
-export const auth_apis = () =>{
-    return axios.create({
-        baseUrl:REACT_APP_API_URL,
-        headers:{
-            'Authorization': `Bearer ${cookie.load('token')}`,
-            'Content-Type': 'application/json'
-        }
-    })
-}
+// const auth_apis = () =>{
+//     return axios.create({
+//         baseUrl:REACT_APP_API_URL,
+//         headers:{
+//             'Authorization': `Bearer ${Cookies.load('token')}`,
+//             'Content-Type': 'application/json'
+//         }
+//     })
+// }
 
-export default axios.create({
-    baseUrl:REACT_APP_API_URL
+const api = axios.create({
+    baseURL:REACT_APP_API_URL
 })
+
+export default api

@@ -1,19 +1,20 @@
 import React from "react";
-import {Button, Navbar, Nav, NavDropdown, Container} from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/logo.jpg';
 
 const Header = () => {
-    return (
+  return (
     <Navbar expand="lg" style={{ backgroundColor: "#6349dbff" }} variant="dark">
       <Container>
         <Navbar.Brand>
-            <img src={logo} height="40" alt="logo" />
-        </Navbar.Brand> 
+          <img src={logo} height="40" alt="logo" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
           <Nav className="mx-auto text-uppercase fw-bold">
-            <Nav.Link href="#" className="text-warning">Lịch thi đấu</Nav.Link> 
+            <Nav.Link href="#" className="text-warning">Lịch thi đấu</Nav.Link>
             <Nav.Link href="#">Kết quả</Nav.Link>
 
             <NavDropdown title="Giải đấu" id="league-dropdown">
@@ -40,8 +41,8 @@ const Header = () => {
           </Nav>
 
           <div className="d-flex gap-2">
-            <Button variant="outline-warning" href="/login">Đăng nhập</Button>
-            <Button variant="outline-warning" href="/register">Đăng ký</Button>
+            <Link to="/login" className="btn btn-outline-warning me-2">Đăng nhập</Link>
+            <Link to="/register" className="btn btn-outline-warning">Đăng ký</Link>
           </div>
         </Navbar.Collapse>
       </Container>
