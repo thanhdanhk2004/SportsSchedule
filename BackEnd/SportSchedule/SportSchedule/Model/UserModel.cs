@@ -2,11 +2,6 @@
 
 namespace SportSchedule.Model
 {
-    public enum Role
-    {
-        Admin = 1,
-        Member = 2
-    }
     public class UserModel
     {
         
@@ -15,7 +10,8 @@ namespace SportSchedule.Model
         public string? FirstName {  get; set; }
         [EmailAddress]
         public string? Email { get; set; }
-        public Role? Role { get; set; }
+        public int RoleId {  get; set; }
+        public RoleModel? Role { get; set; }
         public AccountModel? Account { get; set; }
         public List<PostModel>? Posts { get; set; }
         public List<CommentModel>? Comments { get; set; }

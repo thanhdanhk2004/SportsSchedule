@@ -139,3 +139,11 @@ C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Deb
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\obj\Debug\net8.0\ref\SportSchedule.dll
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\key.json
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

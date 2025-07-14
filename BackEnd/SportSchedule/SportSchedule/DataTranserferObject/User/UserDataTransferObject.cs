@@ -1,4 +1,4 @@
-﻿namespace SportSchedule.DataTranserferObject
+﻿namespace SportSchedule.DataTranserferObject.User
 {
     public class UserDataTransferObject
     {

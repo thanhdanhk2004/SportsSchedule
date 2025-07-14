@@ -1,10 +1,10 @@
-﻿using SportSchedule.DataTranserferObject;
+﻿using SportSchedule.DataTranserferObject.User;
 
 namespace SportSchedule.Services.Users
 {
     public interface IUserSevice
     {
-        UserDataTransferObject? getUser(string username, string password);
+        UserDataLogin? getUser(UserDataTransferObject user);
         string addUser(UserDataTransferObject user);
         Boolean updateUser(string username, string password, string email);
     }

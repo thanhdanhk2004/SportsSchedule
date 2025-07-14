@@ -5,11 +5,30 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Leagues": {
-      "get": {
+    "/user/register": {
+      "post": {
         "tags": [
-          "Leagues"
+          "User"
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataTransferObject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataTransferObject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataTransferObject"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -17,7 +36,7 @@
         }
       }
     },
-    "/user/register": {
+    "/user/login": {
       "post": {
         "tags": [
           "User"

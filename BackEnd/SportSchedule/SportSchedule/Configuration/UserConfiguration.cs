@@ -13,7 +13,6 @@ namespace SportSchedule.Configuration
             builder.Property(u => u.LastName).IsRequired().HasMaxLength(30);
             builder.Property(u => u.FirstName).IsRequired().HasMaxLength(30);
             builder.Property(u => u.Email).IsRequired();
-            builder.Property(u => u.Role).HasDefaultValue(Role.Member);
 
             // Thiet lap khoa ngoai voi Tai khoan
             builder.HasOne(u => u.Account)

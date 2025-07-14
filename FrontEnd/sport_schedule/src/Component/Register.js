@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Container, Form, Button, Col, Row } from 'react-bootstrap';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
@@ -8,6 +8,7 @@ const Register = () => {
 
     const [form, setForm] = useState({LastName:"", FirstName:"", Username:"", Email:"", Password:"", ConfirPassword:""})
     const [massage, setMassage] = useState("")
+    const navigate = useNavigate();
 
     const handle_change = (e) =>{
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,11 +19,15 @@ const Register = () => {
             if(form.Password !== form.ConfirPassword)
                 alert("Mat khau khong trung khop")
             else{
-                const mge = await api.post(endpoints.register, form)
-                alert("Dang ky thanh cong")
+                const res = await api.post(endpoints.register, form)
+                if(res.status === 200){
+                    alert("Dang ky thanh cong")
+                    
+                    navigate("/login")
+                }
             }
         }catch(err){
-            setMassage(err.response?.data?.message || "Loi")
+            setMassage(err.response.data.message)
         }
     }
 

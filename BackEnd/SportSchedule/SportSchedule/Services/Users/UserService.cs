@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SportSchedule.Context;
-using SportSchedule.DataTranserferObject;
+using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Model;
+using System.Security.Principal;
 
 
 namespace SportSchedule.Services.Users
@@ -9,9 +10,11 @@ namespace SportSchedule.Services.Users
     public class UserService : IUserSevice
     {
         private readonly ContextDB _context;
-        public UserService(ContextDB context)
+        private readonly IConfiguration _configuration;
+        public UserService(ContextDB context,IConfiguration configuration )
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public bool check_user(string username)
@@ -44,7 +47,8 @@ namespace SportSchedule.Services.Users
                 UserId = user_count + 1 < 99999999 ? "U" + (user_count + 1).ToString("D10") : "U" + (user_count + 1).ToString("D11"),
                 LastName = user_data.LastName,
                 FirstName = user_data.FirstName,
-                Email = user_data.Email
+                Email = user_data.Email,
+                RoleId = 2
             };
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -66,15 +70,26 @@ namespace SportSchedule.Services.Users
             throw new NotImplementedException();
         }
 
-        public UserDataTransferObject getUser(string username, string password)
+        public UserDataLogin? getUser(UserDataTransferObject user_data)
         {
-            var u = _context.Accounts.Include(a => a.User).Where(a => a.UserName == username && a.Password == password).FirstOrDefault();
+            var u = _context.Accounts.Include(a => a.User)
+                .Where(a => a.UserName == user_data.UserName)
+                .FirstOrDefault();
 
             if (u == null)
                 return null;
-            UserDataTransferObject user = new UserDataTransferObject
+            else if (!BCrypt.Net.BCrypt.Verify(user_data.Password, u.Password))
+                return null;
+
+            GenerateJwtToken generateJwtToken = new GenerateJwtToken();
+      
+            UserDataLogin user = new UserDataLogin
             {
-               
+                Email = u.User?.Email,
+                FirstName = u.User?.FirstName,
+                LastName = u.User?.LastName,
+                Role = u.User?.RoleId,
+                Token = generateJwtToken.generate(u, _configuration)
             };
             return user;
         }

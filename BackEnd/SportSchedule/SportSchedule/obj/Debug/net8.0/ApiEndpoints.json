@@ -1,12 +1,18 @@
 [
   {
-    "ContainingType": "SportSchedule.Controllers.LeaguesController",
-    "Method": "GetLeagues",
-    "RelativePath": "api/Leagues",
-    "HttpMethod": "GET",
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "Login",
+    "RelativePath": "user/login",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "user_data",
+        "Type": "SportSchedule.DataTranserferObject.User.UserDataTransferObject",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -19,7 +25,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "SportSchedule.DataTranserferObject.UserDataTransferObject",
+        "Type": "SportSchedule.DataTranserferObject.User.UserDataTransferObject",
         "IsRequired": true
       }
     ],
