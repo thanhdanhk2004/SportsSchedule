@@ -18,10 +18,6 @@ namespace SportSchedule.Configuration
             builder.HasOne(l => l.Season)
                 .WithMany(s => s.Leagues)
                 .HasForeignKey(l => l.SeasonId);
-
-
-
-
         }
     }
 }

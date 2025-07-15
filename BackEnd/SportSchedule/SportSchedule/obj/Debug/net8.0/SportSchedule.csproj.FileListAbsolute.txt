@@ -147,3 +147,10 @@ C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Deb
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Configuration.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Http.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
+C:\Users\add\Pictures\SportsSchedule\BackEnd\SportSchedule\SportSchedule\bin\Debug\net8.0\Newtonsoft.Json.dll

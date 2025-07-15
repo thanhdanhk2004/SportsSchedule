@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace SportSchedule.Migrations
 {
     /// <inheritdoc />
-    public partial class createdatabasefootball : Migration
+    public partial class restore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,6 +26,19 @@ namespace SportSchedule.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Member", x => x.MemberId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Role",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,21 +70,6 @@ namespace SportSchedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<int>(type: "integer", nullable: true, defaultValue: 2)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_User", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Player",
                 columns: table => new
                 {
@@ -88,6 +87,27 @@ namespace SportSchedule.Migrations
                         column: x => x.MemberId,
                         principalTable: "Member",
                         principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    FirstName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    RoleId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_User_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -162,7 +182,7 @@ namespace SportSchedule.Migrations
                     Content = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: true, defaultValue: "string"),
                     Image = table.Column<string>(type: "text", nullable: false),
-                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 687, DateTimeKind.Utc).AddTicks(3615)),
+                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 273, DateTimeKind.Utc).AddTicks(7736)),
                     UserIdSend = table.Column<string>(type: "text", nullable: true),
                     UserIdRevice = table.Column<string>(type: "text", nullable: true)
                 },
@@ -189,7 +209,7 @@ namespace SportSchedule.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Image = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 681, DateTimeKind.Utc).AddTicks(5426)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 266, DateTimeKind.Utc).AddTicks(3284)),
                     UserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
@@ -232,7 +252,7 @@ namespace SportSchedule.Migrations
                 {
                     MatchId = table.Column<string>(type: "text", nullable: false),
                     Venue = table.Column<string>(type: "text", nullable: false),
-                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/10/2025 14:33:49"),
+                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/15/2025 16:12:02"),
                     Status = table.Column<string>(type: "text", nullable: true, defaultValue: "Chưa đá"),
                     TeamIdHome = table.Column<string>(type: "text", nullable: true),
                     TeamIdAway = table.Column<string>(type: "text", nullable: true),
@@ -302,7 +322,7 @@ namespace SportSchedule.Migrations
                 {
                     CommentId = table.Column<string>(type: "text", nullable: false),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 685, DateTimeKind.Utc).AddTicks(1733)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 271, DateTimeKind.Utc).AddTicks(6466)),
                     PostId = table.Column<string>(type: "text", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     CommendIdReply = table.Column<string>(type: "text", nullable: true)
@@ -333,7 +353,7 @@ namespace SportSchedule.Migrations
                 columns: table => new
                 {
                     GuessId = table.Column<string>(type: "text", nullable: false),
-                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 10, 14, 33, 49, 722, DateTimeKind.Utc).AddTicks(8349)),
+                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 321, DateTimeKind.Utc).AddTicks(5474)),
                     PredictHomeScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     PredictAwayScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     MatchId = table.Column<string>(type: "text", nullable: true),
@@ -609,6 +629,12 @@ namespace SportSchedule.Migrations
                 name: "IX_TeamMember_TeamId",
                 table: "TeamMember",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_RoleId",
+                table: "User",
+                column: "RoleId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -664,6 +690,9 @@ namespace SportSchedule.Migrations
 
             migrationBuilder.DropTable(
                 name: "Member");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "League");

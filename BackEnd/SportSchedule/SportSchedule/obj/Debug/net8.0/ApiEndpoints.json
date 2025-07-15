@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.LeagueController",
+    "Method": "GetLeague",
+    "RelativePath": "league",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "user/login",

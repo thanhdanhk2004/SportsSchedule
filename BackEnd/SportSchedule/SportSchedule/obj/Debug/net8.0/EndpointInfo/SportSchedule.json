@@ -5,6 +5,18 @@
     "version": "1.0"
   },
   "paths": {
+    "/league": {
+      "get": {
+        "tags": [
+          "League"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/user/register": {
       "post": {
         "tags": [

@@ -12,8 +12,8 @@ using SportSchedule.Context;
 namespace SportSchedule.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    [Migration("20250714135138_add Role Table")]
-    partial class addRoleTable
+    [Migration("20250715161203_restore")]
+    partial class restore
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,7 +118,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 14, 13, 51, 37, 559, DateTimeKind.Utc).AddTicks(81));
+                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 271, DateTimeKind.Utc).AddTicks(6466));
 
                     b.Property<string>("PostId")
                         .HasColumnType("text");
@@ -178,7 +178,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 14, 13, 51, 37, 611, DateTimeKind.Utc).AddTicks(2244));
+                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 321, DateTimeKind.Utc).AddTicks(5474));
 
                     b.Property<string>("MatchId")
                         .HasColumnType("text");
@@ -272,7 +272,7 @@ namespace SportSchedule.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("07/14/2025 13:51:37");
+                        .HasDefaultValue("07/15/2025 16:12:02");
 
                     b.Property<string>("Venue")
                         .IsRequired()
@@ -389,7 +389,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 14, 13, 51, 37, 562, DateTimeKind.Utc).AddTicks(5416));
+                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 273, DateTimeKind.Utc).AddTicks(7736));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
@@ -441,7 +441,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 14, 13, 51, 37, 552, DateTimeKind.Utc).AddTicks(1146));
+                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 266, DateTimeKind.Utc).AddTicks(3284));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");

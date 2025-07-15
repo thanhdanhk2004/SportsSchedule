@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using SportSchedule.Context;
+using SportSchedule.Context.Seed;
 using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
+using SportSchedule.Services.League;
 using SportSchedule.Services.Users;
 using System.Text;
 
@@ -63,6 +65,7 @@ builder.Services.AddAuthorization();
 
 // Add services to the container.
 builder.Services.AddTransient<IUserSevice, UserService>();
+builder.Services.AddTransient<ILeagueService, LeagueService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -92,5 +95,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Seeding data
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ContextDB>();
+var leagueService = app.Services.CreateScope().ServiceProvider.GetRequiredService<ILeagueService>();
+await DataSeed.SeedingData(context, leagueService);
 
 app.Run();
