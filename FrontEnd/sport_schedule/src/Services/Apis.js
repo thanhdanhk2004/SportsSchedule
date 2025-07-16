@@ -5,7 +5,8 @@ const REACT_APP_API_URL = "http://localhost:5023"
 
 export const endpoints={
     'register': '/user/register',
-    'login' : '/user/login'
+    'login' : '/user/login',
+    'league':'/league'
 }
 
 // const auth_apis = () =>{

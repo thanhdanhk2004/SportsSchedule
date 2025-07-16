@@ -25,7 +25,6 @@ const Login = () => {
             }else{
                 const res = await api.post(endpoints.login, user)
                 if(res.status === 200){
-                    alert(res.data.message)
                     cookies.set("token", res.data.user.token, { path: "/" });
                     navigate("/")
                 }

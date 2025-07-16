@@ -22,7 +22,6 @@ const Register = () => {
                 const res = await api.post(endpoints.register, form)
                 if(res.status === 200){
                     alert("Dang ky thanh cong")
-                    
                     navigate("/login")
                 }
             }

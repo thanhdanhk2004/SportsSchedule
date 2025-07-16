@@ -16,8 +16,11 @@ namespace SportSchedule.Controllers
         [HttpGet]
         public async Task<IActionResult> GetLeague()
         {
-            var leagues = await _leagueService.GetLeagueData();
-            return Ok(leagues);
+            var data = await _leagueService.GetLeaguesData();
+            if (data == null) 
+                return BadRequest(new {message = "Yêu cầu kiểm tra mạng"} );
+            return Ok(new { leagues = data });
+
         }
     }
 }

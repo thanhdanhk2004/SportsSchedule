@@ -2,6 +2,7 @@
 using SportSchedule.DataTranserferObject.League;
 using SportSchedule.Model;
 using SportSchedule.Services.League;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SportSchedule.Context.Seed
@@ -14,26 +15,39 @@ namespace SportSchedule.Context.Seed
             if(!_context.Leagues.Any())
             {
                 List<LeagueData> reponse = await _leagueService.GetLeagueData();
-                foreach(var item in reponse)
+
+                for(int i = 0; i < reponse[0].Seasons.Count; i++)
                 {
                     SeasonModel season = new SeasonModel
                     {
-                        SeasonId = item.Id.ToString(),
-                        SeasonYear = item.Season
+                        SeasonId = "S" + i.ToString(),
+                        SeasonYear = reponse[0].Seasons[i]
                     };
                     _context.Add(season);
                     _context.SaveChanges();
+                }
 
-                    LeagueModel leagueModel = new LeagueModel
+                int j = 0;
+                foreach(var item in reponse)
+                {
+                    for (int i = 0; i < _context.Seasons.Count(); i++)
                     {
-                        LeagueId = item.Id.ToString(),
-                        Name = item.Name,
-                        Country = item.Country,
-                        Logo = item.Logo,
-                        SeasonId = season.SeasonId,
-                    };
-                    _context.Add(leagueModel);
-                    _context.SaveChanges();
+                        if(item.Seasons.Contains(_context.Seasons.Where(s => s.SeasonId == "S"+i.ToString()).Select(s => s.SeasonYear).FirstOrDefault()))
+                        {
+                            LeagueModel leagueModel = new LeagueModel
+                            {
+                                LeagueId = "League " + j.ToString(),
+                                Name = item.Name,
+                                Country = item.Country,
+                                Logo = item.Logo,
+                                SeasonId = "S" + i.ToString()
+                            };
+                            _context.Add(leagueModel);
+                            _context.SaveChanges();
+                            j++;
+                        }
+                        
+                    }
                 }
             }
         }
