@@ -2,8 +2,8 @@
 {
     public class TeamMemberModel
     {
-        public string? TeamId {  get; set; }
-        public string? MemberId {  get; set; }
+        public int? TeamId {  get; set; }
+        public int? MemberId {  get; set; }
         public TeamModel? Team { get; set; }
         public MemberModel? Member { get; set; }
     }

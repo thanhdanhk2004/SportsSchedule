@@ -14,10 +14,7 @@ namespace SportSchedule.Configuration
             builder.Property(l => l.Country).IsRequired();
             builder.Property(l => l.Logo).IsRequired(false);
 
-            //Khoa ngoai giua League va Season
-            builder.HasOne(l => l.Season)
-                .WithMany(s => s.Leagues)
-                .HasForeignKey(l => l.SeasonId);
+            
         }
     }
 }

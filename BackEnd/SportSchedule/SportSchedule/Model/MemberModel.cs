@@ -2,7 +2,7 @@
 {
     public class MemberModel
     {
-        public string? MemberId { get; set; }
+        public int? MemberId { get; set; }
         public string? Name {  get; set; }
         public DateTime? Birthday { get; set; }
         public string? Nationality {  get; set; }

@@ -12,8 +12,8 @@ using SportSchedule.Context;
 namespace SportSchedule.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    [Migration("20250715161203_restore")]
-    partial class restore
+    [Migration("20250723140517_create db football")]
+    partial class createdbfootball
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,15 +27,18 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.AccountModel", b =>
                 {
-                    b.Property<string>("AccountId")
-                        .HasColumnType("text");
+                    b.Property<int>("AccountId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AccountId"));
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -54,8 +57,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.AwardModel", b =>
                 {
-                    b.Property<string>("AwardId")
-                        .HasColumnType("text");
+                    b.Property<int>("AwardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AwardId"));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -64,8 +70,8 @@ namespace SportSchedule.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("GuessId")
-                        .HasColumnType("text");
+                    b.Property<int?>("GuessId")
+                        .HasColumnType("integer");
 
                     b.HasKey("AwardId");
 
@@ -77,11 +83,14 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.CardModel", b =>
                 {
-                    b.Property<string>("CardId")
-                        .HasColumnType("text");
+                    b.Property<int>("CardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("PeriodId")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CardId"));
+
+                    b.Property<int?>("PeriodId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .ValueGeneratedOnAdd()
@@ -105,11 +114,14 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.CommentModel", b =>
                 {
-                    b.Property<string>("CommentId")
-                        .HasColumnType("text");
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("CommendIdReply")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CommentId"));
+
+                    b.Property<int?>("CommendIdReply")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -118,13 +130,13 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 271, DateTimeKind.Utc).AddTicks(6466));
+                        .HasDefaultValue(new DateTime(2025, 7, 23, 14, 5, 15, 900, DateTimeKind.Utc).AddTicks(4637));
 
-                    b.Property<string>("PostId")
-                        .HasColumnType("text");
+                    b.Property<int?>("PostId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("CommentId");
 
@@ -139,8 +151,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.GoalModel", b =>
                 {
-                    b.Property<string>("GoalId")
-                        .HasColumnType("text");
+                    b.Property<int>("GoalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GoalId"));
 
                     b.Property<DateTime>("GoalDate")
                         .HasColumnType("timestamp with time zone");
@@ -150,14 +165,14 @@ namespace SportSchedule.Migrations
                         .HasColumnType("text")
                         .HasDefaultValue("Nomal");
 
-                    b.Property<string>("PeriodId")
-                        .HasColumnType("text");
+                    b.Property<int?>("PeriodId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("PlayerId")
-                        .HasColumnType("text");
+                    b.Property<int?>("PlayerId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("integer");
 
                     b.HasKey("GoalId");
 
@@ -172,16 +187,19 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.GuessModel", b =>
                 {
-                    b.Property<string>("GuessId")
-                        .HasColumnType("text");
+                    b.Property<int>("GuessId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GuessId"));
 
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 321, DateTimeKind.Utc).AddTicks(5474));
+                        .HasDefaultValue(new DateTime(2025, 7, 23, 14, 5, 15, 938, DateTimeKind.Utc).AddTicks(1493));
 
-                    b.Property<string>("MatchId")
-                        .HasColumnType("text");
+                    b.Property<int?>("MatchId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("PredictAwayScore")
                         .ValueGeneratedOnAdd()
@@ -193,8 +211,8 @@ namespace SportSchedule.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("GuessId");
 
@@ -207,8 +225,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.LeagueModel", b =>
                 {
-                    b.Property<string>("LeagueId")
-                        .HasColumnType("text");
+                    b.Property<int>("LeagueId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LeagueId"));
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -221,23 +242,33 @@ namespace SportSchedule.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("SeasonId")
-                        .HasColumnType("text");
-
                     b.HasKey("LeagueId");
-
-                    b.HasIndex("SeasonId");
 
                     b.ToTable("League", (string)null);
                 });
 
+            modelBuilder.Entity("SportSchedule.Model.LeagueSeasonModel", b =>
+                {
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SeasonId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("LeagueId", "SeasonId");
+
+                    b.HasIndex("SeasonId");
+
+                    b.ToTable("LeagueSeason", (string)null);
+                });
+
             modelBuilder.Entity("SportSchedule.Model.LeagueTeamModel", b =>
                 {
-                    b.Property<string>("LeagueId")
-                        .HasColumnType("text");
+                    b.Property<int>("LeagueId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer");
 
                     b.HasKey("LeagueId", "TeamId");
 
@@ -248,31 +279,34 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.MatchModel", b =>
                 {
-                    b.Property<string>("MatchId")
-                        .HasColumnType("text");
+                    b.Property<int>("MatchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("LeagueId")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MatchId"));
 
-                    b.Property<string>("SeasonId")
-                        .HasColumnType("text");
+                    b.Property<int?>("LeagueId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("SeasonId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
                         .HasDefaultValue("Chưa đá");
 
-                    b.Property<string>("TeamIdAway")
-                        .HasColumnType("text");
+                    b.Property<int?>("TeamIdAway")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TeamIdHome")
-                        .HasColumnType("text");
+                    b.Property<int?>("TeamIdHome")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Time")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("07/15/2025 16:12:02");
+                        .HasDefaultValue("07/23/2025 14:05:15");
 
                     b.Property<string>("Venue")
                         .IsRequired()
@@ -293,16 +327,19 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.MatchStatictisModel", b =>
                 {
-                    b.Property<string>("MatchStatictisId")
-                        .HasColumnType("text");
+                    b.Property<int>("MatchStatictisId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MatchStatictisId"));
 
                     b.Property<int?>("Corners")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("MatchId")
-                        .HasColumnType("text");
+                    b.Property<int?>("MatchId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Possession")
                         .ValueGeneratedOnAdd()
@@ -324,8 +361,8 @@ namespace SportSchedule.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("YellowCard")
                         .ValueGeneratedOnAdd()
@@ -343,8 +380,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.MemberModel", b =>
                 {
-                    b.Property<string>("MemberId")
-                        .HasColumnType("text");
+                    b.Property<int>("MemberId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MemberId"));
 
                     b.Property<string>("Age")
                         .IsRequired()
@@ -375,8 +415,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.MessageModel", b =>
                 {
-                    b.Property<string>("MessageId")
-                        .HasColumnType("text");
+                    b.Property<int>("MessageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MessageId"));
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -389,18 +432,18 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 273, DateTimeKind.Utc).AddTicks(7736));
+                        .HasDefaultValue(new DateTime(2025, 7, 23, 14, 5, 15, 903, DateTimeKind.Utc).AddTicks(560));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
                         .HasDefaultValue("string");
 
-                    b.Property<string>("UserIdRevice")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserIdRevice")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("UserIdSend")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserIdSend")
+                        .HasColumnType("integer");
 
                     b.HasKey("MessageId");
 
@@ -413,11 +456,14 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.PeriodModel", b =>
                 {
-                    b.Property<string>("PeriodId")
-                        .HasColumnType("text");
+                    b.Property<int>("PeriodId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
 
-                    b.Property<string>("MatchId")
-                        .HasColumnType("text");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PeriodId"));
+
+                    b.Property<int?>("MatchId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -435,13 +481,16 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.PostModel", b =>
                 {
-                    b.Property<string>("PostId")
-                        .HasColumnType("text");
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PostId"));
 
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 15, 16, 12, 2, 266, DateTimeKind.Utc).AddTicks(3284));
+                        .HasDefaultValue(new DateTime(2025, 7, 23, 14, 5, 15, 892, DateTimeKind.Utc).AddTicks(5533));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -453,8 +502,8 @@ namespace SportSchedule.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("PostId");
 
@@ -465,8 +514,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.RankingModel", b =>
                 {
-                    b.Property<string>("RankingId")
-                        .HasColumnType("text");
+                    b.Property<int>("RankingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RankingId"));
 
                     b.Property<int>("Draw")
                         .ValueGeneratedOnAdd()
@@ -488,8 +540,8 @@ namespace SportSchedule.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("LeagueId")
-                        .HasColumnType("text");
+                    b.Property<int?>("LeagueId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Loss")
                         .ValueGeneratedOnAdd()
@@ -511,8 +563,8 @@ namespace SportSchedule.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(1);
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Win")
                         .ValueGeneratedOnAdd()
@@ -546,8 +598,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.SeasonModel", b =>
                 {
-                    b.Property<string>("SeasonId")
-                        .HasColumnType("text");
+                    b.Property<int>("SeasonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SeasonId"));
 
                     b.Property<string>("SeasonYear")
                         .IsRequired()
@@ -560,11 +615,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.TeamMemberModel", b =>
                 {
-                    b.Property<string>("MemberId")
-                        .HasColumnType("text");
+                    b.Property<int>("MemberId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int>("TeamId")
+                        .HasColumnType("integer");
 
                     b.HasKey("MemberId", "TeamId");
 
@@ -575,8 +630,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.TeamModel", b =>
                 {
-                    b.Property<string>("TeamId")
-                        .HasColumnType("text");
+                    b.Property<int>("TeamId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("TeamId"));
 
                     b.Property<string>("Country")
                         .IsRequired()
@@ -604,8 +662,11 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.UserModel", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -736,11 +797,21 @@ namespace SportSchedule.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SportSchedule.Model.LeagueModel", b =>
+            modelBuilder.Entity("SportSchedule.Model.LeagueSeasonModel", b =>
                 {
+                    b.HasOne("SportSchedule.Model.LeagueModel", "League")
+                        .WithMany("LeagueSeasons")
+                        .HasForeignKey("LeagueId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SportSchedule.Model.SeasonModel", "Season")
-                        .WithMany("Leagues")
-                        .HasForeignKey("SeasonId");
+                        .WithMany("LeagueSeasons")
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("League");
 
                     b.Navigation("Season");
                 });
@@ -905,6 +976,8 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.LeagueModel", b =>
                 {
+                    b.Navigation("LeagueSeasons");
+
                     b.Navigation("LeagueTeams");
 
                     b.Navigation("Matchs");
@@ -945,7 +1018,7 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.SeasonModel", b =>
                 {
-                    b.Navigation("Leagues");
+                    b.Navigation("LeagueSeasons");
 
                     b.Navigation("Matchs");
                 });

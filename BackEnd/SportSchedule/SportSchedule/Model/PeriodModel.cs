@@ -2,10 +2,10 @@
 {
     public class PeriodModel
     {
-        public string? PeriodId {  get; set; }
+        public int? PeriodId {  get; set; }
         public string? Name {  get; set; }
         public DateTime? Time { get; set; } = DateTime.UtcNow;
-        public string? MatchId {  get; set; }
+        public int? MatchId {  get; set; }
         public MatchModel? Match { get; set; }
         public List<CardModel>? Cards { get; set; }
         public List<GoalModel>? Goals { get; set; }

@@ -31,6 +31,7 @@ namespace SportSchedule.Context
         public virtual DbSet<GuessModel> Guesses { get; set; }
         public virtual DbSet<AwardModel> Awards { get; set; }
         public virtual DbSet<RoleModel> Roles { get; set; }
+        public virtual DbSet<LeagueSeasonModel> LeagueSeasons { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -55,6 +56,7 @@ namespace SportSchedule.Context
             modelBuilder.ApplyConfiguration(new GuessConfiguration());
             modelBuilder.ApplyConfiguration(new AwardConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new LeagueSeasonConfiguration());
         }
 
     }

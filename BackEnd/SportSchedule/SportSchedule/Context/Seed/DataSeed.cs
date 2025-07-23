@@ -15,38 +15,47 @@ namespace SportSchedule.Context.Seed
             if(!_context.Leagues.Any())
             {
                 List<LeagueData> reponse = await _leagueService.GetLeagueData();
-
-                for(int i = 0; i < reponse[0].Seasons.Count; i++)
-                {
-                    SeasonModel season = new SeasonModel
-                    {
-                        SeasonId = "S" + i.ToString(),
-                        SeasonYear = reponse[0].Seasons[i]
-                    };
-                    _context.Add(season);
-                    _context.SaveChanges();
-                }
-
                 int j = 0;
                 foreach(var item in reponse)
                 {
-                    for (int i = 0; i < _context.Seasons.Count(); i++)
+                    LeagueModel league = new LeagueModel
                     {
-                        if(item.Seasons.Contains(_context.Seasons.Where(s => s.SeasonId == "S"+i.ToString()).Select(s => s.SeasonYear).FirstOrDefault()))
+                        Name = item.Name,
+                        Country = item.Country,
+                        Logo = item.Logo,
+                    };
+                    _context.Leagues.Add(league);
+                    _context.SaveChanges();
+                    for(int i = 0; i < item.Seasons?.Count; i++)
+                    {
+                        var season = _context.Seasons.Where(s => s.SeasonYear == item.Seasons[i]).FirstOrDefault();
+
+                        if(season == null)
                         {
-                            LeagueModel leagueModel = new LeagueModel
+                            SeasonModel season_model = new SeasonModel
                             {
-                                LeagueId = "League " + j.ToString(),
-                                Name = item.Name,
-                                Country = item.Country,
-                                Logo = item.Logo,
-                                SeasonId = "S" + i.ToString()
+                                SeasonYear = item.Seasons[i],
                             };
-                            _context.Add(leagueModel);
+                            _context.Seasons.Add(season_model);
                             _context.SaveChanges();
-                            j++;
+                            LeagueSeasonModel league_season = new LeagueSeasonModel
+                            {
+                                LeagueId = league.LeagueId,
+                                SeasonId = season_model.SeasonId,
+                            };
+                            _context.LeagueSeasons.Add(league_season);
+                            _context.SaveChanges();
                         }
-                        
+                        else
+                        {
+                            LeagueSeasonModel league_season = new LeagueSeasonModel
+                            {
+                                LeagueId = league.LeagueId,
+                                SeasonId = season.SeasonId,
+                            };
+                            _context.LeagueSeasons.Add(league_season);
+                            _context.SaveChanges();
+                        }
                     }
                 }
             }

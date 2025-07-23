@@ -7,7 +7,7 @@
     }
     public class TeamModel
     {
-        public string? TeamId { get; set; }
+        public int? TeamId { get; set; }
         public string? Name {  get; set; }
         public string? Country { get; set; } 
         public string? Logo { get; set; }

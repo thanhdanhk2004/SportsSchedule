@@ -2,12 +2,12 @@
 {
     public class CommentModel
     {
-        public string? CommentId {  get; set; }
+        public int? CommentId {  get; set; }
         public string? Content {  get; set; }
         public DateTime? Created { get; set; } = DateTime.UtcNow;
-        public string? PostId {  get; set; }
-        public string? UserId {  get; set; }
-        public string? CommendIdReply { get; set; }
+        public int? PostId {  get; set; }
+        public int? UserId {  get; set; }
+        public int? CommendIdReply { get; set; }
         public UserModel? User { get; set; }
         public PostModel? Post { get; set; }
         public List<CommentModel>? Comments { get; set; }

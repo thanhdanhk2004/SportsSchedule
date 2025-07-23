@@ -12,14 +12,12 @@ const League = () => {
             try {
                 const res = await api.get(endpoints.league)
                 setLeagues(res.data.leagues)
-                console.log(res.data.leagues)
             } catch (err) {
                 alert(err.response.data.message)
             }
         };
 
         fetchLengues()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

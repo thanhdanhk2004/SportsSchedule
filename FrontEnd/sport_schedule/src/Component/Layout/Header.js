@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/logo.jpg';
+import { Cookies } from "react-cookie";
+import Login from "../Login"
+import Register from "../Register";
 
 const Header = () => {
+
+  const [isLogin, setIsLogin] = useState(false)
+  const cookies = new Cookies()
+  const [showLogin, setShowLogin] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
+
+  useEffect(() => {
+    const saved_token = cookies.get("token")
+    if (saved_token)
+      setIsLogin(true)
+  }, [])
+
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#6349dbff" }} variant="dark">
       <Container>
@@ -40,10 +55,37 @@ const Header = () => {
             <Nav.Link href="#">Việt Nam</Nav.Link>
           </Nav>
 
-          <div className="d-flex gap-2">
-            <Link to="/login" className="btn btn-outline-warning me-2">Đăng nhập</Link>
-            <Link to="/register" className="btn btn-outline-warning">Đăng ký</Link>
-          </div>
+          {isLogin ? <div className="d-flex gap-2">
+            <div className="dropdown my-auto">
+              <a href="#" className="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                <i className="fas fa-user fa-2x" />
+              </a>
+              <div className="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuLink">
+                <div className="d-flex align-items-center flex-column">
+                  <img style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden" }} src="" />
+                  <div className="text-center my-3">Hello Dan</div>
+                </div>
+                <a className="dropdown-item" href="#">
+                  Thông tin tài khoản
+                </a>
+                <a className="dropdown-item" href="/#">
+                  Lịch sử bài viết
+                </a>
+                <hr className="dropdown-divider" />
+                <a className="dropdown-item" href="/logout">
+                  Đăng xuất
+                </a>
+              </div>
+            </div>
+
+          </div> :
+            <div className="d-flex gap-2">
+              <button className="btn btn-outline-warning" onClick={() => setShowLogin(true)}>Đăng nhập</button>
+              <Login show={showLogin} onHide={() => setShowLogin(false)} switchToRegister={() => {setShowLogin(false);setShowRegister(true);}}/>
+
+              <button className="btn btn-outline-warning" onClick={() => setShowRegister(true)}>Đăng ký</button>
+              <Register show={showRegister} onHide={() => setShowRegister(false)} switchToLogin={() => {setShowLogin(true); setShowRegister(false)}} />
+            </div>}
         </Navbar.Collapse>
       </Container>
     </Navbar>

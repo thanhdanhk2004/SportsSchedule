@@ -8,10 +8,71 @@
   object-fit: cover;
 }
 
-.hover-link{
+.hover-link {
   text-decoration: none;
 }
 
 .hover-link:hover {
-  background-color: rgb(136, 225, 146); 
+  background-color: rgb(136, 225, 146);
+}
+
+/*Style login va register*/
+
+
+.modal-body {
+  min-height: 400px;
+}
+.login-container {
+  max-width: 1000px;
+  margin: auto;
+  width: 100%;
+}
+
+.login-form {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.form-check-input {
+  margin-top: 6px;
+}
+
+.btn-login {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-login:hover {
+  background-color: #218838;
+}
+
+.social-login button {
+  width: 100%;
+}
+
+.illustration {
+  text-align: center;
+}
+
+.illustration img {
+  max-width: 100%;
+  height: auto;
+}
+
+.small-text {
+  font-size: 0.8rem;
+}
+
+.color-link{
+  color: #2B7FAF;
+  text-decoration: none;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.pointer:hover{
+  color:rgb(234, 53, 12)
 }

@@ -2,14 +2,14 @@
 {
     public class MatchModel
     {
-        public string? MatchId {  get; set; }
+        public int? MatchId {  get; set; }
         public string? Venue {  get; set; }
         public string? Time {  get; set; }
         public string? Status { get; set; }
-        public string? TeamIdHome {  get; set; }
-        public string? TeamIdAway { get; set; }
-        public string? SeasonId { get; set; }
-        public string? LeagueId {  get; set; }
+        public int? TeamIdHome {  get; set; }
+        public int? TeamIdAway { get; set; }
+        public int? SeasonId { get; set; }
+        public int? LeagueId {  get; set; }
         public TeamModel? TeamHome { get; set; }
         public TeamModel? TeamAway {  get; set; }
         public SeasonModel? Season { get; set; }

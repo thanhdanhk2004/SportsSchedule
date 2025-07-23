@@ -1,10 +1,11 @@
 ﻿namespace SportSchedule.Model
 {
-    public class LeagueTeamModel
+    public class LeagueSeasonModel
     {
         public int? LeagueId {  get; set; }
-        public int? TeamId {  get; set; }
+        public int? SeasonId { get; set; }
         public LeagueModel? League { get; set; }
-        public TeamModel? Team { get; set; }
+        public SeasonModel? Season { get; set; }
+
     }
 }

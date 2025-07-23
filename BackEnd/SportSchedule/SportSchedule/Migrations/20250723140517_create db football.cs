@@ -7,16 +7,32 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace SportSchedule.Migrations
 {
     /// <inheritdoc />
-    public partial class restore : Migration
+    public partial class createdbfootball : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "League",
+                columns: table => new
+                {
+                    LeagueId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Country = table.Column<string>(type: "text", nullable: false),
+                    Logo = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_League", x => x.LeagueId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Member",
                 columns: table => new
                 {
-                    MemberId = table.Column<string>(type: "text", nullable: false),
+                    MemberId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Nationality = table.Column<string>(type: "text", nullable: false),
@@ -45,7 +61,8 @@ namespace SportSchedule.Migrations
                 name: "Season",
                 columns: table => new
                 {
-                    SeasonId = table.Column<string>(type: "text", nullable: false),
+                    SeasonId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     SeasonYear = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -57,7 +74,8 @@ namespace SportSchedule.Migrations
                 name: "Team",
                 columns: table => new
                 {
-                    TeamId = table.Column<string>(type: "text", nullable: false),
+                    TeamId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Country = table.Column<string>(type: "text", nullable: false),
                     Logo = table.Column<string>(type: "text", nullable: true),
@@ -73,7 +91,7 @@ namespace SportSchedule.Migrations
                 name: "Player",
                 columns: table => new
                 {
-                    MemberId = table.Column<string>(type: "text", nullable: false),
+                    MemberId = table.Column<int>(type: "integer", nullable: false),
                     Height = table.Column<float>(type: "real", nullable: false),
                     Weight = table.Column<float>(type: "real", nullable: false),
                     value = table.Column<string>(type: "text", nullable: true),
@@ -94,7 +112,8 @@ namespace SportSchedule.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     LastName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     FirstName = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
@@ -112,122 +131,35 @@ namespace SportSchedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "League",
+                name: "LeagueSeason",
                 columns: table => new
                 {
-                    LeagueId = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Country = table.Column<string>(type: "text", nullable: false),
-                    Logo = table.Column<string>(type: "text", nullable: true),
-                    SeasonId = table.Column<string>(type: "text", nullable: true)
+                    LeagueId = table.Column<int>(type: "integer", nullable: false),
+                    SeasonId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_League", x => x.LeagueId);
+                    table.PrimaryKey("PK_LeagueSeason", x => new { x.LeagueId, x.SeasonId });
                     table.ForeignKey(
-                        name: "FK_League_Season_SeasonId",
+                        name: "FK_LeagueSeason_League_LeagueId",
+                        column: x => x.LeagueId,
+                        principalTable: "League",
+                        principalColumn: "LeagueId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LeagueSeason_Season_SeasonId",
                         column: x => x.SeasonId,
                         principalTable: "Season",
-                        principalColumn: "SeasonId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TeamMember",
-                columns: table => new
-                {
-                    TeamId = table.Column<string>(type: "text", nullable: false),
-                    MemberId = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamMember", x => new { x.MemberId, x.TeamId });
-                    table.ForeignKey(
-                        name: "FK_TeamMember_Member_MemberId",
-                        column: x => x.MemberId,
-                        principalTable: "Member",
-                        principalColumn: "MemberId",
+                        principalColumn: "SeasonId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeamMember_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Account",
-                columns: table => new
-                {
-                    AccountId = table.Column<string>(type: "text", nullable: false),
-                    UserName = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Account", x => x.AccountId);
-                    table.ForeignKey(
-                        name: "FK_Account_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Message",
-                columns: table => new
-                {
-                    MessageId = table.Column<string>(type: "text", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
-                    Type = table.Column<string>(type: "text", nullable: true, defaultValue: "string"),
-                    Image = table.Column<string>(type: "text", nullable: false),
-                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 273, DateTimeKind.Utc).AddTicks(7736)),
-                    UserIdSend = table.Column<string>(type: "text", nullable: true),
-                    UserIdRevice = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Message", x => x.MessageId);
-                    table.ForeignKey(
-                        name: "FK_Message_User_UserIdRevice",
-                        column: x => x.UserIdRevice,
-                        principalTable: "User",
-                        principalColumn: "UserId");
-                    table.ForeignKey(
-                        name: "FK_Message_User_UserIdSend",
-                        column: x => x.UserIdSend,
-                        principalTable: "User",
-                        principalColumn: "UserId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Post",
-                columns: table => new
-                {
-                    PostId = table.Column<string>(type: "text", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    Image = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 266, DateTimeKind.Utc).AddTicks(3284)),
-                    UserId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Post", x => x.PostId);
-                    table.ForeignKey(
-                        name: "FK_Post_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "LeagueTeam",
                 columns: table => new
                 {
-                    LeagueId = table.Column<string>(type: "text", nullable: false),
-                    TeamId = table.Column<string>(type: "text", nullable: false)
+                    LeagueId = table.Column<int>(type: "integer", nullable: false),
+                    TeamId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,14 +182,15 @@ namespace SportSchedule.Migrations
                 name: "Match",
                 columns: table => new
                 {
-                    MatchId = table.Column<string>(type: "text", nullable: false),
+                    MatchId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Venue = table.Column<string>(type: "text", nullable: false),
-                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/15/2025 16:12:02"),
+                    Time = table.Column<string>(type: "text", nullable: false, defaultValue: "07/23/2025 14:05:15"),
                     Status = table.Column<string>(type: "text", nullable: true, defaultValue: "Chưa đá"),
-                    TeamIdHome = table.Column<string>(type: "text", nullable: true),
-                    TeamIdAway = table.Column<string>(type: "text", nullable: true),
-                    SeasonId = table.Column<string>(type: "text", nullable: true),
-                    LeagueId = table.Column<string>(type: "text", nullable: true)
+                    TeamIdHome = table.Column<int>(type: "integer", nullable: true),
+                    TeamIdAway = table.Column<int>(type: "integer", nullable: true),
+                    SeasonId = table.Column<int>(type: "integer", nullable: true),
+                    LeagueId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -288,7 +221,8 @@ namespace SportSchedule.Migrations
                 name: "Ranking",
                 columns: table => new
                 {
-                    RankingId = table.Column<string>(type: "text", nullable: false),
+                    RankingId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Played = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Win = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Draw = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
@@ -298,8 +232,8 @@ namespace SportSchedule.Migrations
                     GoalDifference = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Point = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Position = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
-                    TeamId = table.Column<string>(type: "text", nullable: true),
-                    LeagueId = table.Column<string>(type: "text", nullable: true)
+                    TeamId = table.Column<int>(type: "integer", nullable: true),
+                    LeagueId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -317,15 +251,187 @@ namespace SportSchedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeamMember",
+                columns: table => new
+                {
+                    TeamId = table.Column<int>(type: "integer", nullable: false),
+                    MemberId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamMember", x => new { x.MemberId, x.TeamId });
+                    table.ForeignKey(
+                        name: "FK_TeamMember_Member_MemberId",
+                        column: x => x.MemberId,
+                        principalTable: "Member",
+                        principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamMember_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Account",
+                columns: table => new
+                {
+                    AccountId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserName = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Account", x => x.AccountId);
+                    table.ForeignKey(
+                        name: "FK_Account_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Message",
+                columns: table => new
+                {
+                    MessageId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: true, defaultValue: "string"),
+                    Image = table.Column<string>(type: "text", nullable: false),
+                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 23, 14, 5, 15, 903, DateTimeKind.Utc).AddTicks(560)),
+                    UserIdSend = table.Column<int>(type: "integer", nullable: true),
+                    UserIdRevice = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Message", x => x.MessageId);
+                    table.ForeignKey(
+                        name: "FK_Message_User_UserIdRevice",
+                        column: x => x.UserIdRevice,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                    table.ForeignKey(
+                        name: "FK_Message_User_UserIdSend",
+                        column: x => x.UserIdSend,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Post",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 23, 14, 5, 15, 892, DateTimeKind.Utc).AddTicks(5533)),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Post", x => x.PostId);
+                    table.ForeignKey(
+                        name: "FK_Post_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Guess",
+                columns: table => new
+                {
+                    GuessId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 23, 14, 5, 15, 938, DateTimeKind.Utc).AddTicks(1493)),
+                    PredictHomeScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    PredictAwayScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    MatchId = table.Column<int>(type: "integer", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Guess", x => x.GuessId);
+                    table.ForeignKey(
+                        name: "FK_Guess_Match_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Match",
+                        principalColumn: "MatchId");
+                    table.ForeignKey(
+                        name: "FK_Guess_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchStatictis",
+                columns: table => new
+                {
+                    MatchStatictisId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Score = table.Column<string>(type: "text", nullable: true, defaultValue: "0"),
+                    Possession = table.Column<string>(type: "text", nullable: true, defaultValue: "50"),
+                    ShortsOnTaget = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    Corners = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    YellowCard = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    RedCard = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    TeamId = table.Column<int>(type: "integer", nullable: true),
+                    MatchId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchStatictis", x => x.MatchStatictisId);
+                    table.ForeignKey(
+                        name: "FK_MatchStatictis_Match_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Match",
+                        principalColumn: "MatchId");
+                    table.ForeignKey(
+                        name: "FK_MatchStatictis_Team_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Team",
+                        principalColumn: "TeamId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Period",
+                columns: table => new
+                {
+                    PeriodId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    MatchId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Period", x => x.PeriodId);
+                    table.ForeignKey(
+                        name: "FK_Period_Match_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Match",
+                        principalColumn: "MatchId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comment",
                 columns: table => new
                 {
-                    CommentId = table.Column<string>(type: "text", nullable: false),
+                    CommentId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 271, DateTimeKind.Utc).AddTicks(6466)),
-                    PostId = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: true),
-                    CommendIdReply = table.Column<string>(type: "text", nullable: true)
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 23, 14, 5, 15, 900, DateTimeKind.Utc).AddTicks(4637)),
+                    PostId = table.Column<int>(type: "integer", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    CommendIdReply = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -349,87 +455,14 @@ namespace SportSchedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guess",
-                columns: table => new
-                {
-                    GuessId = table.Column<string>(type: "text", nullable: false),
-                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 7, 15, 16, 12, 2, 321, DateTimeKind.Utc).AddTicks(5474)),
-                    PredictHomeScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    PredictAwayScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    MatchId = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Guess", x => x.GuessId);
-                    table.ForeignKey(
-                        name: "FK_Guess_Match_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Match",
-                        principalColumn: "MatchId");
-                    table.ForeignKey(
-                        name: "FK_Guess_User_UserId",
-                        column: x => x.UserId,
-                        principalTable: "User",
-                        principalColumn: "UserId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MatchStatictis",
-                columns: table => new
-                {
-                    MatchStatictisId = table.Column<string>(type: "text", nullable: false),
-                    Score = table.Column<string>(type: "text", nullable: true, defaultValue: "0"),
-                    Possession = table.Column<string>(type: "text", nullable: true, defaultValue: "50"),
-                    ShortsOnTaget = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    Corners = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    YellowCard = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    RedCard = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
-                    TeamId = table.Column<string>(type: "text", nullable: true),
-                    MatchId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MatchStatictis", x => x.MatchStatictisId);
-                    table.ForeignKey(
-                        name: "FK_MatchStatictis_Match_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Match",
-                        principalColumn: "MatchId");
-                    table.ForeignKey(
-                        name: "FK_MatchStatictis_Team_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Team",
-                        principalColumn: "TeamId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Period",
-                columns: table => new
-                {
-                    PeriodId = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    MatchId = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Period", x => x.PeriodId);
-                    table.ForeignKey(
-                        name: "FK_Period_Match_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "Match",
-                        principalColumn: "MatchId");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Award",
                 columns: table => new
                 {
-                    AwardId = table.Column<string>(type: "text", nullable: false),
+                    AwardId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Gift = table.Column<string>(type: "text", nullable: false),
-                    GuessId = table.Column<string>(type: "text", nullable: true)
+                    GuessId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -445,11 +478,12 @@ namespace SportSchedule.Migrations
                 name: "Card",
                 columns: table => new
                 {
-                    CardId = table.Column<string>(type: "text", nullable: false),
+                    CardId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     TypeCard = table.Column<string>(type: "text", nullable: true, defaultValue: "Card Yellow"),
                     Time = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: true, defaultValue: "valid"),
-                    PeriodId = table.Column<string>(type: "text", nullable: true)
+                    PeriodId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -465,12 +499,13 @@ namespace SportSchedule.Migrations
                 name: "Goal",
                 columns: table => new
                 {
-                    GoalId = table.Column<string>(type: "text", nullable: false),
+                    GoalId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     GoalDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     GoalType = table.Column<string>(type: "text", nullable: true, defaultValue: "Nomal"),
-                    PlayerId = table.Column<string>(type: "text", nullable: true),
-                    TeamId = table.Column<string>(type: "text", nullable: true),
-                    PeriodId = table.Column<string>(type: "text", nullable: true)
+                    PlayerId = table.Column<int>(type: "integer", nullable: true),
+                    TeamId = table.Column<int>(type: "integer", nullable: true),
+                    PeriodId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -556,8 +591,8 @@ namespace SportSchedule.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_League_SeasonId",
-                table: "League",
+                name: "IX_LeagueSeason_SeasonId",
+                table: "LeagueSeason",
                 column: "SeasonId");
 
             migrationBuilder.CreateIndex(
@@ -656,6 +691,9 @@ namespace SportSchedule.Migrations
                 name: "Goal");
 
             migrationBuilder.DropTable(
+                name: "LeagueSeason");
+
+            migrationBuilder.DropTable(
                 name: "LeagueTeam");
 
             migrationBuilder.DropTable(
@@ -698,10 +736,10 @@ namespace SportSchedule.Migrations
                 name: "League");
 
             migrationBuilder.DropTable(
-                name: "Team");
+                name: "Season");
 
             migrationBuilder.DropTable(
-                name: "Season");
+                name: "Team");
         }
     }
 }

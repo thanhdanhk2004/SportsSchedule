@@ -3,7 +3,7 @@ namespace SportSchedule.Model
 {
     public class RankingModel
     {
-        public string? RankingId {  get; set; }
+        public int? RankingId {  get; set; }
         public int? Played { get; set; }
         public int? Win {  get; set; }
         public int? Draw {  get; set; }
@@ -13,8 +13,8 @@ namespace SportSchedule.Model
         public int? GoalDifference {  get; set; }
         public int? Point {  get; set; }
         public int? Position { get; set; }
-        public string? TeamId {  get; set; }
-        public string? LeagueId {  get; set; }
+        public int? TeamId {  get; set; }
+        public int? LeagueId {  get; set; }
         public TeamModel? Team { get; set; }
         public LeagueModel? League { get; set; }
     }

@@ -16,7 +16,7 @@ namespace SportSchedule.Services.Users
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, account.AccountId),
+                new Claim(ClaimTypes.NameIdentifier, account.AccountId.ToString()),
                 new Claim(ClaimTypes.Name, account.UserName),
                 new Claim(ClaimTypes.Role, account.User.RoleId.ToString())
             };

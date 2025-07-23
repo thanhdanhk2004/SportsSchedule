@@ -2,10 +2,10 @@
 {
     public class AwardModel
     {
-        public string? AwardId {  get; set; }
+        public int? AwardId {  get; set; }
         public string? Description { get; set; }
         public string? Gift {  get; set; }
-        public string? GuessId {  get; set; }
+        public int? GuessId {  get; set; }
         public GuessModel? Guess { get; set; }
     }
 }

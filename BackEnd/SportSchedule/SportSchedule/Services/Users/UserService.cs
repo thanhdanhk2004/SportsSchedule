@@ -44,7 +44,6 @@ namespace SportSchedule.Services.Users
             int user_count = _context.Users.Count();
             UserModel user = new UserModel
             {
-                UserId = user_count + 1 < 99999999 ? "U" + (user_count + 1).ToString("D10") : "U" + (user_count + 1).ToString("D11"),
                 LastName = user_data.LastName,
                 FirstName = user_data.FirstName,
                 Email = user_data.Email,
@@ -55,7 +54,6 @@ namespace SportSchedule.Services.Users
             int number_account = _context.Accounts.Count();
             AccountModel account = new AccountModel
             {
-                AccountId = number_account + 1 < 99999999 ? "A" + (user_count + 1).ToString("D10") : "A" + (user_count + 1).ToString("D11"),
                 UserName = user_data.UserName,
                 Password = BCrypt.Net.BCrypt.HashPassword(user_data.Password),
                 UserId = user.UserId,
