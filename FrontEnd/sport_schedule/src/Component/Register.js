@@ -1,37 +1,58 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
 import { Modal, Form, Button, Col, Row } from 'react-bootstrap';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
 import logo from "../assets/logo_login.jpg"
-import Login from "./Login";
 
 function Register({ show, onHide, switchToLogin }) {
 
     const [form, setForm] = useState({ LastName: "", FirstName: "", Username: "", Email: "", Password: "", ConfirPassword: "" })
     const [message, setMassage] = useState("")
-    const navigate = useNavigate();
-    const [showLogin, setShowLogin] = useState(false)
+    const [errors, setErrors] = useState({LastName: true, FirstName: true, Username: true, Email: true, Password: true, ConfirPassword: true})
+
 
     const handle_change = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
+
+    function check_email(email){
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return re.test(email);
+    }
+
     const handle_submit = async (e) => {
         e.preventDefault()
+        setForm({ ...form, [e.target.name]: e.target.value });
         console.log(form)
         try {
-            if (form.Password !== form.ConfirPassword)
-                alert("Mat khau khong trung khop")
-            else {
+            
+            const newErrors = {
+                LastName: form.LastName !== "",
+                FirstName: form.FirstName !== "",
+                Username: form.Username !== "",
+                Email: form.Email !== "" && check_email(form.Email),
+                Password: form.Password !== "",
+                ConfirPassword: form.ConfirPassword !== ""
+            }
+
+            if(form.Password !== form.ConfirPassword)
+            {
+                newErrors.Password = false
+                newErrors.ConfirPassword = false
+            }
+            setErrors(newErrors)
+
+            console.log(errors)
+            if(errors.LastName === true && errors.FirstName === true && errors.Username === true && errors.Email === true && errors.Password === true && errors.ConfirPassword === true) {
                 const res = await api.post(endpoints.register, form)
-                alert("Hello")
                 if (res.status === 200) {
                     alert("Dang ky thanh cong")
-                    navigate("/login")
+                    switchToLogin()
                 }
             }
         } catch (err) {
             setMassage(err.response.data.message)
+            console.log(message)
         }
     }
 
@@ -42,35 +63,36 @@ function Register({ show, onHide, switchToLogin }) {
                     <div className="row">
                         <div className="col-md-6 login-form">
                             <div className="d-flex justify-content-center align-items-center"><h4 className="mb-4">Đăng ký</h4></div>
+                            <div><p className="text-danger">{message}</p></div>
                             <Form onSubmit={handle_submit}>
                                 <Row className="mb-3">
                                     <Col md={6}>
                                         <Form.Group controlId="formLastname">
-                                            <Form.Control onChange={handle_change} name="LastName" type="text" placeholder="Họ" />
+                                            <Form.Control className={errors.LastName === false ? "is-invalid" : ""} onChange={handle_change} name="LastName" type="text" placeholder="Họ" />
                                         </Form.Group>
                                     </Col>
 
                                     <Col md={6}>
                                         <Form.Group controlId="formFirstname">
-                                            <Form.Control onChange={handle_change} name="FirstName" type="text" placeholder="Tên" />
+                                            <Form.Control className={errors.FirstName === false ? "is-invalid": ""} onChange={handle_change} name="FirstName" type="text" placeholder="Tên" />
                                         </Form.Group>
                                     </Col>
                                 </Row>
 
                                 <Form.Group className="mb-3" controlId="formUsername">
-                                    <Form.Control onChange={handle_change} name="Username" type="username" placeholder="Tên đăng nhập" />
+                                    <Form.Control className={errors.Username === false ? "is-invalid": ""} onChange={handle_change} name="Username" type="username" placeholder="Tên đăng nhập" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formEmail">
-                                    <Form.Control onChange={handle_change} name="Email" type="email" placeholder="Email" />
+                                    <Form.Control className={errors.Email === false ? "is-invalid": ""} onChange={handle_change} name="Email" type="email" placeholder="Email" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formPassword">
-                                    <Form.Control onChange={handle_change} name="Password" type="password" placeholder="Mật khẩu" />
+                                    <Form.Control className={errors.Password === false ? "is-invalid": ""} onChange={handle_change} name="Password" type="password" placeholder="Mật khẩu" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formConfirPassword">
-                                    <Form.Control onChange={handle_change} name="ConfirPassword" type="Password" placeholder="Xác nhận mật khẩu" />
+                                    <Form.Control className={errors.ConfirPassword === false ? "is-invalid": ""} onChange={handle_change} name="ConfirPassword" type="Password" placeholder="Xác nhận mật khẩu" />
                                 </Form.Group>
 
                                 <div className="d-grid mb-3">
@@ -84,7 +106,7 @@ function Register({ show, onHide, switchToLogin }) {
 
                             <div className="d-flex justify-content-center">
                                 <p>Bạn đã có tài khoản?  
-                                    <a className="color-link pointer" onClick={switchToLogin}> Đăng nhập</a>                                   
+                                    <span className="color-link pointer" onClick={switchToLogin}> Đăng nhập</span>                                   
                                 </p>
                             </div>
                             <div className="d-flex align-items-center my-3">

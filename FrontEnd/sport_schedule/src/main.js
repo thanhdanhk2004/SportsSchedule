@@ -10,7 +10,6 @@ const Main = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<MainLayout><Home /></MainLayout>}></Route>
-
                 </Routes>
             </BrowserRouter>
         </>

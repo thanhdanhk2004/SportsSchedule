@@ -1,8 +1,15 @@
-
+import League from "./Sidebar/League"
+import Schedule from "./Sidebar/Schedule"
+import "../Style/index.css"
 
 const Home = () => {
     return (
-        <h3> Lịch thi đấu bóng đá hôm nay mới nhất</h3>
+        <>
+            <div className="home-container">
+                <League />
+                <Schedule />
+            </div>
+        </>
     )
 }
 

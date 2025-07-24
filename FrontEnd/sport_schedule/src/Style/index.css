@@ -76,3 +76,23 @@
 .pointer:hover{
   color:rgb(234, 53, 12)
 }
+
+/*style home*/
+.home-container {
+  display: flex;
+  height: 100vh;
+}
+
+.home-container > * {
+  padding: 10px;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #f1f1f1;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #fff;
+}

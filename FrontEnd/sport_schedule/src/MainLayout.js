@@ -9,7 +9,6 @@ const MainLayout = ({children}) =>{
         <>
             <Header />
             <Slider />
-            <League />
             <main>{children}</main>
             <Footer />
         </>

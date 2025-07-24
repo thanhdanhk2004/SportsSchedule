@@ -2,17 +2,20 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from 'react-bootstrap';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import '../Style/index.css'
 import logo_login from '../assets/logo_login.jpg'
+import { AuthContext } from "../Context/AuthContext";
+import { useContext } from "react";
 
 function Login({ show, onHide, switchToRegister}) {
     const [user, setUser] = useState({ Username: "", Password: "" })
-    const [mge, setMassage] = useState("")
+    const [message, setMessage] = useState("")
     const navigate = useNavigate()
     const cookies = new Cookies()
-
+    const [errors, setErrors] = useState({Username: true, Password: true})
+    const { login } = useContext(AuthContext);
 
     const change_handle = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -21,19 +24,24 @@ function Login({ show, onHide, switchToRegister}) {
     const login_handle = async (e) => {
         e.preventDefault()
         try {
-            if (user.Username === "")
-                setMassage("Tên đăng nhập không được rỗng")
-            else if (user.Password === "") {
-                setMassage("Mật khẩu không được rỗng")
-            } else {
+            const newErrors = {
+                Username: user.Username !== "",
+                Password: user.Password !== ""
+            }
+
+            setErrors(newErrors)
+
+            if(user.Username !== "" && user.Password !== "") {
                 const res = await api.post(endpoints.login, user)
                 if (res.status === 200) {
-                    cookies.set("token", res.data.user.token, { path: "/" });
-                    navigate("/")
+                    login(res.data.user.token)
+                    onHide()
+                    navigate('/')
+                    // window.location.href = '/'
                 }
             }
         } catch (err) {
-            setMassage("Tên đăng nhập hoặc mật khẩu không chính xác")
+            setMessage("Tên đăng nhập hoặc mật khẩu không đúng")
         }
     }
 
@@ -45,13 +53,14 @@ function Login({ show, onHide, switchToRegister}) {
                     <div className="row">
                         <div className="col-md-6 login-form">
                             <div className="d-flex justify-content-center align-items-center"><h4 className="mb-4">Đăng nhập</h4></div>
-                            <Form onSubmit={login_handle}>
+                            <div><p className="text-danger">{message}</p></div>
+                            <Form onSubmit={login_handle} name="formLogin">
                                 <Form.Group className="mb-3" controlId="formUserName">
-                                    <Form.Control onChange={change_handle} name="Username" type="username" placeholder="Tên đăng nhập" />
+                                    <Form.Control className={errors.Username === false ? "is-invalid":""} onChange={change_handle} name="Username" type="username" placeholder="Tên đăng nhập" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formPassword">
-                                    <Form.Control onChange={change_handle} name="Password" type="password" placeholder="Mật khẩu" />
+                                    <Form.Control className={errors.Username === false ? "is-invalid":""} onChange={change_handle} name="Password" type="password" placeholder="Mật khẩu" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 d-flex align-items-center">
@@ -65,7 +74,7 @@ function Login({ show, onHide, switchToRegister}) {
                                 </div>
 
                                 <div className="d-flex justify-content-center">
-                                    <p>Bạn chưa có tài khoản? <a onClick={switchToRegister} className="color-link pointer">Đăng ký</a></p>
+                                    <p>Bạn chưa có tài khoản? <span onClick={switchToRegister} className="color-link pointer">Đăng ký</span></p>
                                 </div>
 
                                 <div className="d-flex align-items-center my-3">

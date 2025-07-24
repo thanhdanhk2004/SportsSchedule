@@ -19,6 +19,11 @@ namespace SportSchedule.Configuration
                 .WithOne(a => a.User)
                 .HasForeignKey<AccountModel>(a => a.UserId);
 
+            //Thiet lap khoa ngoai voi Role
+            builder.HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId);
+
         }
     }
 }

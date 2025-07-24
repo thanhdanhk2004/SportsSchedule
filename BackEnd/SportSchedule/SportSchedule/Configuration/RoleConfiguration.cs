@@ -11,9 +11,7 @@ namespace SportSchedule.Configuration
             builder.ToTable("Role");
             builder.HasKey(r => r.Id);
 
-            builder.HasOne(r => r.User)
-                .WithOne(u => u.Role)
-                .HasForeignKey<UserModel>(u => u.RoleId);
+            
         }
     }
 }

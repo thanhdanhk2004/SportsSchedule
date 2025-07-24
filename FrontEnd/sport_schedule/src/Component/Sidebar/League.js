@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api, { endpoints } from "../../Services/Apis";
 import '../../Style/index.css'
 
+
 const League = () => {
 
     const [leagues, setLeagues] = new useState([])
@@ -21,8 +22,8 @@ const League = () => {
     }, [])
 
     return (
-        <div className="bg-light border p-3" style={{ width: "250px" }}>
-            <div className="mb-4">
+        <div className="p-3" style={{width:"250px"}}>
+            <div className="mb-4 bg-gray">
                 <div className="bg-secondary text-white fw-bold text-uppercase px-3 py-2">
                     Giải nổi bật
                 </div>

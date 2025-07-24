@@ -1,24 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/logo.jpg';
-import { Cookies } from "react-cookie";
 import Login from "../Login"
 import Register from "../Register";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Header = () => {
 
-  const [isLogin, setIsLogin] = useState(false)
-  const cookies = new Cookies()
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
-
-  useEffect(() => {
-    const saved_token = cookies.get("token")
-    if (saved_token)
-      setIsLogin(true)
-  }, [])
+  const { isLogin, logout } = useContext(AuthContext)
 
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#6349dbff" }} variant="dark">
@@ -53,38 +46,46 @@ const Header = () => {
               <NavDropdown.Item href="#">Real Madrid</NavDropdown.Item>
             </NavDropdown>
             <Nav.Link href="#">Việt Nam</Nav.Link>
+            {isLogin === true ?
+              <>
+                <Nav.Link>Đăng bài viết</Nav.Link>
+                <Nav.Link>Minigame</Nav.Link>
+              </>
+              : ""}
           </Nav>
 
-          {isLogin ? <div className="d-flex gap-2">
-            <div className="dropdown my-auto">
-              <a href="#" className="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                <i className="fas fa-user fa-2x" />
-              </a>
-              <div className="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuLink">
-                <div className="d-flex align-items-center flex-column">
-                  <img style={{ width: 100, height: 100, borderRadius: "50%", overflow: "hidden" }} src="" />
-                  <div className="text-center my-3">Hello Dan</div>
-                </div>
-                <a className="dropdown-item" href="#">
-                  Thông tin tài khoản
-                </a>
-                <a className="dropdown-item" href="/#">
-                  Lịch sử bài viết
-                </a>
-                <hr className="dropdown-divider" />
-                <a className="dropdown-item" href="/logout">
-                  Đăng xuất
-                </a>
+          {isLogin ?
+            <div className="d-flex gap-2">
+              <div>
+                <i class="bi bi-person-hearts" style={{ fontSize: "25px" }}></i>
               </div>
-            </div>
+              <div className="dropdown my-auto" style={{ fontSize: "30px" }}>
+                <a href="/" className="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="fas fa-user fa-2x" />
+                </a>
+                <div className="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuLink">
 
-          </div> :
+                  <a className="dropdown-item" href="/">
+                    Thông tin tài khoản
+                  </a>
+                  <a className="dropdown-item" href="/">
+                    Lịch sử bài viết
+                  </a>
+                  <hr className="dropdown-divider" />
+                  <Link onClick={logout} className="dropdown-item">
+                    Đăng xuất
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+            :
             <div className="d-flex gap-2">
               <button className="btn btn-outline-warning" onClick={() => setShowLogin(true)}>Đăng nhập</button>
-              <Login show={showLogin} onHide={() => setShowLogin(false)} switchToRegister={() => {setShowLogin(false);setShowRegister(true);}}/>
+              <Login show={showLogin} onHide={() => setShowLogin(false)} switchToRegister={() => { setShowLogin(false); setShowRegister(true); }} />
 
               <button className="btn btn-outline-warning" onClick={() => setShowRegister(true)}>Đăng ký</button>
-              <Register show={showRegister} onHide={() => setShowRegister(false)} switchToLogin={() => {setShowLogin(true); setShowRegister(false)}} />
+              <Register show={showRegister} onHide={() => setShowRegister(false)} switchToLogin={() => { setShowLogin(true); setShowRegister(false) }} />
             </div>}
         </Navbar.Collapse>
       </Container>
