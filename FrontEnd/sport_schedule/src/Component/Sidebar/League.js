@@ -22,7 +22,7 @@ const League = () => {
     }, [])
 
     return (
-        <div className="p-3" style={{width:"250px"}}>
+        <div className="p-3" style={{width:"300px"}}>
             <div className="mb-4 bg-gray">
                 <div className="bg-secondary text-white fw-bold text-uppercase px-3 py-2">
                     Giải nổi bật
@@ -35,24 +35,6 @@ const League = () => {
                             </a>
                         </li>
                     ))}
-                </ul>
-            </div>
-
-            <div>
-                <div className="bg-secondary text-white fw-bold text-uppercase px-3 py-2">
-                    Khu vực
-                </div>
-                <ul className="list-group list-group-flush">
-                    <a href="/login"><li className="list-group-item">
-                        Premier League
-                    </li></a>
-                    <a href="/login"><li className="list-group-item">
-                        Premier League
-                    </li></a>
-                    <a href="/login"><li className="list-group-item">
-                        Premier League
-                    </li></a>
-
                 </ul>
             </div>
         </div>

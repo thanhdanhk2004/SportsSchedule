@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./MainLayout"
-import AuthLayout from "./AuthLayout"
 import Home from "./Component/Home"
 
 

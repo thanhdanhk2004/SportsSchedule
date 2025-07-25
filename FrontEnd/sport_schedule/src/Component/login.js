@@ -3,7 +3,6 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
 import {useNavigate } from "react-router-dom";
-import { Cookies } from "react-cookie";
 import '../Style/index.css'
 import logo_login from '../assets/logo_login.jpg'
 import { AuthContext } from "../Context/AuthContext";
@@ -13,7 +12,6 @@ function Login({ show, onHide, switchToRegister}) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
     const navigate = useNavigate()
-    const cookies = new Cookies()
     const [errors, setErrors] = useState({Username: true, Password: true})
     const { login } = useContext(AuthContext);
 
