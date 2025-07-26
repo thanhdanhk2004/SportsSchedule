@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css"
 
 const Schedule = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedIndexMatches, setSelectedIndexMatches] = useState(0)
     var today = new Date()
 
     function get_day(day) {
@@ -28,15 +29,22 @@ const Schedule = () => {
         }
     }
 
+    function get_date(date, quantity) {
+        const newDate = new Date(date)
+        newDate.setDate(newDate.getDate() + quantity)
+        const day = String(newDate.getDate()).padStart(2, '0')
+        const month = String(newDate.getMonth() + 1).padStart(2, '0')
+        return `${day}/${month}`
+    }
 
     const dates = [
         { label: "Hôm nay", sub: get_day(today.getDay()) },
         { label: "Ngày mai", sub: get_day((today.getDay() + 1)) },
-        { label: (today.getDate() + 2) + "/" + (today.getMonth() + 1), sub: get_day((today.getDay() + 2)) },
-        { label: (today.getDate() + 3) + "/" + (today.getMonth() + 1), sub: get_day((today.getDay() + 3)) },
-        { label: (today.getDate() + 4) + "/" + (today.getMonth() + 1), sub: get_day((today.getDay() + 4)) },
-        { label: (today.getDate() + 5) + "/" + (today.getMonth() + 1), sub: get_day((today.getDay() + 5)) },
-        { label: (today.getDate() + 6) + "/" + (today.getMonth() + 1), sub: get_day((today.getDay() + 6)) },
+        { label: get_date(today, 2), sub: get_day((today.getDay() + 2)) },
+        { label: get_date(today, 3), sub: get_day((today.getDay() + 3)) },
+        { label: get_date(today, 4), sub: get_day((today.getDay() + 4)) },
+        { label: get_date(today, 5), sub: get_day((today.getDay() + 5)) },
+        { label: get_date(today, 6), sub: get_day((today.getDay() + 6)) },
         { label: "Chọn", sub: "ngày" },
     ];
 
@@ -139,9 +147,9 @@ const Schedule = () => {
                     {["Tất cả", "HOT", "Vừa diễn ra", "Đang diễn ra", "Sắp diễn ra"].map((tab, i) => (
                         <button
                             key={i}
-                            className={`px-3 py-2 border ${tab === "Tất cả" ? "bg-success text-white" : "bg-light text-black"
-                                }`}
+                            className={`py-2 border ${selectedIndexMatches === i ? "bg-success text-white" : "bg-light"}`}
                             style={{ minWidth: "100px" }}
+                            onClick={() => setSelectedIndexMatches(i)}
                         >
                             {tab === "HOT" ? (
                                 <span>
@@ -154,41 +162,45 @@ const Schedule = () => {
                     ))}
                 </div>
 
-                <div className='d-flex justify-content-center mt-2'>
+                <div className='d-flex justify-content-center mt-3'>
                     <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
                         <div className="fw-semibold mb-2">Lịch thi đấu MLS Nhà Nghề Mỹ</div>
                         {matches.map((m, i) => (
-                            <div key={i} className="d-flex border-bottom py-2 gap-3 position-relative">
-                                <div style={{ width: "150px" }} className=" text-sm">
+                            <div key={i} className="d-flex border-bottom py-4 mt-2 gap-3 align-items-center">
+                                <div style={{ width: "150px" }} className="text-sm text-start">
                                     {m.time} - {m.date}
                                 </div>
-                                <div className="position-absolute start-50 translate-middle-x">
-                                    <div className="d-flex gap-3">
-                                        <div className="d-flex align-items-center gap-2">
+
+                                <div className="flex-grow-1 d-flex justify-content-center" style={{ paddingRight: "170px" }}>
+                                    <div className="match-row d-flex align-items-center justify-content-between border-bottom py-2">
+                                        <div className="team d-flex align-items-center gap-2" style={{width:"150px"}}>
                                             {m.home_logo && <img src={m.home_logo} alt="home" width={20} />}
-                                            <span style={{ color: m.home_color || "#000" }}>{m.home}</span>
+                                            <span className="team-name">{m.home}</span>
                                         </div>
-                                        <span
-                                            className={`text-white fw-bold px-2 py-1 rounded ${m.score === "vs" ? "bg-secondary" : "bg-success"}`}
-                                        >
+
+                                        <div className={`score-box px-2 py-1 fw-bold rounded text-white ${m.score === "vs" ? "bg-secondary" : "bg-success"}`}>
                                             {m.score}
-                                        </span>
-                                        <div className="d-flex align-items-center gap-2">
+                                        </div>
+
+                                        <div className="team d-flex align-items-center gap-2 justify-content-start px-4" style={{width:"150px"}}>
+                                            <span className="team-name text-end">{m.away}</span>
                                             {m.away_logo && <img src={m.away_logo} alt="away" width={20} />}
-                                            <span style={{ color: m.away_color || "#000" }}>{m.away}</span>
                                         </div>
                                     </div>
+
                                 </div>
+
                                 {m.status && (
                                     <span className="badge bg-light text-muted border px-2 py-1 text-uppercase">
                                         {m.status}
                                     </span>
                                 )}
                             </div>
+
                         ))}
                     </div>
-
                 </div>
+
             </div>
         </Container>
     );

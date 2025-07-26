@@ -5,7 +5,7 @@ import "../Style/index.css"
 const Home = () => {
     return (
         <>
-            <div className="home-container">
+            <div className="home-container" >
                 <League />
                 <Schedule />
             </div>

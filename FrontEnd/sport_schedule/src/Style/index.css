@@ -80,7 +80,7 @@
 /*style home*/
 .home-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .home-container > * {
@@ -95,4 +95,29 @@
 .main-content {
   flex: 1;
   background-color: #fff;
+}
+
+/*Style trận đấu*/
+.match-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.team-name {
+  font-weight: 500;
+  color: #000;
+}
+
+.score-box {
+  min-width: 50px;
+  text-align: center;
 }
