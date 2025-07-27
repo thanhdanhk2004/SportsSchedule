@@ -7,6 +7,7 @@ using SportSchedule.Context;
 using SportSchedule.Context.Seed;
 using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
+using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
 using SportSchedule.Services.Users;
 using System.Text;
@@ -29,6 +30,12 @@ builder.Services.AddHttpClient("FootballAPI", client =>
 {
     client.BaseAddress = new Uri("https://v3.football.api-sports.io/");
     client.DefaultRequestHeaders.Add("x-apisports-key", builder.Configuration["MyApiSettings:ApiKeySport"]);
+});
+
+builder.Services.AddHttpClient("FootballData", client =>
+{
+    client.BaseAddress = new Uri("https://api.football-data.org/v4/");
+    client.DefaultRequestHeaders.Add("X-Auth-Token", builder.Configuration["MyApiSettings:ApiToken"]);
 });
 
 //Cau hinh JWT
@@ -66,6 +73,7 @@ builder.Services.AddAuthorization();
 // Add services to the container.
 builder.Services.AddTransient<IUserSevice, UserService>();
 builder.Services.AddTransient<ILeagueService, LeagueService>();
+builder.Services.AddTransient<IFixturesService, FixturesService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

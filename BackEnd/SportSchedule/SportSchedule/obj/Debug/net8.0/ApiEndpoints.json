@@ -1,5 +1,21 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "GetFixture",
+    "RelativePath": "fixture",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.LeagueController",
     "Method": "GetLeague",
     "RelativePath": "league",

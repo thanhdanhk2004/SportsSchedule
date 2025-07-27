@@ -1,0 +1,10 @@
+﻿using SportSchedule.DataTranserferObject.Fixture;
+
+namespace SportSchedule.Services.Fixtures
+{
+    public interface IFixturesService
+    {
+        Task<List<FixtureData>> GetFixturesAsync(string date);
+        
+    }
+}

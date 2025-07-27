@@ -15,11 +15,11 @@ namespace SportSchedule.Context.Seed
             if(!_context.Leagues.Any())
             {
                 List<LeagueData> reponse = await _leagueService.GetLeagueData();
-                int j = 0;
                 foreach(var item in reponse)
                 {
                     LeagueModel league = new LeagueModel
                     {
+                        LeagueId = item.Id,
                         Name = item.Name,
                         Country = item.Country,
                         Logo = item.Logo,
