@@ -23,18 +23,19 @@ namespace SportSchedule.Context.Seed
                         Name = item.Name,
                         Country = item.Country,
                         Logo = item.Logo,
+                        Code = item.Code,
                     };
                     _context.Leagues.Add(league);
                     _context.SaveChanges();
-                    for(int i = 0; i < item.Seasons?.Count; i++)
+                    for(int i = 2020; i < 2026; i++)
                     {
-                        var season = _context.Seasons.Where(s => s.SeasonYear == item.Seasons[i]).FirstOrDefault();
+                        var season = _context.Seasons.Where(s => s.SeasonYear == i.ToString()).FirstOrDefault();
 
                         if(season == null)
                         {
                             SeasonModel season_model = new SeasonModel
                             {
-                                SeasonYear = item.Seasons[i],
+                                SeasonYear = i.ToString(),
                             };
                             _context.Seasons.Add(season_model);
                             _context.SaveChanges();

@@ -171,7 +171,7 @@ const Schedule = () => {
                                     {m.time} - {m.date}
                                 </div>
 
-                                <div className="flex-grow-1 d-flex justify-content-center" style={{ paddingRight: "170px" }}>
+                                <div className="flex-grow-1 d-flex justify-content-center">
                                     <div className="match-row d-flex align-items-center justify-content-between border-bottom py-2">
                                         <div className="team d-flex align-items-center gap-2" style={{width:"150px"}}>
                                             {m.home_logo && <img src={m.home_logo} alt="home" width={20} />}
@@ -190,11 +190,12 @@ const Schedule = () => {
 
                                 </div>
 
-                                {m.status && (
-                                    <span className="badge bg-light text-muted border px-2 py-1 text-uppercase">
-                                        {m.status}
-                                    </span>
-                                )}
+                                <div>
+                                    <div className='btn btn-info'>Hẹn lịch</div>
+                                </div>
+                               <div>
+                                    <div className='btn btn-success'>Minigame</div>
+                                </div>
                             </div>
 
                         ))}

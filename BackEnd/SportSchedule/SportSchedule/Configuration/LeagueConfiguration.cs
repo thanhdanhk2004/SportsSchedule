@@ -13,7 +13,7 @@ namespace SportSchedule.Configuration
             builder.Property(l => l.Name).IsRequired();
             builder.Property(l => l.Country).IsRequired();
             builder.Property(l => l.Logo).IsRequired(false);
-
+            builder.Property(l => l.Code).IsRequired();
             
         }
     }

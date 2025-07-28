@@ -15,49 +15,33 @@ namespace SportSchedule.Services.League
 
         public LeagueService(IHttpClientFactory httpClientFactory, ContextDB context)
         {
-            _httpClient = httpClientFactory.CreateClient("FootballAPI");
+            _httpClient = httpClientFactory.CreateClient("FootballData");
             _context = context;
         }
 
-
-
         public async Task<List<LeagueData>> GetLeagueData()
         {
-            List<string> special_leagues = ["Premier League", "V.League 1", "UEFA Champions League", "La Liga", "Serie A", "Bundesliga", "Ligue 1"];
-            List<string> countrys = ["England", "Vietnam", "World", "Spain", "Italy", "Germany", "France"];
-            var response = await _httpClient.GetAsync("/leagues");
+            var response = await _httpClient.GetAsync("competitions");
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
             var json = JObject.Parse(content);
             var leagues = new List<LeagueData>();
-
-            foreach (var item in json["response"])
+            foreach (var item in json["competitions"]!)
             {
-                if (special_leagues.Contains((string?)item["league"]!["name"])
-                    && countrys.Contains((string?)item["country"]!["name"]))
+                var league = new LeagueData
                 {
-
-                    var seasons = item["seasons"]!
-                                .Select(s => s["year"]?.ToString())
-                                .Where(y => !string.IsNullOrEmpty(y))
-                                .Distinct()
-                                .ToList();
-                    var league = new LeagueData
-                    {
-                        Id = (int)item["league"]!["id"]!,
-                        Name = (string?)item["league"]!["name"],
-                        Description = (string?)item["league"]!["type"],
-                        Country = (string?)item["country"]!["name"],
-                        Logo = (string?)item["league"]!["logo"],
-                        Seasons = seasons
-                    };
-                    leagues.Add(league);
-                }
+                    Id = (int)item["id"]!,
+                    Name = (string?)item["name"],
+                    Description = (string?)item["type"],
+                    Country = (string?)item["area"]!["name"],
+                    Logo = (string?)item["emblem"]!,
+                    Code = (string?)item["code"]!,
+                };
+                leagues.Add(league);
             }
             return leagues;
         }
-
         public async Task<List<LeaguesData>> GetLeaguesData()
         {
             var data = await _context.Leagues
