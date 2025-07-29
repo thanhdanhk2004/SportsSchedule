@@ -107,6 +107,7 @@ app.MapControllers();
 //Seeding data
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ContextDB>();
 var leagueService = app.Services.CreateScope().ServiceProvider.GetRequiredService<ILeagueService>();
-await DataSeed.SeedingData(context, leagueService);
+var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IFixturesService>();
+await DataSeed.SeedingData(context, leagueService, fixtureService);
 
 app.Run();

@@ -44,13 +44,14 @@ namespace SportSchedule.Services.League
         }
         public async Task<List<LeaguesData>> GetLeaguesData()
         {
+            List<string> leagues = ["European Championship", "Premier League", "UEFA Champions League", "Ligue 1", "Bundesliga", "Serie A", "FIFA World Cup"];
             var data = await _context.Leagues
-                .GroupBy(l => l.Name)
+                .Where(l=> leagues.Contains(l.Name!))
                 .Select(l => new LeaguesData
                 {
-                    Id = l.First().LeagueId,
-                    Name = l.First().Name,
-                    Logo = l.First().Logo,
+                    Id = l.LeagueId,
+                    Name = l.Name,
+                    Logo = l.Logo,
                 }).ToListAsync();
             return data;
         }

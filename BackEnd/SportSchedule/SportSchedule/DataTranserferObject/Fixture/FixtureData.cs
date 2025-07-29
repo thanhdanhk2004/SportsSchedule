@@ -5,6 +5,7 @@
         public int? LeagueId {  get; set; }
         public int? FixtureId { get; set; }
         public string? LeagueName { get; set; }
+        public string? Country {  get; set; }
         public string? Logo { get; set; }
         public string? Round { get; set; }
         public string? Season { get; set; }

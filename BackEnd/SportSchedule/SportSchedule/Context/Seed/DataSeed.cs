@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.League;
 using SportSchedule.Model;
+using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace SportSchedule.Context.Seed
 {
     public class DataSeed
     {
-        public static async Task SeedingData(ContextDB _context, ILeagueService _leagueService)
+        public static async Task SeedingData(ContextDB _context, ILeagueService _leagueService, IFixturesService _fixtureSevice)
         {
             _context.Database.Migrate();
             if(!_context.Leagues.Any())
@@ -58,6 +60,61 @@ namespace SportSchedule.Context.Seed
                             _context.SaveChanges();
                         }
                     }
+                }
+            }
+
+            if (!_context.Matches.Any())
+            {
+                List<FixtureData> fixtures = await _fixtureSevice.GetFixturesAsync();
+                
+                foreach(FixtureData fixture in fixtures)
+                {
+                    
+                    TeamModel team_home = new TeamModel
+                    {
+                        TeamId = fixture.HomeId,
+                        Name = fixture.HomeName,
+                        Logo = fixture.HomeLogo,
+                        Country = fixture.Country,
+                    };
+                    var exist_team_home = _context.Teams.FirstOrDefault(t => t.TeamId == team_home.TeamId);
+
+                    //Them doi neu chua ton tai
+                    if(exist_team_home == null)
+                    {
+                        _context.Teams.Add(team_home);
+                        _context.SaveChanges();
+                    }
+                    TeamModel team_away = new TeamModel
+                    {
+                        TeamId = fixture.AwayId,
+                        Name = fixture.AwayName,
+                        Logo = fixture.AwayLogo,
+                        Country = fixture.Country,
+                    };
+                    var exist_team_away = _context.Teams.FirstOrDefault(t => t.TeamId == team_away.TeamId);
+                    if (exist_team_away == null)
+                    {
+                        _context.Teams.Add(team_away);
+                        _context.SaveChanges();
+                    }
+
+                    var season = _context.Seasons.FirstOrDefault(s => s.SeasonYear == fixture.Season);
+                                    
+                    //Them tran dau
+                    MatchModel match = new MatchModel
+                    {
+                        MatchId = fixture.FixtureId,
+                        Venue = fixture.Venue,
+                        Time = fixture.Date.ToString(),
+                        TeamIdHome = team_home.TeamId,
+                        TeamIdAway = team_away.TeamId,
+                        SeasonId = season!.SeasonId,
+                        LeagueId = fixture.LeagueId,
+                        Round = fixture.Round,
+                    };
+                    _context.Matches.Add(match);
+                    _context.SaveChanges();
                 }
             }
         }

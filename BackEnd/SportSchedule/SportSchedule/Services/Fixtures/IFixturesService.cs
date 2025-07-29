@@ -4,7 +4,7 @@ namespace SportSchedule.Services.Fixtures
 {
     public interface IFixturesService
     {
-        Task<List<FixtureData>> GetFixturesAsync(string date);
-        
+        Task<List<FixtureData>> GetFixturesAsync();
+        Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date);
     }
 }

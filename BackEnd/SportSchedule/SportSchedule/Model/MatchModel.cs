@@ -5,7 +5,7 @@
         public int? MatchId {  get; set; }
         public string? Venue {  get; set; }
         public string? Time {  get; set; }
-        public string? Status { get; set; }
+        public string? Round { get; set; }
         public int? TeamIdHome {  get; set; }
         public int? TeamIdAway { get; set; }
         public int? SeasonId { get; set; }
