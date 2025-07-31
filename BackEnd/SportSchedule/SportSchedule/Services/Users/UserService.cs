@@ -79,7 +79,7 @@ namespace SportSchedule.Services.Users
             else if (!BCrypt.Net.BCrypt.Verify(user_data.Password, u.Password))
                 return null;
 
-            GenerateJwtToken generateJwtToken = new GenerateJwtToken();
+            GenerateJwtToken generateJwtToken = new GenerateJwtToken(_context);
       
             UserDataLogin user = new UserDataLogin
             {

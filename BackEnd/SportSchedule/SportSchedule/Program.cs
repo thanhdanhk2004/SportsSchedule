@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
 using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
+using SportSchedule.Services.Permission;
 using SportSchedule.Services.Users;
 using System.Text;
 
@@ -70,6 +72,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+//Cau hinh Authorization
+builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
 // Add services to the container.
 builder.Services.AddTransient<IUserSevice, UserService>();
 builder.Services.AddTransient<ILeagueService, LeagueService>();
@@ -94,6 +99,24 @@ app.UseCors(builder =>
     .AllowAnyHeader()
     .AllowAnyMethod();
 });
+
+//Dang ky Authorization
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ContextDB>();
+    var permissions = dbContext.Permissions.Select(p => p.PermisstionName).ToList();
+
+    var authOptions = app.Services.GetRequiredService<IAuthorizationPolicyProvider>() as AuthorizationOptions;
+    if (authOptions != null)
+    {
+        foreach (var permission in permissions)
+        {
+            authOptions.AddPolicy($"Permission.{permission}", policy =>
+                policy.Requirements.Add(new PermissionRequirement(permission!)));
+        }
+    }
+}
+
 
 app.UseAuthentication();
 app.UseAuthorization();
