@@ -7,8 +7,10 @@
         public string? NameHome {  get; set; }
         public string? NameAway {  get; set; }
         public string? Time {  get; set; }
-        public int? GoalHome { get; set; }
-        public int? GoalAway { get; set; }
+        public string? LogoHome {  get; set; }
+        public string? LogoAway {  get; set; }
+        
+        public List<int>? Scores { get; set; } = null;
 
     }
 }

@@ -16,6 +16,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "GetInfoFixture",
+    "RelativePath": "fixture/{fixture_id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fixture_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.LeagueController",
     "Method": "GetLeague",
     "RelativePath": "league",

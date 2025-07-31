@@ -14,7 +14,6 @@ namespace SportSchedule.Controllers
         }
 
         [HttpGet]
-
         public async Task<IActionResult> GetFixture(string date)
         {
             var fixtures = await _fixtureService.GetFixtureDataFrontendsAsync(date);
@@ -25,5 +24,13 @@ namespace SportSchedule.Controllers
             return Ok(fixtures);
         }
 
+        [HttpGet("{fixture_id}")]
+        public async Task<IActionResult> GetInfoFixture(int fixture_id)
+        {
+            var fixture = await _fixtureService.GetInfoFixtureAsync(fixture_id);
+            if (fixture == null)
+                return BadRequest();
+            return Ok(fixture);
+        }
     }
 }

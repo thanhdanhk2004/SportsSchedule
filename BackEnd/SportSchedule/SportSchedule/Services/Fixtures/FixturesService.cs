@@ -68,6 +68,26 @@ namespace SportSchedule.Services.Fixtures
             return fixtures;
         }
 
+        //Lấy sỉ số của các trận đã đấu
+        public async Task<List<int>?> getScore(int? fixture_id, DateTime time)
+        {
+            
+            List<int>? scores = new List<int>();
+            var response = await _httpClient.GetAsync($"matches/{fixture_id}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+
+            if (json["score"]["fullTime"]["home"].Type == JTokenType.Null)
+                return null;
+            scores.Add((int)json["score"]!["fullTime"]!["home"]!);
+            scores.Add((int)json["score"]!["fullTime"]!["away"]!);
+            scores.Add((int)json["score"]!["halfTime"]!["home"]!);
+            scores.Add((int)json["score"]!["halfTime"]!["away"]!);
+            return scores;
+        }
+
         //Ham de do du lieu cho FE
         public async Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date)
         {
@@ -82,12 +102,49 @@ namespace SportSchedule.Services.Fixtures
                                  NameHome = th.Name,
                                  NameAway = tw.Name,
                                  Time = m.Time,
-                                 GoalHome = 0,
-                                 GoalAway = 0
+                                 LogoHome = th.Logo,
+                                 LogoAway = tw.Logo
                              }).ToListAsync();
+
             var fixtures = data.Where(m => m.Time.Split(' ')[0] == date).ToList();
+
+            //Lay ty so 
+            int i = 0;
+            foreach(var fixture in fixtures)
+            {
+                if (i > 7)
+                    break;
+                if(DateTime.Parse(fixture.Time).AddHours(2) <= DateTime.Now && i <= 7)
+                {
+                    fixture.Scores = await getScore(fixture.MatchId, DateTime.Parse(fixture.Time!));
+                    i++;
+                }
+            }
+
             return fixtures;
         }
 
+
+        //Lay du lieu khi nguoi dung muon xem
+        public async Task<FixtureDataFrontend> GetInfoFixtureAsync(int id)
+        {
+            FixtureDataFrontend fixture = new FixtureDataFrontend();
+            var response = await _httpClient.GetAsync($"matches/{id}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+            fixture.LeagueName = (string?)json["competition"]?["name"] ?? "";
+            fixture.MatchId = id;
+            fixture.NameHome = (string?)json["homeTeam"]?["name"] ?? "";
+            fixture.NameAway = (string?)json["awayTeam"]?["name"] ?? "";
+            fixture.Time = (string?)json["utcDate"] ?? "";
+            fixture.LogoHome = (string?)json["homeTeam"]?["crest"] ?? "";
+            fixture.LogoAway = (string?)json["awayTeam"]?["crest"] ?? "";
+            fixture.Scores = await getScore(id, DateTime.ParseExact(fixture.Time, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture));
+
+            return fixture;
+
+        }
     }
 }
