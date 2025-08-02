@@ -11,7 +11,6 @@ namespace SportSchedule.Configuration
             builder.ToTable("Match");
             builder.HasKey(m => m.MatchId);
             builder.Property(m => m.Venue).IsRequired();
-            builder.Property(m => m.Time).IsRequired().HasDefaultValue(DateTime.UtcNow);
             builder.Property(m => m.Round).IsRequired();
 
             //Khoa ngoai giua Match va TeamHome, TeamAway

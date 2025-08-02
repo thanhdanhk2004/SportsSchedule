@@ -10,7 +10,6 @@ namespace SportSchedule.Configuration
         {
             builder.ToTable("MatchStatictis");
             builder.HasKey(ms => ms.MatchStatictisId);
-            builder.Property(ms => ms.Score).HasDefaultValue(0);
             builder.Property(ms => ms.Possession).HasDefaultValue(50);
             builder.Property(ms => ms.ShortsOnTaget).HasDefaultValue(0);
             builder.Property(ms => ms.Corners).HasDefaultValue(0);

@@ -3,7 +3,7 @@
     public class MatchStatictisModel
     {
         public int? MatchStatictisId {  get; set; }
-        public string? Score {  get; set; }
+        public int? Score {  get; set; }
         public string? Possession { get; set; }
         public int? ShortsOnTaget {  get; set; }
         public int? Corners {  get; set; }

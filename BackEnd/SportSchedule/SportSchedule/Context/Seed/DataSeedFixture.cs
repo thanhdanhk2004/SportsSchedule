@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SportSchedule.Context.Seed
 {
-    public class DataSeed
+    public class DataSeedFixture
     {
         public static async Task SeedingData(ContextDB _context, ILeagueService _leagueService, IFixturesService _fixtureSevice)
         {
@@ -106,7 +106,7 @@ namespace SportSchedule.Context.Seed
                     {
                         MatchId = fixture.FixtureId,
                         Venue = fixture.Venue,
-                        Time = fixture.Date.ToString(),
+                        Time = fixture.Date,
                         TeamIdHome = team_home.TeamId,
                         TeamIdAway = team_away.TeamId,
                         SeasonId = season!.SeasonId,

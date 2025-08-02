@@ -101,7 +101,7 @@ namespace SportSchedule.Services.Fixtures
                                  MatchId = m.MatchId,
                                  NameHome = th.Name,
                                  NameAway = tw.Name,
-                                 Time = m.Time,
+                                 Time = m.Time.ToString(),
                                  LogoHome = th.Logo,
                                  LogoAway = tw.Logo
                              }).ToListAsync();

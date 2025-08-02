@@ -127,7 +127,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 31, 9, 18, 42, 176, DateTimeKind.Utc).AddTicks(46));
+                        .HasDefaultValue(new DateTime(2025, 8, 2, 15, 11, 49, 389, DateTimeKind.Utc).AddTicks(2601));
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
@@ -193,7 +193,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 31, 9, 18, 42, 208, DateTimeKind.Utc).AddTicks(7019));
+                        .HasDefaultValue(new DateTime(2025, 8, 2, 15, 11, 49, 503, DateTimeKind.Utc).AddTicks(1083));
 
                     b.Property<int?>("MatchId")
                         .HasColumnType("integer");
@@ -302,11 +302,8 @@ namespace SportSchedule.Migrations
                     b.Property<int?>("TeamIdHome")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("07/31/2025 09:18:42");
+                    b.Property<DateTime?>("Time")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Venue")
                         .IsRequired()
@@ -351,10 +348,8 @@ namespace SportSchedule.Migrations
                         .HasColumnType("integer")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("Score")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("text")
-                        .HasDefaultValue("0");
+                    b.Property<int?>("Score")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ShortsOnTaget")
                         .ValueGeneratedOnAdd()
@@ -432,7 +427,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 31, 9, 18, 42, 178, DateTimeKind.Utc).AddTicks(5352));
+                        .HasDefaultValue(new DateTime(2025, 8, 2, 15, 11, 49, 409, DateTimeKind.Utc).AddTicks(7609));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
@@ -507,7 +502,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 7, 31, 9, 18, 42, 167, DateTimeKind.Utc).AddTicks(3536));
+                        .HasDefaultValue(new DateTime(2025, 8, 2, 15, 11, 49, 365, DateTimeKind.Utc).AddTicks(3094));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
