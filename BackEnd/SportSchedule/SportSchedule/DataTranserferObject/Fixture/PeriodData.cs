@@ -2,8 +2,10 @@
 {
     public class PeriodData
     {
-        public int? Time {  get; set; }
+        public long Time {  get; set; }
         public string? Name {  get; set; }
-        public int? goalHome {  get; set; }
+        public int? GoalHome {  get; set; }
+        public int? GoalAway { get; set; }
+        public int? MatchId { get; set; }
     }
 }

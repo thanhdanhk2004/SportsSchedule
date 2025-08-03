@@ -2,20 +2,26 @@
 using SportSchedule.DataAccess;
 using SportSchedule.DataTranserferObject.Fixture;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 
 namespace SportSchedule.Services.Statistic
 {
     public class StatisticService : IStatisticService
     {
-        private MatchStatistic _matchStatictis;
+        private MatchStatisticDAL _matchStatictis;
         private readonly HttpClient _httpClient;
-        public StatisticService(MatchStatistic matchStatictis, IHttpClientFactory httpClient)
+        private readonly PeriodDAL _periodDAL;
+
+        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL)
         {
             _matchStatictis = matchStatictis;
             _httpClient = httpClient.CreateClient("FootballAPI");
+            _periodDAL = periodDAL;
         }
 
-        public async Task getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round)
+        //Lay thong so cua tran dau
+        public async Task<int> getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round)
         {
             var response_fixtures = await _httpClient.GetAsync($"fixtures?date={time.Value.ToString("yyyy-MM-dd")}&round={Round}");
             response_fixtures.EnsureSuccessStatusCode();
@@ -23,16 +29,17 @@ namespace SportSchedule.Services.Statistic
             var content = await response_fixtures.Content.ReadAsStringAsync();
             var json = JObject.Parse(content);
 
+            int fixture_id = 0;
+
             foreach (var item in json["response"]!)
             {
                 string? round = (string?)item["league"]?["round"];
                 string? leagueName = (string?)item["league"]?["name"];
                 DateTime? date = (DateTime?)item["fixture"]?["date"];
 
-
                 if (round == Round && leagueName == league_name)
                 {
-                    var fixture_id = item["fixture"]!["id"]!;
+                    fixture_id = (int)item["fixture"]!["id"]!;
                     int team_home_id =(int) item["teams"]!["home"]!["id"]!;
                     int team_away_id =(int) item["teams"]!["away"]!["id"]!;
                     FixtureStatisticData fixture_statistic_home = new FixtureStatisticData();
@@ -74,14 +81,18 @@ namespace SportSchedule.Services.Statistic
                     fixture_statistic_away.YellowCard = int.TryParse((getStatsValue((JArray)awayStats?["statistics"]!, "Yellow Cards")), out int result_yellow_card_away) ? result_yellow_card_away : 0;
                     fixture_statistic_away.RedCard = int.TryParse((getStatsValue((JArray)awayStats?["statistics"]!, "Red Cards")), out int result_red_card_away) ? result_red_card_away : 0;
 
-                    _matchStatictis.addMatchStatistic(fixture_statistic_home, team_home_id, match_id);
-                    _matchStatictis.addMatchStatistic(fixture_statistic_away, team_away_id, match_id);
-                   
+                    _matchStatictis.addMatchStatistic(fixture_statistic_home, home_id, match_id);
+                    _matchStatictis.addMatchStatistic(fixture_statistic_away, away_id, match_id);
+                    PeriodData periodFirst = getPeriod(item, "first");
+                    PeriodData periodSecond = getPeriod(item, "second");
+                    _periodDAL.addPeriod(periodFirst, match_id);
+                    _periodDAL.addPeriod(periodSecond, match_id);
+
+                    break;
                 }
-
+                 
             }
-
-
+            return fixture_id;
         }
 
         //Ham lay thong so
@@ -91,5 +102,18 @@ namespace SportSchedule.Services.Statistic
             return stat?["value"]?.ToString();
         }
 
+        //Ham lay period cho mot doi
+        public PeriodData getPeriod(JToken json, string name)
+        {
+            PeriodData period = new PeriodData();
+            period.Time = (long)json["fixture"]?["periods"]?[name]!;
+            period.Name = name;
+            period.GoalHome = name == "first" ? (int)json["score"]?["halftime"]?["home"]! : 0;
+            period.GoalAway = name == "first" ? (int)json["score"]?["halftime"]!["away"]! : 0;
+            return period;
+        }
+
+        ////Lay du lieu cau thu
+        //public 
     }
 }

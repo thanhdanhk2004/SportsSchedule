@@ -2,10 +2,11 @@
 {
     public class PlayerModel:MemberModel
     {
-        public float? Height { get; set; }
-        public float? Weight { get; set; }
-        public string? value {  get; set; }
+        public string? Height { get; set; }
+        public string? Weight { get; set; }
         public bool? status { get; set; }
+        public int Number {  get; set; }
         public List<GoalModel>? Goals { get; set; }
+        public List<PlayerMatchModel>? PlayerMatches { get; set; }
     }
 }

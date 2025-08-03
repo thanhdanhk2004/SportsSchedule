@@ -4,15 +4,15 @@ using SportSchedule.Model;
 
 namespace SportSchedule.DataAccess
 {
-    public class MatchStatistic
+    public class MatchStatisticDAL
     {
         private readonly ContextDB _context;
-        public MatchStatistic(ContextDB context)
+        public MatchStatisticDAL(ContextDB context)
         {
             _context = context;
         }
 
-        public void addMatchStatistic(FixtureStatisticData data, int team_id, int? match_id)
+        public void addMatchStatistic(FixtureStatisticData data, int? team_id, int? match_id)
         {
             MatchStatictisModel model = new MatchStatictisModel
             {
@@ -28,5 +28,7 @@ namespace SportSchedule.DataAccess
             _context.MatchStatictis.Add(model);
             _context.SaveChanges();
         }
+
+        
     }
 }

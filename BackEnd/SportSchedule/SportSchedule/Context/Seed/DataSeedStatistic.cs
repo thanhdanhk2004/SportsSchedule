@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportSchedule.DataAccess;
 using SportSchedule.DataModel;
+using SportSchedule.Services.Member;
 using SportSchedule.Services.Statistic;
 using System.Globalization;
 
 namespace SportSchedule.Context.Seed
 {
     public class DataSeedStatistic
-    {
-        public static async Task SeenDataStatistic(ContextDB _context, IStatisticService _statisticService)
+    {        
+        public static async Task SeenDataStatistic(ContextDB _context, IStatisticService _statisticService, IMemberService _memberService)
         {
             _context.Database.Migrate();
+            DateTime dateNow = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
 
             var responses = (from m in _context.Matches
                            join th in _context.Teams on m.TeamIdHome equals th.TeamId
@@ -22,7 +25,7 @@ namespace SportSchedule.Context.Seed
                                TeamAway = ta,
                                League = l
                            }).AsEnumerable()
-                           .Where(x => x.Match.Time.Value.Date == DateTime.Now.Date)
+                           .Where(x => x.Match.Time.Value.Date == dateNow.Date)
                            .Select( x => new InfoDataStatistic
                            {
                                Time = x.Match.Time,
@@ -37,12 +40,15 @@ namespace SportSchedule.Context.Seed
 
             foreach ( var response in responses )
             {
-                DateTime dateNow = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;
-                if(dateNow >= timeFixture.AddHours(3))
-                    await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
-                        response.Time, response.LeagueName, response.HomeId, response.AwayId,
-                        response.MatchId, response.Round);
+                if (dateNow >= timeFixture.AddHours(3) &&
+                    !_context.MatchStatictis.Any(ms => ms.MatchId == response.MatchId))
+                {
+                    int fixture_id = await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
+                       response.Time, response.LeagueName, response.HomeId, response.AwayId,
+                       response.MatchId, response.Round);
+                    //await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0);
+                }
             }
         }
     }

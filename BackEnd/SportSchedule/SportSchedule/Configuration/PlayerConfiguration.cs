@@ -11,10 +11,8 @@ namespace SportSchedule.Configuration
             builder.ToTable("Player");
             builder.Property(p => p.Weight).IsRequired();
             builder.Property(p => p.Height).IsRequired();
-            builder.Property(p => p.value).IsRequired(false);
             builder.Property(p => p.status).IsRequired(false);
-
-            
+    
         }
     }
 }

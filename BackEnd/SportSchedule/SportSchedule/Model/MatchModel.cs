@@ -17,5 +17,7 @@
         public List<MatchStatictisModel>? MatchStatictis { get; set; }
         public List<PeriodModel>? Periods { get; set; }
         public List<GuessModel>? Guess { get; set; }
+        public List<PlayerMatchModel>? PlayerMatches { get; set; }
+
     }
 }

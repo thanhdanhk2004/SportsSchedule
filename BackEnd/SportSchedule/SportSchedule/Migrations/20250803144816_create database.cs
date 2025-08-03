@@ -38,7 +38,8 @@ namespace SportSchedule.Migrations
                     Birthday = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Nationality = table.Column<string>(type: "text", nullable: false),
                     Position = table.Column<string>(type: "text", nullable: false),
-                    Age = table.Column<string>(type: "text", nullable: false)
+                    Age = table.Column<int>(type: "integer", nullable: true),
+                    Image = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,9 +107,8 @@ namespace SportSchedule.Migrations
                 columns: table => new
                 {
                     MemberId = table.Column<int>(type: "integer", nullable: false),
-                    Height = table.Column<float>(type: "real", nullable: false),
-                    Weight = table.Column<float>(type: "real", nullable: false),
-                    value = table.Column<string>(type: "text", nullable: true),
+                    Height = table.Column<string>(type: "text", nullable: false),
+                    Weight = table.Column<string>(type: "text", nullable: false),
                     status = table.Column<bool>(type: "boolean", nullable: true)
                 },
                 constraints: table =>
@@ -341,7 +341,7 @@ namespace SportSchedule.Migrations
                     Content = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<string>(type: "text", nullable: true, defaultValue: "string"),
                     Image = table.Column<string>(type: "text", nullable: false),
-                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 2, 15, 11, 49, 409, DateTimeKind.Utc).AddTicks(7609)),
+                    SendTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 3, 14, 48, 16, 158, DateTimeKind.Utc).AddTicks(5274)),
                     UserIdSend = table.Column<int>(type: "integer", nullable: true),
                     UserIdRevice = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -369,7 +369,7 @@ namespace SportSchedule.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Image = table.Column<string>(type: "text", nullable: true),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 2, 15, 11, 49, 365, DateTimeKind.Utc).AddTicks(3094)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 3, 14, 48, 16, 150, DateTimeKind.Utc).AddTicks(1208)),
                     UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -388,7 +388,7 @@ namespace SportSchedule.Migrations
                 {
                     GuessId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 2, 15, 11, 49, 503, DateTimeKind.Utc).AddTicks(1083)),
+                    GuessTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 3, 14, 48, 16, 184, DateTimeKind.Utc).AddTicks(3431)),
                     PredictHomeScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     PredictAwayScore = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     MatchId = table.Column<int>(type: "integer", nullable: true),
@@ -447,6 +447,8 @@ namespace SportSchedule.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    GoalHome = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
+                    GoalAway = table.Column<int>(type: "integer", nullable: true, defaultValue: 0),
                     MatchId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -460,13 +462,38 @@ namespace SportSchedule.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PlayerMatch",
+                columns: table => new
+                {
+                    MatchId = table.Column<int>(type: "integer", nullable: false),
+                    PlayerId = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlayerMatch", x => new { x.PlayerId, x.MatchId });
+                    table.ForeignKey(
+                        name: "FK_PlayerMatch_Match_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Match",
+                        principalColumn: "MatchId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlayerMatch_Player_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Player",
+                        principalColumn: "MemberId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comment",
                 columns: table => new
                 {
                     CommentId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Content = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 2, 15, 11, 49, 389, DateTimeKind.Utc).AddTicks(2601)),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: true, defaultValue: new DateTime(2025, 8, 3, 14, 48, 16, 156, DateTimeKind.Utc).AddTicks(264)),
                     PostId = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: true),
                     CommendIdReply = table.Column<int>(type: "integer", nullable: true)
@@ -684,6 +711,11 @@ namespace SportSchedule.Migrations
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PlayerMatch_MatchId",
+                table: "PlayerMatch",
+                column: "MatchId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",
                 table: "Post",
                 column: "UserId");
@@ -743,6 +775,9 @@ namespace SportSchedule.Migrations
 
             migrationBuilder.DropTable(
                 name: "Message");
+
+            migrationBuilder.DropTable(
+                name: "PlayerMatch");
 
             migrationBuilder.DropTable(
                 name: "Ranking");

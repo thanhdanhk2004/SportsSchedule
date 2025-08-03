@@ -11,6 +11,7 @@ using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
 using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
+using SportSchedule.Services.Member;
 using SportSchedule.Services.Permission;
 using SportSchedule.Services.Statistic;
 using SportSchedule.Services.Users;
@@ -82,6 +83,7 @@ builder.Services.AddTransient<IUserSevice, UserService>();
 builder.Services.AddTransient<ILeagueService, LeagueService>();
 builder.Services.AddTransient<IFixturesService, FixturesService>();
 builder.Services.AddTransient<IStatisticService, StatisticService>();
+builder.Services.AddTransient<IMemberService, MemberService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -89,7 +91,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Dang ky Scope
-builder.Services.AddScoped<MatchStatistic>();
+builder.Services.AddScoped<MatchStatisticDAL>();
+builder.Services.AddScoped<PeriodDAL>();
+builder.Services.AddScoped<MemberDAL>();
+builder.Services.AddScoped<PlayerDAL>();
+builder.Services.AddScoped<PlayerMatchDAL>();
+builder.Services.AddScoped<TeamMemberDAL>();
 
 var app = builder.Build();
 
@@ -139,7 +146,8 @@ var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<Cont
 var leagueService = app.Services.CreateScope().ServiceProvider.GetRequiredService<ILeagueService>();
 var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IFixturesService>();
 var statisticService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IStatisticService>();
+var memberService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMemberService>();
 await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
-await DataSeedStatistic.SeenDataStatistic(context, statisticService);
+await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService);
 
 app.Run();

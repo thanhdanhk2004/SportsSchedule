@@ -14,7 +14,7 @@ namespace SportSchedule.Configuration
             builder.Property(m => m.Birthday).IsRequired();
             builder.Property(m => m.Nationality).IsRequired();
             builder.Property(m => m.Position).IsRequired();
-            builder.Property(m => m.Age).IsRequired();
+            builder.Property(m => m.Image).IsRequired(false);
         }
     }
 }
