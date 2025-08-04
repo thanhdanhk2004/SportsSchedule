@@ -20,7 +20,7 @@ namespace SportSchedule.DataAccess
                     MemberId = model.Id,
                     Name = model.Name,
                     Nationality = model.Nationaly,
-                    Birthday = model.Birthday,
+                    Birthday = TimeZoneInfo.ConvertTimeToUtc(model.Birthday, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time")),
                     Position = model.Position,
                     Age = model.Age,
                     Image = model.Image,

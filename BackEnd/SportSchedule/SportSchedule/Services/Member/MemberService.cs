@@ -22,7 +22,7 @@ namespace SportSchedule.Services.Member
             _playerMatchDAL = playerMatchDAL;
             _teamMemberDAL = teamMemberDAL;
         }
-        public async Task getMemberService(int fixture_id, int team_home_id, int team_away_id)
+        public async Task getMemberService(int fixture_id, int team_home_id, int team_away_id, int match_id)
         {
             var response_lineup = await _httpClient.GetAsync($"fixtures/lineups?fixture={fixture_id}");
             response_lineup.EnsureSuccessStatusCode();
@@ -41,18 +41,50 @@ namespace SportSchedule.Services.Member
                 {
                     int player_id = (int)player["player"]?["id"]!;
                     //Kiem tra co ton tai cau thu hay chua neu chua thi moi them
-                    if(!_playerDAL.isExistedPlayer(player_id))
-                        await addInfoPlayer(player_id);
-                    _teamMemberDAL.addTeamMember(i==0?team_home_id:team_away_id, player_id);
-                    _playerMatchDAL.addPlayerMatch(fixture_id, player_id, true);
+                    if (!_playerDAL.isExistedPlayer(player_id))
+                    {
+                        InfoDataMember info = new InfoDataMember
+                        {
+                            Id = player_id,
+                            Name = (string)player["player"]?["name"]!,
+                            Number = (int)player["player"]?["number"]!,
+                            Position = (string)player["player"]?["pos"]!,
+                            Birthday = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
+                            Nationaly = "",
+                            Age = 0,
+                            Weight = "0 kg",
+                            Height = "0 cm",
+                            Image = "",
+                        };
+                        _memberDAL.addMember(info);
+                        _playerDAL.addPlayer(info);
+                        _teamMemberDAL.addTeamMember(i == 0 ? team_home_id : team_away_id, player_id);
+                    }
+                    _playerMatchDAL.addPlayerMatch(match_id, player_id, true);
                 }
                 foreach (var player in item["substitutes"]!)
                 {
                     int player_id = (int)player["player"]?["id"]!;
                     if (!_playerDAL.isExistedPlayer(player_id))
-                        await addInfoPlayer(player_id);
-                    _teamMemberDAL.addTeamMember(i == 0 ? team_home_id : team_away_id, player_id);
-                    _playerMatchDAL.addPlayerMatch(fixture_id, player_id, false);
+                    {
+                        InfoDataMember info = new InfoDataMember
+                        {
+                            Id = player_id,
+                            Name = (string)player["player"]?["name"]!,
+                            Number = (int)player["player"]?["number"]!,
+                            Position = (string)player["player"]?["pos"]!,
+                            Birthday = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
+                            Nationaly = "",
+                            Age = 0,
+                            Weight = "0 kg",
+                            Height = "0 cm",
+                            Image = "",
+                        };
+                        _memberDAL.addMember(info);
+                        _playerDAL.addPlayer(info);
+                        _teamMemberDAL.addTeamMember(i == 0 ? team_home_id : team_away_id, player_id);
+                    }
+                    _playerMatchDAL.addPlayerMatch(match_id, player_id, false);
                 }
                 i++;
             }

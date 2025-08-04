@@ -10,6 +10,6 @@
         public int? Age {  get; set; }
         public string? Image {  get; set; }
         public List<TeamMemberModel>? TeamMembers{ get; set; }
-
+        public PlayerModel? Player { get; set; }
     }
 }

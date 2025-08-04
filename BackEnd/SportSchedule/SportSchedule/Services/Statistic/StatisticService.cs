@@ -21,7 +21,7 @@ namespace SportSchedule.Services.Statistic
         }
 
         //Lay thong so cua tran dau
-        public async Task<int> getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round)
+        public async Task<int> getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round, int fixture_existed)
         {
             var response_fixtures = await _httpClient.GetAsync($"fixtures?date={time.Value.ToString("yyyy-MM-dd")}&round={Round}");
             response_fixtures.EnsureSuccessStatusCode();
@@ -33,13 +33,15 @@ namespace SportSchedule.Services.Statistic
 
             foreach (var item in json["response"]!)
             {
+                fixture_id = (int)item["fixture"]!["id"]!;
+                if(fixture_id == fixture_existed)
+                    continue;
                 string? round = (string?)item["league"]?["round"];
                 string? leagueName = (string?)item["league"]?["name"];
                 DateTime? date = (DateTime?)item["fixture"]?["date"];
 
                 if (round == Round && leagueName == league_name)
                 {
-                    fixture_id = (int)item["fixture"]!["id"]!;
                     int team_home_id =(int) item["teams"]!["home"]!["id"]!;
                     int team_away_id =(int) item["teams"]!["away"]!["id"]!;
                     FixtureStatisticData fixture_statistic_home = new FixtureStatisticData();
@@ -87,7 +89,6 @@ namespace SportSchedule.Services.Statistic
                     PeriodData periodSecond = getPeriod(item, "second");
                     _periodDAL.addPeriod(periodFirst, match_id);
                     _periodDAL.addPeriod(periodSecond, match_id);
-
                     break;
                 }
                  
@@ -112,8 +113,5 @@ namespace SportSchedule.Services.Statistic
             period.GoalAway = name == "first" ? (int)json["score"]?["halftime"]!["away"]! : 0;
             return period;
         }
-
-        ////Lay du lieu cau thu
-        //public 
     }
 }

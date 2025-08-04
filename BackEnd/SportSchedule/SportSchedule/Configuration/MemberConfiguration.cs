@@ -15,6 +15,11 @@ namespace SportSchedule.Configuration
             builder.Property(m => m.Nationality).IsRequired();
             builder.Property(m => m.Position).IsRequired();
             builder.Property(m => m.Image).IsRequired(false);
+
+            //Khoa ngoai voi Player
+            builder.HasOne(m => m.Player)
+                .WithOne(p => p.Member)
+                .HasForeignKey<PlayerModel>(p => p.PlayerId);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SportSchedule.Context.Seed
                                TeamAway = ta,
                                League = l
                            }).AsEnumerable()
-                           .Where(x => x.Match.Time.Value.Date == dateNow.Date)
+                           .Where(x => x.Match.Time.Value.Date <= dateNow.Date)
                            .Select( x => new InfoDataStatistic
                            {
                                Time = x.Match.Time,
@@ -38,6 +38,7 @@ namespace SportSchedule.Context.Seed
                                Round = "Regular Season - " + x.Match.Round,
                            }).ToList();
 
+            int fixture_existed = 0;
             foreach ( var response in responses )
             {
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;
@@ -46,8 +47,12 @@ namespace SportSchedule.Context.Seed
                 {
                     int fixture_id = await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
                        response.Time, response.LeagueName, response.HomeId, response.AwayId,
-                       response.MatchId, response.Round);
-                    //await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0);
+                       response.MatchId, response.Round, fixture_existed);
+                    if(fixture_id != 0)
+                    {
+                        await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0, response.MatchId ?? 0);
+                    }
+                    fixture_existed = fixture_id;
                 }
             }
         }

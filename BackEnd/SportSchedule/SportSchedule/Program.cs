@@ -26,6 +26,7 @@ builder.Services.AddDbContext<ContextDB>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectedDB"))
     .ConfigureWarnings(warnings =>
                warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 
