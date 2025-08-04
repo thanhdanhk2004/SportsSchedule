@@ -95,6 +95,18 @@ namespace SportSchedule.Services.Fixtures
                              join th in _context.Teams on m.TeamIdHome equals th.TeamId
                              join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
                              join l in _context.Leagues on m.LeagueId equals l.LeagueId
+                             join msh in _context.MatchStatictis  // Đội nhà
+                             on new {MatchId = m.MatchId, TeamId = th.TeamId} 
+                             equals new {msh.MatchId, msh.TeamId} into mshGroup
+                             from home in mshGroup.DefaultIfEmpty()
+
+                             join msw in _context.MatchStatictis//Đội khách
+                             on new {MatchId = m.MatchId, TeamId = tw.TeamId}
+                             equals new {msw.MatchId, msw.TeamId} into mswGroup
+                             from away in mswGroup.DefaultIfEmpty()
+
+                             join p in _context.Periods on m.MatchId equals p.MatchId into periodGroup
+                             from period in periodGroup.DefaultIfEmpty()
                              select new FixtureDataFrontend
                              {
                                  LeagueName = l.Name,
@@ -103,24 +115,17 @@ namespace SportSchedule.Services.Fixtures
                                  NameAway = tw.Name,
                                  Time = m.Time.ToString(),
                                  LogoHome = th.Logo,
-                                 LogoAway = tw.Logo
+                                 LogoAway = tw.Logo,
+                                 HomeId = th.TeamId,
+                                 AwayId = tw.TeamId,
+                                 GoalHomeFirst = period.GoalHome,
+                                 GoalAwayFirst = period.GoalAway,
+                                 GoalHomeFullTime = home.Score,
+                                 GoalAwayFullTime = away.Score
                              }).ToListAsync();
 
             var fixtures = data.Where(m => m.Time.Split(' ')[0] == date).ToList();
-
-            //Lay ty so 
-            int i = 0;
-            foreach(var fixture in fixtures)
-            {
-                if (i > 7)
-                    break;
-                if(DateTime.Parse(fixture.Time).AddHours(2) <= DateTime.Now && i <= 7)
-                {
-                    fixture.Scores = await getScore(fixture.MatchId, DateTime.Parse(fixture.Time!));
-                    i++;
-                }
-            }
-
+            
             return fixtures;
         }
 
@@ -141,12 +146,9 @@ namespace SportSchedule.Services.Fixtures
             fixture.Time = (string?)json["utcDate"] ?? "";
             fixture.LogoHome = (string?)json["homeTeam"]?["crest"] ?? "";
             fixture.LogoAway = (string?)json["awayTeam"]?["crest"] ?? "";
-            fixture.Scores = await getScore(id, DateTime.ParseExact(fixture.Time, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture));
 
             return fixture;
 
         }
-
-        
     }
 }

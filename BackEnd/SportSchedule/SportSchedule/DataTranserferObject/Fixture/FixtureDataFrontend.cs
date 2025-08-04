@@ -4,13 +4,17 @@
     {
         public string? LeagueName {  get; set; }
         public int? MatchId { get; set; }
+        public int? HomeId { get; set; }
+        public int? AwayId { get; set; }
         public string? NameHome {  get; set; }
         public string? NameAway {  get; set; }
         public string? Time {  get; set; }
         public string? LogoHome {  get; set; }
         public string? LogoAway {  get; set; }
-        
-        public List<int>? Scores { get; set; } = null;
+        public int? GoalHomeFirst {  get; set; }
+        public int? GoalHomeFullTime {  get; set; }
+        public int? GoalAwayFirst { get; set; }
+        public int? GoalAwayFullTime { get; set; }
 
     }
 }

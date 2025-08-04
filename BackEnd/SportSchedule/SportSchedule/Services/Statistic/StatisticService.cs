@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using SportSchedule.Context;
 using SportSchedule.DataAccess;
 using SportSchedule.DataTranserferObject.Fixture;
+using SportSchedule.DataTranserferObject.Statistic;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
@@ -12,12 +15,14 @@ namespace SportSchedule.Services.Statistic
         private MatchStatisticDAL _matchStatictis;
         private readonly HttpClient _httpClient;
         private readonly PeriodDAL _periodDAL;
+        private readonly ContextDB _context;
 
-        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL)
+        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context )
         {
             _matchStatictis = matchStatictis;
             _httpClient = httpClient.CreateClient("FootballAPI");
             _periodDAL = periodDAL;
+            _context = context;
         }
 
         //Lay thong so cua tran dau
@@ -113,5 +118,37 @@ namespace SportSchedule.Services.Statistic
             period.GoalAway = name == "first" ? (int)json["score"]?["halftime"]!["away"]! : 0;
             return period;
         }
+
+        //Lấy thống kê trận đấu cho frontend
+        public async Task<List<StatisticDTO>> getStatisticFixtureFrontend(int match_id)
+        {
+            var data = await (from m in _context.Matches
+                              join th in _context.Teams on m.TeamIdHome equals th.TeamId
+                              join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
+                              join l in _context.Leagues on m.LeagueId equals l.LeagueId
+                              join msh in _context.MatchStatictis  // Đội nhà
+                              on new { MatchId = m.MatchId, TeamId = th.TeamId }
+                              join msw in _context.MatchStatictis//Đội khách
+                              on new { MatchId = m.MatchId, TeamId = tw.TeamId }
+                              join p in _context.Periods on m.MatchId equals p.MatchId into periodGroup
+                              from period in periodGroup.DefaultIfEmpty()
+                              where m.MatchId == match_id
+                              select new StatisticDTO
+                              {
+                                  LeagueName = l.Name,
+                                  NameHome = th.Name,
+                                  NameAway = tw.Name,
+                                  Time = m.Time.ToString(),
+                                  LogoHome = th.Logo,
+                                  LogoAway = tw.Logo,
+                                  GoalHomeFirst = period.GoalHome,
+                                  GoalAwayFirst = period.GoalAway,
+                                  GoalHomeFullTime = msh.Score,
+                                  GoalAwayFullTime = msw.Score
+                              }).ToListAsync();
+
+            return data;
+        }
+
     }
 }
