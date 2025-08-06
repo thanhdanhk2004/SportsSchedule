@@ -14,11 +14,15 @@ namespace SportSchedule.Configuration
             builder.Property(c => c.Time).IsRequired();
             builder.Property(c => c.Status).HasDefaultValue("valid");
 
-            //KHoa ngoai giua card va period
-            builder.HasOne(c => c.Period)
-                .WithMany(p => p.Cards)
-                .HasForeignKey(c => c.PeriodId);
+            //KHoa ngoai giua card va match
+            builder.HasOne(c => c.Match)
+                .WithMany(m => m.Cards)
+                .HasForeignKey(c => c.MatchId);
 
+            //Khoa ngoai giua card va member
+            builder.HasOne(c => c.Member)
+                .WithMany(m => m.Cards)
+                .HasForeignKey(c => c.MemberId);
         }
     }
 }

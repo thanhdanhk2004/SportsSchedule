@@ -47,6 +47,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.StatisticControler",
+    "Method": "GetStatisticFixture",
+    "RelativePath": "statistic/{match_id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "match_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "user/login",

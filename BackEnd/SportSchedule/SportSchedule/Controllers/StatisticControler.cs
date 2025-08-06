@@ -13,6 +13,15 @@ namespace SportSchedule.Controllers
             _statisticService = statisticService;
         }
 
-        
+        [HttpGet("{match_id}")]
+        public async Task<IActionResult> GetStatisticFixture(int match_id)
+        {
+            var data = await _statisticService.getStatisticFixtureFrontend(match_id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            return Ok(data);
+        }
     }
 }

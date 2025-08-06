@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SportSchedule.Context;
@@ -11,9 +12,11 @@ using SportSchedule.Context;
 namespace SportSchedule.Migrations
 {
     [DbContext(typeof(ContextDB))]
-    partial class ContextDBModelSnapshot : ModelSnapshot
+    [Migration("20250806150931_update relationship card")]
+    partial class updaterelationshipcard
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,9 +92,6 @@ namespace SportSchedule.Migrations
                     b.Property<int?>("MatchId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("MemberId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
@@ -108,8 +108,6 @@ namespace SportSchedule.Migrations
                     b.HasKey("CardId");
 
                     b.HasIndex("MatchId");
-
-                    b.HasIndex("MemberId");
 
                     b.ToTable("Card", (string)null);
                 });
@@ -132,7 +130,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 36, 47, 409, DateTimeKind.Utc).AddTicks(2280));
+                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 9, 30, 328, DateTimeKind.Utc).AddTicks(9899));
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
@@ -159,15 +157,15 @@ namespace SportSchedule.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GoalId"));
 
-                    b.Property<int>("GoalTime")
-                        .HasColumnType("integer");
+                    b.Property<DateTime>("GoalDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("GoalType")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("text")
-                        .HasDefaultValue("Nomal Goal");
+                        .HasDefaultValue("Nomal");
 
-                    b.Property<int?>("MatchId")
+                    b.Property<int?>("PeriodId")
                         .HasColumnType("integer");
 
                     b.Property<int?>("PlayerId")
@@ -178,7 +176,7 @@ namespace SportSchedule.Migrations
 
                     b.HasKey("GoalId");
 
-                    b.HasIndex("MatchId");
+                    b.HasIndex("PeriodId");
 
                     b.HasIndex("PlayerId");
 
@@ -198,7 +196,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 36, 47, 459, DateTimeKind.Utc).AddTicks(2398));
+                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 9, 30, 383, DateTimeKind.Utc).AddTicks(1383));
 
                     b.Property<int?>("MatchId")
                         .HasColumnType("integer");
@@ -432,7 +430,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 36, 47, 413, DateTimeKind.Utc).AddTicks(6751));
+                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 9, 30, 332, DateTimeKind.Utc).AddTicks(4253));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
@@ -559,7 +557,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 36, 47, 400, DateTimeKind.Utc).AddTicks(5205));
+                        .HasDefaultValue(new DateTime(2025, 8, 6, 15, 9, 30, 314, DateTimeKind.Utc).AddTicks(1781));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -800,13 +798,7 @@ namespace SportSchedule.Migrations
                         .WithMany("Cards")
                         .HasForeignKey("MatchId");
 
-                    b.HasOne("SportSchedule.Model.MemberModel", "Member")
-                        .WithMany("Cards")
-                        .HasForeignKey("MemberId");
-
                     b.Navigation("Match");
-
-                    b.Navigation("Member");
                 });
 
             modelBuilder.Entity("SportSchedule.Model.CommentModel", b =>
@@ -833,9 +825,9 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.GoalModel", b =>
                 {
-                    b.HasOne("SportSchedule.Model.MatchModel", "Match")
+                    b.HasOne("SportSchedule.Model.PeriodModel", "Period")
                         .WithMany("Goals")
-                        .HasForeignKey("MatchId");
+                        .HasForeignKey("PeriodId");
 
                     b.HasOne("SportSchedule.Model.PlayerModel", "Player")
                         .WithMany("Goals")
@@ -845,7 +837,7 @@ namespace SportSchedule.Migrations
                         .WithMany("Goals")
                         .HasForeignKey("TeamId");
 
-                    b.Navigation("Match");
+                    b.Navigation("Period");
 
                     b.Navigation("Player");
 
@@ -1099,8 +1091,6 @@ namespace SportSchedule.Migrations
                 {
                     b.Navigation("Cards");
 
-                    b.Navigation("Goals");
-
                     b.Navigation("Guess");
 
                     b.Navigation("MatchStatictis");
@@ -1112,11 +1102,14 @@ namespace SportSchedule.Migrations
 
             modelBuilder.Entity("SportSchedule.Model.MemberModel", b =>
                 {
-                    b.Navigation("Cards");
-
                     b.Navigation("Player");
 
                     b.Navigation("TeamMembers");
+                });
+
+            modelBuilder.Entity("SportSchedule.Model.PeriodModel", b =>
+                {
+                    b.Navigation("Goals");
                 });
 
             modelBuilder.Entity("SportSchedule.Model.PermissionModel", b =>

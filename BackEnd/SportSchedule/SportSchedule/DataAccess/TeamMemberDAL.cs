@@ -26,5 +26,24 @@ namespace SportSchedule.DataAccess
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        public int getTeamId(int player_id)
+        {
+            try
+            {
+                
+                var teamId = (int)(from p in _context.Players
+                              join m in _context.Members on p.PlayerId equals m.MemberId
+                              join tm in _context.TeamMembers on m.MemberId equals tm.MemberId
+                              where p.PlayerId == player_id
+                              select tm.TeamId).FirstOrDefault()!;
+                return teamId;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return -1;
+            }
+        }
     }
 }

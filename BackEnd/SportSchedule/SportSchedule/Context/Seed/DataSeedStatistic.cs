@@ -51,6 +51,7 @@ namespace SportSchedule.Context.Seed
                     if(fixture_id != 0)
                     {
                         await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0, response.MatchId ?? 0);
+                        await _statisticService.getEventFixture(fixture_id, response.MatchId ?? 0);
                     }
                     fixtures_existed.Add(fixture_id);
                 }

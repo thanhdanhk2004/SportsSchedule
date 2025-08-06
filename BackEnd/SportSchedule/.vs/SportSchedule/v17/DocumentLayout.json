@@ -7,24 +7,12 @@
       "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\dataaccess\\matchstatisticdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\datatranserferobject\\statistic\\statisticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\datatranserferobject\\statistic\\statisticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\statistic\\statisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\statistic\\statisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\statistic\\istatisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\statistic\\istatisticservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\fixtures\\fixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\fixtures\\fixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\context\\contextdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\context\\contextdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\datatranserferobject\\statistic\\statisticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\datatranserferobject\\statistic\\statisticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,15 +38,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ContextDB.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Context\\ContextDB.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Context\\ContextDB.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Context\\ContextDB.cs",
-              "RelativeToolTip": "SportSchedule\\Context\\ContextDB.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAxwCQAAABAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "StatisticDTO.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
+              "RelativeToolTip": "SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAcwBYAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:49:30.347Z",
+              "WhenOpened": "2025-08-06T16:25:30.537Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StatisticService.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\StatisticService.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Services\\Statistic\\StatisticService.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\StatisticService.cs",
+              "RelativeToolTip": "SportSchedule\\Services\\Statistic\\StatisticService.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAA6wIMAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-06T15:38:57.966Z",
               "EditorCaption": ""
             },
             {
@@ -69,61 +70,9 @@
               "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\MatchStatisticDAL.cs",
               "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\MatchStatisticDAL.cs",
               "RelativeToolTip": "SportSchedule\\DataAccess\\MatchStatisticDAL.cs",
-              "ViewState": "AgIAACYAAAAAAAAAAAAAAEEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAAAJMAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:32:38.795Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "StatisticDTO.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
-              "RelativeToolTip": "SportSchedule\\DataTranserferObject\\Statistic\\StatisticDTO.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAmwBAAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:29:24.938Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IStatisticService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\IStatisticService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Statistic\\IStatisticService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\IStatisticService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Statistic\\IStatisticService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:25:13.029Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "StatisticService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\StatisticService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Statistic\\StatisticService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\StatisticService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Statistic\\StatisticService.cs",
-              "ViewState": "AgIAAGgAAAAAAAAAAAAmwHoAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:25:09.574Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FixturesService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAuwH8AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-06T09:24:55.405Z",
+              "WhenOpened": "2025-08-06T16:25:19.362Z",
               "EditorCaption": ""
             }
           ]

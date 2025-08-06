@@ -2,7 +2,9 @@
 using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
 using SportSchedule.DataAccess;
+using SportSchedule.DataTranserferObject.Card;
 using SportSchedule.DataTranserferObject.Fixture;
+using SportSchedule.DataTranserferObject.Goal;
 using SportSchedule.DataTranserferObject.Statistic;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -16,13 +18,19 @@ namespace SportSchedule.Services.Statistic
         private readonly HttpClient _httpClient;
         private readonly PeriodDAL _periodDAL;
         private readonly ContextDB _context;
+        private readonly CardDAL _cardDAL;
+        private readonly GoalDAL _goalDAL;
+        private readonly TeamMemberDAL _teamMemberDAL;
 
-        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context )
+        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context, CardDAL cardDAL, GoalDAL goalDAL, TeamMemberDAL teamMemberDAL )
         {
             _matchStatictis = matchStatictis;
             _httpClient = httpClient.CreateClient("FootballAPI");
             _periodDAL = periodDAL;
             _context = context;
+            _cardDAL = cardDAL;
+            _goalDAL = goalDAL;
+            _teamMemberDAL = teamMemberDAL;
         }
 
         //Lay thong so cua tran dau
@@ -96,7 +104,6 @@ namespace SportSchedule.Services.Statistic
                     _periodDAL.addPeriod(periodSecond, match_id);
                     break;
                 }
-                 
             }
             return fixture_id;
         }
@@ -120,9 +127,46 @@ namespace SportSchedule.Services.Statistic
         }
 
         //Lay thong ke tran dau cho Frontend
-        public Task<List<StatisticDTO>> getStatisticFixtureFrontend(int match_id)
+        public async Task<StatisticDTO> getStatisticFixtureFrontend(int match_id)
         {
-            
+            return _matchStatictis.getMatchStatistic(match_id);
+        }
+
+        //Phuong thuc lay su kien trong tran dau (the va ban thang)
+        public async Task getEventFixture(int fixture_id, int match_id)
+        {
+            var response = await _httpClient.GetAsync($"fixtures/events?fixture={fixture_id}");
+            response.EnsureSuccessStatusCode();
+
+            var content = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+
+            foreach(var item in json["response"]!)
+            {
+                if ((string)item["type"]! == "Card")
+                {
+                    CardDTO card = new CardDTO
+                    {
+                        TypeCard = (string)item["detail"]!,
+                        Time = (int)item["time"]?["elapsed"]!,
+                        Status = "Còn hiệu lực",
+                        MatchId = match_id,
+                        MemberId = (int)item["player"]?["id"]!
+                    };
+                    _cardDAL.addCard(card);
+                    continue;
+                }
+                int player_id = (int)item["player"]?["id"]!;
+                GoalDTO goal = new GoalDTO
+                {
+                    GoalType = (string)item["detail"]!,
+                    PlayerId = player_id,
+                    MatchId = match_id,
+                    TeamId = _teamMemberDAL.getTeamId(player_id),
+                    GoalTime = (int)item["time"]?["elapsed"]!
+                };
+                _goalDAL.addGoal(goal);
+            }
         }
     }
 }

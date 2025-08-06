@@ -18,6 +18,9 @@
         public List<PeriodModel>? Periods { get; set; }
         public List<GuessModel>? Guess { get; set; }
         public List<PlayerMatchModel>? PlayerMatches { get; set; }
+        public List<CardModel>? Cards { get; set; }
+        public List<GoalModel>? Goals { get; set; }
+
 
     }
 }

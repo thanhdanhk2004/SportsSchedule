@@ -11,5 +11,6 @@
         public string? Image {  get; set; }
         public List<TeamMemberModel>? TeamMembers{ get; set; }
         public PlayerModel? Player { get; set; }
+        public List<CardModel>? Cards { get; set; }
     }
 }

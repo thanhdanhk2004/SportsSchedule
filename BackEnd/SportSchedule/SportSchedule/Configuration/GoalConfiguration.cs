@@ -10,8 +10,8 @@ namespace SportSchedule.Configuration
         {
             builder.ToTable("Goal");
             builder.HasKey(g => g.GoalId);
-            builder.Property(g => g.GoalDate).IsRequired();
-            builder.Property(g => g.GoalType).HasDefaultValue("Nomal");
+            builder.Property(g => g.GoalTime).IsRequired();
+            builder.Property(g => g.GoalType).HasDefaultValue("Nomal Goal");
 
             //Khoa ngoai giua Goal va Player
             builder.HasOne(g => g.Player)
@@ -23,10 +23,10 @@ namespace SportSchedule.Configuration
                 .WithMany(t => t.Goals)
                 .HasForeignKey(g => g.TeamId);
 
-            //Khoa ngoai giua Goal va Period
-            builder.HasOne(g => g.Period)
-                .WithMany(p => p.Goals)
-                .HasForeignKey(g => g.PeriodId);
+            //Khoa ngoai giua Goal va Match
+            builder.HasOne(g => g.Match)
+                .WithMany(m => m.Goals)
+                .HasForeignKey(g => g.MatchId);
 
         }
     }
