@@ -1,5 +1,6 @@
 ﻿using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Fixture;
+using SportSchedule.DataTranserferObject.Statistic;
 using SportSchedule.Model;
 
 namespace SportSchedule.DataAccess
@@ -29,6 +30,48 @@ namespace SportSchedule.DataAccess
             _context.SaveChanges();
         }
 
-        
+        public StatisticDTO getMatchStatistic(int match_id)
+        {
+            try
+            {
+                var data = (from m in _context.Matches
+                            join l in _context.Leagues on m.LeagueId equals l.LeagueId
+                            join p in _context.Periods on m.MatchId equals p.MatchId
+                            // Doi nha
+                            join th in _context.Teams on m.TeamIdHome equals th.TeamId
+                            join tmbh in _context.TeamMembers on th.TeamId equals tmbh.TeamId
+                            join mbh in _context.Members on tmbh.MemberId equals mbh.MemberId
+                            //Doi khach 
+                            join ta in _context.Teams on m.TeamIdAway equals ta.TeamId
+                            join tmba in _context.TeamMembers on th.TeamId equals tmba.TeamId
+                            join mba in _context.Members on tmbh.MemberId equals mba.MemberId
+                            join msh in _context.MatchStatictis
+                            on new { m.MatchId, th.TeamId } equals new { msh.MatchId, msh.TeamId }
+                            join msa in _context.MatchStatictis
+                            on new { m.MatchId, ta.TeamId } equals new { msa.MatchId, msa.TeamId }
+                            join pm in _context.PlayerMatchModels on m.MatchId equals pm.MatchId
+                            where m.MatchId == match_id
+                            select new StatisticDTO
+                            {
+                                LeagueName = l.Name,
+                                NameHome = th.Name,
+                                NameAway = ta.Name,
+                                Time = m.Time.ToString(),
+                                LogoHome = th.Logo,
+                                LogoAway = ta.Logo,
+                                GoalHomeFirst = p.GoalHome,
+                                GoalAwayFirst = p.GoalAway,
+                                GoalHomeFullTime = msh.Score,
+                                GoalAwayFullTime = msa.Score,
+
+                            }).FirstOrDefault();
+                           
+
+                return data;
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

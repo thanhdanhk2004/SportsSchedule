@@ -85,6 +85,7 @@ builder.Services.AddTransient<ILeagueService, LeagueService>();
 builder.Services.AddTransient<IFixturesService, FixturesService>();
 builder.Services.AddTransient<IStatisticService, StatisticService>();
 builder.Services.AddTransient<IMemberService, MemberService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

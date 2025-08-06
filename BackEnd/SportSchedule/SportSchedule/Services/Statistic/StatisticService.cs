@@ -119,41 +119,10 @@ namespace SportSchedule.Services.Statistic
             return period;
         }
 
+        //Lay thong ke tran dau cho Frontend
         public Task<List<StatisticDTO>> getStatisticFixtureFrontend(int match_id)
         {
-            throw new NotImplementedException();
+            
         }
-
-        //Lấy thống kê trận đấu cho frontend
-        //public async Task<List<StatisticDTO>> getStatisticFixtureFrontend(int match_id)
-        //{
-        //    var data = await (from m in _context.Matches
-        //                      join th in _context.Teams on m.TeamIdHome equals th.TeamId
-        //                      join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
-        //                      join l in _context.Leagues on m.LeagueId equals l.LeagueId
-        //                      join msh in _context.MatchStatictis  // Đội nhà
-        //                      on new { MatchId = m.MatchId, TeamId = th.TeamId } 
-        //                      join msw in _context.MatchStatictis//Đội khách
-        //                      on new { MatchId = m.MatchId, TeamId = tw.TeamId }
-        //                      join p in _context.Periods on m.MatchId equals p.MatchId into periodGroup
-        //                      from period in periodGroup.DefaultIfEmpty()
-        //                      where m.MatchId == match_id
-        //                      select new StatisticDTO
-        //                      {
-        //                          LeagueName = l.Name,
-        //                          NameHome = th.Name,
-        //                          NameAway = tw.Name,
-        //                          Time = m.Time.ToString(),
-        //                          LogoHome = th.Logo,
-        //                          LogoAway = tw.Logo,
-        //                          GoalHomeFirst = period.GoalHome,
-        //                          GoalAwayFirst = period.GoalAway,
-        //                          GoalHomeFullTime = msh.Score,
-        //                          GoalAwayFullTime = msw.Score
-        //                      }).ToListAsync();
-
-        //    return data;
-        //}
-
     }
 }

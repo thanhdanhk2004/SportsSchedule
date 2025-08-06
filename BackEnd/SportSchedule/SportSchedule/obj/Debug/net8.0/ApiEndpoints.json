@@ -27,6 +27,11 @@
         "Name": "fixture_id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "date",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

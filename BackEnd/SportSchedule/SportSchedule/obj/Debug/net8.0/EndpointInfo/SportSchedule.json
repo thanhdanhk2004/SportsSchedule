@@ -40,6 +40,13 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {

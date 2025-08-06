@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.Services.Fixtures;
 
 namespace SportSchedule.Controllers
@@ -25,9 +26,9 @@ namespace SportSchedule.Controllers
         }
 
         [HttpGet("{fixture_id}")]
-        public async Task<IActionResult> GetInfoFixture(int fixture_id)
+        public async Task<IActionResult> GetInfoFixture(int fixture_id, string date)
         {
-            var fixture = await _fixtureService.GetInfoFixtureAsync(fixture_id);
+            var fixture = await _fixtureService.GetInfoFixtureAsync(fixture_id, date);
             if (fixture == null)
                 return BadRequest();
             return Ok(fixture);

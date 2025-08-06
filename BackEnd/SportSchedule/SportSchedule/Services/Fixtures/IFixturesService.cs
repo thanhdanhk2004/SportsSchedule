@@ -6,6 +6,6 @@ namespace SportSchedule.Services.Fixtures
     {
         Task<List<FixtureData>> GetFixturesAsync();
         Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date);
-        Task<FixtureDataFrontend> GetInfoFixtureAsync(int id);
+        Task<FixtureDataFrontend> GetInfoFixtureAsync(int id, string date);
     }
 }

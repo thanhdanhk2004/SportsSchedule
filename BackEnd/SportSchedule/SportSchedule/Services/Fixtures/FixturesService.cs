@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Fixture;
 using System.Globalization;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SportSchedule.Services.Fixtures
 {
@@ -10,10 +11,12 @@ namespace SportSchedule.Services.Fixtures
     {
         private readonly ContextDB _context;
         private readonly HttpClient _httpClient;
-        public FixturesService(ContextDB context, IHttpClientFactory httpClientFactory)
+        private readonly IMemoryCache _cache;
+        public FixturesService(ContextDB context, IHttpClientFactory httpClientFactory, IMemoryCache cache)
         {
             _context = context;
             _httpClient = httpClientFactory.CreateClient("FootballData");
+            _cache = cache;
         }
 
         //Ham de do du lieu vao DB
@@ -88,12 +91,18 @@ namespace SportSchedule.Services.Fixtures
             return scores;
         }
 
-        //Ham de do du lieu cho FE
+        //Ham de lay du lieu cac tran dau cho FE
         public async Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date)
         {
+            string key_cache = $"fixtures_{date}";
+            if(_cache.TryGetValue(key_cache, out List<FixtureDataFrontend> _listFixtures))
+            {
+                return _listFixtures!;
+            }
+
             DateTime time = DateTime.SpecifyKind(DateTime.ParseExact(date, "dd/MM", CultureInfo.InvariantCulture),
                 DateTimeKind.Utc);
-
+         
             var data = await (from m in _context.Matches
                              join th in _context.Teams on m.TeamIdHome equals th.TeamId
                              join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
@@ -127,47 +136,21 @@ namespace SportSchedule.Services.Fixtures
                                  GoalAwayFullTime = away.Score
                              }).ToListAsync();
 
+            _cache.Set(key_cache, data, TimeSpan.FromMinutes(10));
             return data;
         }
 
-
-        //Lay du lieu khi nguoi dung muon xem chi tiết
-        public async Task<FixtureDataFrontend> GetInfoFixtureAsync(int match_id)
+        //Ham de lay du lieu cua mot tran dau
+        public async Task<FixtureDataFrontend> GetInfoFixtureAsync(int match_id, string date)
         {
-            var data = await (from m in _context.Matches
-                              join th in _context.Teams on m.TeamIdHome equals th.TeamId
-                              join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
-                              join l in _context.Leagues on m.LeagueId equals l.LeagueId
-                              join msh in _context.MatchStatictis  // Đội nhà
-                              on new { MatchId = m.MatchId, TeamId = th.TeamId }
-                              equals new { msh.MatchId, msh.TeamId } into mshGroup
-                              from home in mshGroup.DefaultIfEmpty()
-
-                              join msw in _context.MatchStatictis//Đội khách
-                              on new { MatchId = m.MatchId, TeamId = tw.TeamId }
-                              equals new { msw.MatchId, msw.TeamId } into mswGroup
-                              from away in mswGroup.DefaultIfEmpty()
-                              join p in _context.Periods on m.MatchId equals p.MatchId into periodGroup
-                              from period in periodGroup.DefaultIfEmpty()
-                              where m.MatchId == match_id
-                              select new FixtureDataFrontend
-                              {
-                                  LeagueName = l.Name,
-                                  MatchId = m.MatchId,
-                                  NameHome = th.Name,
-                                  NameAway = tw.Name,
-                                  Time = m.Time.ToString(),
-                                  LogoHome = th.Logo,
-                                  LogoAway = tw.Logo,
-                                  HomeId = th.TeamId,
-                                  AwayId = tw.TeamId,
-                                  GoalHomeFirst = period.GoalHome,
-                                  GoalAwayFirst = period.GoalAway,
-                                  GoalHomeFullTime = home.Score,
-                                  GoalAwayFullTime = away.Score
-                              }).FirstOrDefaultAsync();
-
-            return data;
+            if(_cache.TryGetValue($"fixtures_{date}", out List<FixtureDataFrontend>? _listFixtures))
+            {
+                var result = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
+                return result!;
+            }
+            List<FixtureDataFrontend> _listFixture = await this.GetFixtureDataFrontendsAsync(date);
+            var fixture = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
+            return fixture!;
         }
     }
 }
