@@ -1,17 +1,18 @@
 import { Button, Modal } from "react-bootstrap";
 import '../Style/index.css'
-
+import { useNavigate } from "react-router-dom";
 
 
 function SeeModal({ show, handleClose, match }) {
-    if(show == false)
+    const navigate = useNavigate()
+    if(show === false)
         return null
     return (
         <Modal show={show} onHide={handleClose} centered size="lg">
             <Modal.Header closeButton>
                 {match.goalHomeFullTime !== null ?
-                    <Modal.Title>Kết quả trận đấu:</Modal.Title> :
-                    <Modal.Title>Lịch trận đấu:</Modal.Title>
+                    <Modal.Title>Kết quả trận đấu</Modal.Title> :
+                    <Modal.Title>Lịch trận đấu</Modal.Title>
                 }
             </Modal.Header>
             <Modal.Body>
@@ -47,7 +48,7 @@ function SeeModal({ show, handleClose, match }) {
 
                 {match.goalHomeFullTime !== null && (
                     <div className="d-grid">
-                        <Button variant="success" size="lg" style={{ marginBottom: "5px" }}>Xem chi tiết</Button>
+                        <Button variant="success" size="lg" style={{ marginBottom: "5px" }} onClick={() => navigate(`/detail/${match.matchId}`)}>Xem chi tiết</Button>
                     </div>
                 )}
             </Modal.Body>
