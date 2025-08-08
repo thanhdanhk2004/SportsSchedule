@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
+import SeeModal from "../See"
+import api, { endpoints } from "../../Services/Apis"
 
 const Schedule = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedIndexMatches, setSelectedIndexMatches] = useState(0)
+    const [seeModal, setSeeModal] = useState(false)
     var today = new Date()
+    const [error, setErrors] = useState("")
+    const [matches, setMatches] = useState([])
+    const [groupLeague, setGroupLeague] = useState({})
+    const [matchSelected, setMatcheSelected] = useState(null)
 
+    //Lấy thứ
     function get_day(day) {
         switch (day) {
             case 0:
@@ -29,6 +37,7 @@ const Schedule = () => {
         }
     }
 
+    //Láy ngày
     function get_date(date, quantity) {
         const newDate = new Date(date)
         newDate.setDate(newDate.getDate() + quantity)
@@ -39,7 +48,7 @@ const Schedule = () => {
 
     const dates = [
         { label: "Hôm nay", sub: get_day(today.getDay()) },
-        { label: "Ngày mai", sub: get_day((today.getDay() + 1)) },
+        { label: get_date(today, 1), sub: get_day((today.getDay() + 1)) },
         { label: get_date(today, 2), sub: get_day((today.getDay() + 2)) },
         { label: get_date(today, 3), sub: get_day((today.getDay() + 3)) },
         { label: get_date(today, 4), sub: get_day((today.getDay() + 4)) },
@@ -48,51 +57,35 @@ const Schedule = () => {
         { label: "Chọn", sub: "ngày" },
     ];
 
-    const matches = [
-        {
-            time: "17:00",
-            date: "25/07",
-            league: "GHCLB",
-            home: "Olympiacos",
-            away: "Norwich City",
-            score: "3 - 0",
-            halftime: "H1: 1-0",
-        },
-        {
-            time: "17:00",
-            date: "25/07",
-            league: "GHCLB",
-            home: "Yokohama FC",
-            away: "Sociedad",
-            score: "1 - 2",
-            halftime: "H1: 0-2",
-        },
-        {
-            time: "19:00",
-            date: "25/07",
-            league: "GHCLB",
-            home: "Freiburg",
-            away: "Dynamo Dresden",
-            score: "3 - 3",
-            halftime: "H1: 0-1",
-        },
-        {
-            time: "20:00",
-            date: "25/07",
-            league: "GHCLB",
-            home: "Hannover 96",
-            away: "Hansa Rostock",
-            score: "vs",
-        },
-        {
-            time: "20:30",
-            date: "25/07",
-            league: "GHCLB",
-            home: "Mainz 05",
-            away: "Seekirchen",
-            score: "vs",
-        },
-    ];
+    //Gom các trận đấu cùng một giải
+    const groupNameLeague = (matches) => {
+        return matches.reduce((acc, match) => {
+            if (!acc[match.leagueName])
+                acc[match.leagueName] = []
+            acc[match.leagueName].push(match);
+            return acc
+        }, {})
+    }
+
+
+    // Lây các trận đấu
+    const getFixture = async (date) => {
+        try {
+            const res = await api.get(endpoints.fixtures, { params: { date: date } })
+            setMatches(res.data)
+            const grouped = groupNameLeague(res.data)
+            setGroupLeague(grouped)
+        } catch (err) {
+            setErrors("Vui lòng kiểm tra lại mạng")
+            alert(error)
+        }
+    }
+
+    useEffect(() => {
+        const date = get_date(today, 0)
+        getFixture(date)
+    }, [])
+
 
     return (
         <Container className="mt-4">
@@ -105,7 +98,9 @@ const Schedule = () => {
                             <DatePicker
                                 selected={null}
                                 onChange={(date) => {
-                                    console.log("Ngày đã chọn:", date)
+                                    const day = date.getDate().toString().padStart(2, '0')
+                                    const month = (date.getMonth() + 1).toString().padStart(2, '0')
+                                    getFixture(`${day}/${month}`)
                                 }}
                                 customInput={
                                     <div className="text-center fw-bold">
@@ -119,7 +114,7 @@ const Schedule = () => {
                         </Col>) : (<Col key={index} xs={6} sm={3} md={1}
                             className={`py-2 border ${selectedIndex === index ? "bg-success text-white" : "bg-light"}`}
                             style={{ cursor: "pointer", minWidth: "100px" }}
-                            onClick={() => setSelectedIndex(index)}>
+                            onClick={() => { setSelectedIndex(index); getFixture(item.label === "Hôm nay" ? get_date(today, 0) : item.label) }}>
                             <div className="fw-bold">{item.label}</div>
                             <div>{item.sub}</div>
                         </Col>)
@@ -162,45 +157,54 @@ const Schedule = () => {
                     ))}
                 </div>
 
-                <div className='d-flex justify-content-center mt-3'>
-                    <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
-                        <div className="fw-semibold mb-2">Lịch thi đấu MLS Nhà Nghề Mỹ</div>
-                        {matches.map((m, i) => (
-                            <div key={i} className="d-flex border-bottom py-4 mt-2 gap-3 align-items-center">
-                                <div style={{ width: "150px" }} className="text-sm text-start">
-                                    {m.time} - {m.date}
-                                </div>
+                {Object.entries(groupLeague).map(([league, matches]) => (
+                    <div className='d-flex justify-content-center mt-3'>
+                        <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
+                            <div className="fw-semibold mb-2">{league}</div>
+                            {matches.map((m) => (
+                                <div className="d-flex border-bottom py-4 mt-2 gap-3 align-items-center">
+                                    <div style={{ width: "150px" }} className="text-sm text-start">
+                                        <p>
+                                            {m.time.split(" ")[0]}
+                                        </p>
+                                        <p style={{ paddingLeft: "20px" }}>
+                                            {m.time.split(" ")[1].substring(0, 5)}
+                                        </p>
+                                    </div>
 
-                                <div className="flex-grow-1 d-flex justify-content-center">
-                                    <div className="match-row d-flex align-items-center justify-content-between border-bottom py-2">
-                                        <div className="team d-flex align-items-center gap-2" style={{width:"150px"}}>
-                                            {m.home_logo && <img src={m.home_logo} alt="home" width={20} />}
-                                            <span className="team-name">{m.home}</span>
-                                        </div>
+                                    <div className="flex-grow-1 d-flex justify-content-center">
+                                        <div className="match-row d-flex align-items-center justify-content-between border-bottom py-2">
+                                            <div className="team d-flex align-items-center gap-2" style={{ width: "150px" }}>
+                                                {m.logoHome && <img src={m.logoHome} alt="home" width={20} />}
+                                                <span className="team-name" style={{width: "150px"}}>{m.nameHome}</span>
+                                            </div>
 
-                                        <div className={`score-box px-2 py-1 fw-bold rounded text-white ${m.score === "vs" ? "bg-secondary" : "bg-success"}`}>
-                                            {m.score}
-                                        </div>
+                                            <div key={m.matchId} className={`score-box px-2 py-1 fw-bold rounded text-white ${m.goalHomeFullTime === null ? "bg-secondary" : "bg-success"}`} style={{ height: "35px", cursor: "pointer" }} onClick={() => {setSeeModal(true); setMatcheSelected(m)}}>
+                                                <span>{m.goalHomeFullTime === null ? "vs" : m.goalHomeFullTime + " - " + m.goalAwayFullTime}</span>
+                                            </div>
+                                            <SeeModal show={seeModal} handleClose={() => setSeeModal(false)}  match={matchSelected}/>
 
-                                        <div className="team d-flex align-items-center gap-2 justify-content-start px-4" style={{width:"150px"}}>
-                                            <span className="team-name text-end">{m.away}</span>
-                                            {m.away_logo && <img src={m.away_logo} alt="away" width={20} />}
+                                            <div className="team d-flex align-items-center gap-2 justify-content-start" style={{ width: "150px" }}>
+                                                <span className="team-name text-end" style={{width: "150px"}}>{m.nameAway}</span>
+                                                {m.logoAway && <img src={m.logoAway} alt="away" width={20} />}
+                                            </div>
                                         </div>
                                     </div>
 
+                                    {m.goalHomeFullTime === null && (
+                                        <>
+                                            <div className='btn btn-info'>Hẹn lịch</div>
+                                            <div className='btn btn-success'>Minigame</div>
+                                        </>
+                                    )}
+
                                 </div>
 
-                                <div>
-                                    <div className='btn btn-info'>Hẹn lịch</div>
-                                </div>
-                               <div>
-                                    <div className='btn btn-success'>Minigame</div>
-                                </div>
-                            </div>
+                            ))}
 
-                        ))}
+                        </div>
                     </div>
-                </div>
+                ))}
 
             </div>
         </Container>

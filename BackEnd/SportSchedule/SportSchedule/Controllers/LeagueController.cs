@@ -20,7 +20,6 @@ namespace SportSchedule.Controllers
             if (data == null) 
                 return BadRequest(new {message = "Yêu cầu kiểm tra mạng"} );
             return Ok(new { leagues = data });
-
         }
     }
 }

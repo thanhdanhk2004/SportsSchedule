@@ -4,6 +4,7 @@ using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Fixture;
 using System.Globalization;
 using Microsoft.Extensions.Caching.Memory;
+using SportSchedule.DataAccess;
 
 namespace SportSchedule.Services.Fixtures
 {
@@ -12,11 +13,13 @@ namespace SportSchedule.Services.Fixtures
         private readonly ContextDB _context;
         private readonly HttpClient _httpClient;
         private readonly IMemoryCache _cache;
-        public FixturesService(ContextDB context, IHttpClientFactory httpClientFactory, IMemoryCache cache)
+        private readonly MatchDAL _matchDAL;
+        public FixturesService(ContextDB context, IHttpClientFactory httpClientFactory, IMemoryCache cache, MatchDAL matchDAL)
         {
             _context = context;
             _httpClient = httpClientFactory.CreateClient("FootballData");
             _cache = cache;
+            _matchDAL = matchDAL;
         }
 
         //Ham de do du lieu vao DB
@@ -62,10 +65,8 @@ namespace SportSchedule.Services.Fixtures
                         };
                         fixtures.Add(fixture);
                     }
-                    
+          
                 }
-                
-
             }
 
             return fixtures;
@@ -100,43 +101,14 @@ namespace SportSchedule.Services.Fixtures
                 return _listFixtures!;
             }
 
-            DateTime time = DateTime.SpecifyKind(DateTime.ParseExact(date, "dd/MM", CultureInfo.InvariantCulture),
-                DateTimeKind.Utc);
-         
-            var data = await (from m in _context.Matches
-                             join th in _context.Teams on m.TeamIdHome equals th.TeamId
-                             join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
-                             join l in _context.Leagues on m.LeagueId equals l.LeagueId
-                             join msh in _context.MatchStatictis  // Đội nhà
-                             on new {MatchId = m.MatchId, TeamId = th.TeamId} 
-                             equals new {msh.MatchId, msh.TeamId} into mshGroup
-                             from home in mshGroup.DefaultIfEmpty()
+            DateTime time = TimeZoneInfo.ConvertTimeToUtc(DateTime.ParseExact(date, "dd/MM", CultureInfo.InvariantCulture), TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+            
+            List <FixtureDataFrontend> data = _matchDAL.getFixturesDAL(time, time.AddDays(1));
 
-                             join msw in _context.MatchStatictis//Đội khách
-                             on new {MatchId = m.MatchId, TeamId = tw.TeamId}
-                             equals new {msw.MatchId, msw.TeamId} into mswGroup
-                             from away in mswGroup.DefaultIfEmpty()
-                             join p in _context.Periods on m.MatchId equals p.MatchId into periodGroup
-                             from period in periodGroup.DefaultIfEmpty()
-                             where m.Time.Value.Date == time.Date
-                             select new FixtureDataFrontend
-                             {
-                                 LeagueName = l.Name,
-                                 MatchId = m.MatchId,
-                                 NameHome = th.Name,
-                                 NameAway = tw.Name,
-                                 Time = m.Time.ToString(),
-                                 LogoHome = th.Logo,
-                                 LogoAway = tw.Logo,
-                                 HomeId = th.TeamId,
-                                 AwayId = tw.TeamId,
-                                 GoalHomeFirst = period.GoalHome,
-                                 GoalAwayFirst = period.GoalAway,
-                                 GoalHomeFullTime = home.Score,
-                                 GoalAwayFullTime = away.Score
-                             }).ToListAsync();
-
-            _cache.Set(key_cache, data, TimeSpan.FromMinutes(10));
+            if(data != null)
+            {
+                _cache.Set(key_cache, data, TimeSpan.FromMinutes(10));
+            }
             return data;
         }
 

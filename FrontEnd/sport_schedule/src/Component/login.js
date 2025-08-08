@@ -43,7 +43,6 @@ function Login({ show, onHide, switchToRegister}) {
         }
     }
 
-
     return (
         <Modal show={show} onHide={onHide} centered size="lg">
             <Modal.Body>

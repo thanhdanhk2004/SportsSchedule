@@ -101,6 +101,7 @@ builder.Services.AddScoped<PlayerMatchDAL>();
 builder.Services.AddScoped<TeamMemberDAL>();
 builder.Services.AddScoped<GoalDAL>();
 builder.Services.AddScoped<CardDAL>();
+builder.Services.AddScoped<MatchDAL>();
 
 var app = builder.Build();
 

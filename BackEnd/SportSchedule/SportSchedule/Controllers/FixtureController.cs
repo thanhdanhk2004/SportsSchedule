@@ -17,12 +17,12 @@ namespace SportSchedule.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFixture(string date)
         {
-            var fixtures = await _fixtureService.GetFixtureDataFrontendsAsync(date);
-            if(fixtures == null)
+            var data = await _fixtureService.GetFixtureDataFrontendsAsync(date);
+            if(data == null)
             {
                 return NotFound();
             }
-            return Ok(fixtures);
+            return Ok(data);
         }
 
         [HttpGet("{fixture_id}")]

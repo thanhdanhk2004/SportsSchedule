@@ -3,6 +3,7 @@
     public class FixtureDataFrontend
     {
         public string? LeagueName {  get; set; }
+        public string? LeagueLogo {  get; set; }
         public int? MatchId { get; set; }
         public int? HomeId { get; set; }
         public int? AwayId { get; set; }
