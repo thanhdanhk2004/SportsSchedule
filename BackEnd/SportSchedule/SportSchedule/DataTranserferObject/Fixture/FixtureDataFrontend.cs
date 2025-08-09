@@ -5,6 +5,7 @@
         public string? LeagueName {  get; set; }
         public string? LeagueLogo {  get; set; }
         public int? MatchId { get; set; }
+        public string? Round {  get; set; }
         public int? HomeId { get; set; }
         public int? AwayId { get; set; }
         public string? NameHome {  get; set; }

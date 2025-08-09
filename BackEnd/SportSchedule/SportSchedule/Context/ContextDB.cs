@@ -35,6 +35,7 @@ namespace SportSchedule.Context
         public virtual DbSet<PermissionModel> Permissions { get; set; }
         public virtual DbSet<RolePermissionModel> RolePermissions { get; set; }
         public virtual DbSet<PlayerMatchModel> PlayerMatchModels { get; set; }
+        public virtual DbSet<SubstitutionModel> Substitutions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             
@@ -63,6 +64,7 @@ namespace SportSchedule.Context
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new RolePermissionConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerMatchConfiguration());
+            modelBuilder.ApplyConfiguration(new SubstitutionConfiguration());
         }
 
     }

@@ -10,5 +10,7 @@
         public MemberModel Member { get; set; }
         public List<GoalModel>? Goals { get; set; }
         public List<PlayerMatchModel>? PlayerMatches { get; set; }
+        public SubstitutionModel SubstitutionIn { get; set; }
+        public SubstitutionModel SubstitutionOut { get; set; }
     }
 }

@@ -11,7 +11,6 @@ const Schedule = () => {
     const [seeModal, setSeeModal] = useState(false)
     var today = new Date()
     const [error, setErrors] = useState("")
-    const [matches, setMatches] = useState([])
     const [groupLeague, setGroupLeague] = useState({})
     const [matchSelected, setMatcheSelected] = useState(null)
 
@@ -72,7 +71,6 @@ const Schedule = () => {
     const getFixture = async (date) => {
         try {
             const res = await api.get(endpoints.fixtures, { params: { date: date } })
-            setMatches(res.data)
             const grouped = groupNameLeague(res.data)
             setGroupLeague(grouped)
         } catch (err) {
@@ -81,6 +79,7 @@ const Schedule = () => {
         }
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const date = get_date(today, 0)
         getFixture(date)

@@ -6,6 +6,7 @@ using SportSchedule.DataTranserferObject.Card;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.Goal;
 using SportSchedule.DataTranserferObject.Statistic;
+using SportSchedule.DataTranserferObject.Substitution;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
@@ -21,8 +22,8 @@ namespace SportSchedule.Services.Statistic
         private readonly CardDAL _cardDAL;
         private readonly GoalDAL _goalDAL;
         private readonly TeamMemberDAL _teamMemberDAL;
-
-        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context, CardDAL cardDAL, GoalDAL goalDAL, TeamMemberDAL teamMemberDAL )
+        private readonly SubstitutionDAL _substitutionDAL;
+        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context, CardDAL cardDAL, GoalDAL goalDAL, TeamMemberDAL teamMemberDAL, SubstitutionDAL substitutionDAL)
         {
             _matchStatictis = matchStatictis;
             _httpClient = httpClient.CreateClient("FootballAPI");
@@ -31,6 +32,7 @@ namespace SportSchedule.Services.Statistic
             _cardDAL = cardDAL;
             _goalDAL = goalDAL;
             _teamMemberDAL = teamMemberDAL;
+            _substitutionDAL = substitutionDAL;
         }
 
         //Lay thong so cua tran dau
@@ -132,7 +134,7 @@ namespace SportSchedule.Services.Statistic
             return _matchStatictis.getMatchStatistic(match_id);
         }
 
-        //Phuong thuc lay su kien trong tran dau (the va ban thang)
+        //Phuong thuc lay su kien trong tran dau (the, ban thang va thay nguoi)
         public async Task getEventFixture(int fixture_id, int match_id)
         {
             var response = await _httpClient.GetAsync($"fixtures/events?fixture={fixture_id}");
@@ -143,6 +145,7 @@ namespace SportSchedule.Services.Statistic
 
             foreach(var item in json["response"]!)
             {
+                int player_id = (int)item["player"]?["id"]!;
                 if ((string)item["type"]! == "Card")
                 {
                     CardDTO card = new CardDTO
@@ -151,21 +154,33 @@ namespace SportSchedule.Services.Statistic
                         Time = (int)item["time"]?["elapsed"]!,
                         Status = "Còn hiệu lực",
                         MatchId = match_id,
-                        MemberId = (int)item["player"]?["id"]!
+                        MemberId = player_id,
                     };
                     _cardDAL.addCard(card);
-                    continue;
+                   
                 }
-                int player_id = (int)item["player"]?["id"]!;
-                GoalDTO goal = new GoalDTO
+                else if ((string)item["type"]! == "Goal")
                 {
-                    GoalType = (string)item["detail"]!,
-                    PlayerId = player_id,
-                    MatchId = match_id,
-                    TeamId = _teamMemberDAL.getTeamId(player_id),
-                    GoalTime = (int)item["time"]?["elapsed"]!
-                };
-                _goalDAL.addGoal(goal);
+                    GoalDTO goal = new GoalDTO
+                    {
+                        GoalType = (string)item["detail"]!,
+                        PlayerId = player_id,
+                        MatchId = match_id,
+                        TeamId = _teamMemberDAL.getTeamId(player_id),
+                        GoalTime = (int)item["time"]?["elapsed"]!
+                    };
+                    _goalDAL.addGoal(goal);
+                }
+                else
+                {
+                    SubstitutionDTO sub = new SubstitutionDTO
+                    {
+                        Time = (int)item["time"]?["elapsed"]!,
+                        PlayerInId = player_id,
+                        PlayerOutId = (int)item["assist"]?["id"]!
+                    };
+                    _substitutionDAL.addSubstitutionDAL(sub, match_id);
+                }
             }
         }
     }

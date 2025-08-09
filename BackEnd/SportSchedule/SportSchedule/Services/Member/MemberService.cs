@@ -143,7 +143,5 @@ namespace SportSchedule.Services.Member
             }
             return;
         }
-
-        
     }
 }

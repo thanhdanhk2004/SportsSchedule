@@ -2,7 +2,9 @@
 using SportSchedule.DataTranserferObject.Card;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.Goal;
+using SportSchedule.DataTranserferObject.Player;
 using SportSchedule.DataTranserferObject.Statistic;
+using SportSchedule.DataTranserferObject.Substitution;
 using SportSchedule.Model;
 
 namespace SportSchedule.DataAccess
@@ -57,7 +59,7 @@ namespace SportSchedule.DataAccess
                                 LogoAway = ta.Logo,
                                 GoalHomeFullTime = msh.Score,
                                 GoalAwayFullTime = msa.Score,
-                                StatisticTeamHome = new StatisticTeam
+                                StatisticTeamHome = new StatisticDTOFE
                                 {
                                     Processing = msh.Possession,
                                     ShortOnGoal = msh.ShortsOnTaget,
@@ -66,7 +68,7 @@ namespace SportSchedule.DataAccess
                                     RedCare = msh.RedCard,
                                     TeamId = msh.TeamId
                                 },
-                                StatisticTeamAway = new StatisticTeam
+                                StatisticTeamAway = new StatisticDTOFE
                                 {
                                     Processing = msa.Possession,
                                     ShortOnGoal = msa.ShortsOnTaget,
@@ -89,7 +91,7 @@ namespace SportSchedule.DataAccess
                                               from player in groupPlayer.DefaultIfEmpty()
                                               join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId
                                               where tmbh.TeamId == th.TeamId
-                                              select new PlayerDTO
+                                              select new PlayerDTOFE
                                               {
                                                   Id = mbh.MemberId,
                                                   Name = mbh.Name,
@@ -103,7 +105,7 @@ namespace SportSchedule.DataAccess
                                               from player in groupPlayer.DefaultIfEmpty()
                                               join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId
                                               where tmba.TeamId == th.TeamId
-                                              select new PlayerDTO
+                                              select new PlayerDTOFE
                                               {
                                                   Id = mba.MemberId,
                                                   Name = mba.Name,
@@ -152,6 +154,29 @@ namespace SportSchedule.DataAccess
                                                  Type = c.TypeCard,
                                                  Time = c.Time,
                                              }).ToList(),
+                                //Cach tu lam 
+                                SubHome = (from c in _context.Substitutions
+                                           join pi in _context.Players on c.PlayerInId equals pi.PlayerId
+                                           join mi in _context.Members on pi.PlayerId equals mi.MemberId
+                                           join po in _context.Players on c.PlayerOutId equals po.PlayerId
+                                           join mo in _context.Members on po.PlayerId equals mo.MemberId
+                                           where c.MatchId == m.MatchId
+                                           select new SubstitutionDTOFE
+                                           {
+                                               Time = c.Time,
+                                               NameIn = mi.Name,
+                                               NameOut = mo.Name
+                                           }).ToList(),
+                                //Cach chatgpt huong dan
+                                SubAway = (_context.Substitutions
+                                            .Where(s => s.MatchId == m.MatchId)
+                                            .Select(s => new SubstitutionDTOFE
+                                            {
+                                                Time = s.Time,
+                                                NameIn = s.PlayerIn.Member.Name,
+                                                NameOut = s.PlayerOut.Member.Name
+                                            }).ToList())
+
                             }).FirstOrDefault();
                            
 

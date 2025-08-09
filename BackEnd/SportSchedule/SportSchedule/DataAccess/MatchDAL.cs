@@ -33,6 +33,7 @@ namespace SportSchedule.DataAccess
                             select new FixtureDataFrontend
                             {
                                 LeagueName = l.Name,
+                                Round = m.Round,
                                 LeagueLogo = l.Logo,
                                 MatchId = m.MatchId,
                                 NameHome = th.Name,

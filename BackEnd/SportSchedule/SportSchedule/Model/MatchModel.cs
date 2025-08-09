@@ -20,7 +20,6 @@
         public List<PlayerMatchModel>? PlayerMatches { get; set; }
         public List<CardModel>? Cards { get; set; }
         public List<GoalModel>? Goals { get; set; }
-
-
+        public List<SubstitutionModel>? Substitutions { get; set; }
     }
 }

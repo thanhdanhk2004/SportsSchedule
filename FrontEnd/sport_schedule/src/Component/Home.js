@@ -10,7 +10,7 @@ const Home = () => {
                 <Schedule />
             </div>
         </>
-    )
+    )   
 }
 
 export default Home

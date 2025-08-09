@@ -7,7 +7,8 @@ export const endpoints={
     'register': '/user/register',
     'login' : '/user/login',
     'league':'/league',
-    'fixtures':'/fixture'
+    'fixtures':'/fixture',
+    'statistic': (matchId) => `/statistic/${matchId}`
 }
 
 // const auth_apis = () =>{
