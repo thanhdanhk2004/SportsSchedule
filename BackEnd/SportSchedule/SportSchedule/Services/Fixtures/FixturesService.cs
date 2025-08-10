@@ -72,26 +72,6 @@ namespace SportSchedule.Services.Fixtures
             return fixtures;
         }
 
-        //Lấy sỉ số của các trận đã đấu
-        public async Task<List<int>?> getScore(int? fixture_id, DateTime time)
-        {
-            
-            List<int>? scores = new List<int>();
-            var response = await _httpClient.GetAsync($"matches/{fixture_id}");
-            response.EnsureSuccessStatusCode();
-
-            var content = await response.Content.ReadAsStringAsync();
-            var json = JObject.Parse(content);
-
-            if (json["score"]["fullTime"]["home"].Type == JTokenType.Null)
-                return null;
-            scores.Add((int)json["score"]!["fullTime"]!["home"]!);
-            scores.Add((int)json["score"]!["fullTime"]!["away"]!);
-            scores.Add((int)json["score"]!["halfTime"]!["home"]!);
-            scores.Add((int)json["score"]!["halfTime"]!["away"]!);
-            return scores;
-        }
-
         //Ham de lay du lieu cac tran dau cho FE
         public async Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date)
         {

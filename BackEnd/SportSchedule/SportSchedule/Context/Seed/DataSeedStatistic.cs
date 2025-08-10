@@ -12,7 +12,7 @@ namespace SportSchedule.Context.Seed
         public static async Task SeenDataStatistic(ContextDB _context, IStatisticService _statisticService, IMemberService _memberService)
         {
             _context.Database.Migrate();
-            DateTime dateNow = TimeZoneInfo.ConvertTimeToUtc(DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified), TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
+            DateTime dateNow = DateTime.Now;
 
             var responses = (from m in _context.Matches
                            join th in _context.Teams on m.TeamIdHome equals th.TeamId

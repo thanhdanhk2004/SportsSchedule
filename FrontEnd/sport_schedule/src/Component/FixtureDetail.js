@@ -4,12 +4,13 @@ import api, { endpoints } from "../Services/Apis"
 import { useEffect, useState } from "react"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav } from "react-bootstrap";
-import Statistic from "./Statistic";
+import Statistic from "./FixtureStatistic";
+import Overview from "./FixtureOverview";
 
 const FixtureDetail = () => {
     const [statisticFixture, setStatisticFixture] = useState([])
     const { matchId } = useParams()
-    const [activeKey, setActiveKey] = useState("dienbien");
+    const [activeKey, setActiveKey] = useState("tongquan");
 
     const getDataStatistic = async () => {
             try {
@@ -91,6 +92,11 @@ const FixtureDetail = () => {
                         <Statistic statisticTeamHome={statisticFixture.statisticTeamHome} statisticTeamAway={statisticFixture.statisticTeamAway}
                                     nameHome={statisticFixture.nameHome} nameAway={statisticFixture.nameAway}
                                     logoHome={statisticFixture.logoHome} logoAway={statisticFixture.logoAway}/>
+                    }
+                    {activeKey === "tongquan" && 
+                        <Overview goalHome={statisticFixture.goalHome ? statisticFixture.goalHome:[]} goalAway={statisticFixture.goalAway ? statisticFixture.goalAway:[]}
+                                cardHome={statisticFixture.cardsHome ? statisticFixture.cardsHome:[]} cardAway={statisticFixture.cardsAway ? statisticFixture.cardsAway:[]}
+                                subHome={statisticFixture.subHome ? statisticFixture.subHome:[]} subAway={statisticFixture.subAway?statisticFixture.subAway:[]}/>
                     }
                 </div>
             </div>

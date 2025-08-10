@@ -66,6 +66,5 @@ namespace SportSchedule.Context
             modelBuilder.ApplyConfiguration(new PlayerMatchConfiguration());
             modelBuilder.ApplyConfiguration(new SubstitutionConfiguration());
         }
-
     }
 }

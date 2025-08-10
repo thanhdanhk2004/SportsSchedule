@@ -5,6 +5,6 @@ namespace SportSchedule.Services.League
     public interface ILeagueService
     {
          Task<List<LeagueData>> GetLeagueData();
-         Task<List<LeaguesData>> GetLeaguesData();
+         Task<List<LeaguesData>> GetLeaguesDataFrontEnd();
     }
 }

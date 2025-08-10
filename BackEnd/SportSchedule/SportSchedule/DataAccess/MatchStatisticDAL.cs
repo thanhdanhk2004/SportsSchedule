@@ -1,4 +1,5 @@
-﻿using SportSchedule.Context;
+﻿using Microsoft.Extensions.Caching.Memory;
+using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Card;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.Goal;
@@ -33,6 +34,7 @@ namespace SportSchedule.DataAccess
             _context.MatchStatictis.Add(model);
             _context.SaveChanges();
         }
+
 
         public StatisticDTO getMatchStatistic(int match_id)
         {
@@ -85,106 +87,122 @@ namespace SportSchedule.DataAccess
                                                 .Where(p => p.MatchId == m.MatchId && p.Name == "first")
                                                 .Select(p => p.GoalAway)
                                                 .FirstOrDefault(),
-                                PlayerHome = (from mbh in _context.Members
-                                              join tmbh in _context.TeamMembers on mbh.MemberId equals tmbh.MemberId
-                                              join p in _context.Players on mbh.MemberId equals p.PlayerId into groupPlayer
-                                              from player in groupPlayer.DefaultIfEmpty()
-                                              join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId
-                                              where tmbh.TeamId == th.TeamId
-                                              select new PlayerDTOFE
-                                              {
-                                                  Id = mbh.MemberId,
-                                                  Name = mbh.Name,
-                                                  Position = mbh.Position,
-                                                  Status = pm.Status
-                                              }).ToList(),
-
-                                PlayerAway = (from mba in _context.Members
-                                              join tmba in _context.TeamMembers on mba.MemberId equals tmba.MemberId
-                                              join p in _context.Players on mba.MemberId equals p.PlayerId into groupPlayer
-                                              from player in groupPlayer.DefaultIfEmpty()
-                                              join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId
-                                              where tmba.TeamId == th.TeamId
-                                              select new PlayerDTOFE
-                                              {
-                                                  Id = mba.MemberId,
-                                                  Name = mba.Name,
-                                                  Position = mba.Position,
-                                                  Status = pm.Status
-                                              }).ToList(),
-                                GoalHome = (from g in _context.Goals
-                                            join p in _context.Players on g.PlayerId equals p.PlayerId
-                                            join mb in _context.Members on p.PlayerId equals mb.MemberId
-                                            where g.MatchId == m.MatchId && g.TeamId == th.TeamId
-                                            select new GoalDTOFE
-                                            {
-                                                NamePlayer = mb.Name,
-                                                Type = g.GoalType,
-                                                Time = g.GoalTime,
-                                            }).ToList(),
-                                GoalAway = (from g in _context.Goals
-                                            join p in _context.Players on g.PlayerId equals p.PlayerId
-                                            join mb in _context.Members on p.PlayerId equals mb.MemberId
-                                            where g.MatchId == m.MatchId && g.TeamId == ta.TeamId
-                                            select new GoalDTOFE
-                                            {
-                                                NamePlayer = mb.Name,
-                                                Type = g.GoalType,
-                                                Time = g.GoalTime,
-                                            }).ToList(),
-                                CardsHome = (from c in _context.Cards
-                                             join mb in _context.Members on c.MemberId equals mb.MemberId
-                                             join tmbh in _context.TeamMembers on mb.MemberId equals tmbh.MemberId
-                                             join teamHome in _context.Teams on tmbh.TeamId equals teamHome.TeamId
-                                             where c.MatchId == m.MatchId
-                                             select new CardDTOFE
-                                             {
-                                                 NameMember = mb.Name,
-                                                 Type = c.TypeCard,
-                                                 Time = c.Time,
-                                             }).ToList(),
-                                CardsAway = (from c in _context.Cards
-                                             join mb in _context.Members on c.MemberId equals mb.MemberId
-                                             join tmba in _context.TeamMembers on mb.MemberId equals tmba.MemberId
-                                             join teamAway in _context.Teams on tmba.TeamId equals teamAway.TeamId
-                                             where c.MatchId == m.MatchId
-                                             select new CardDTOFE
-                                             {
-                                                 NameMember = mb.Name,
-                                                 Type = c.TypeCard,
-                                                 Time = c.Time,
-                                             }).ToList(),
-                                //Cach tu lam 
-                                SubHome = (from c in _context.Substitutions
-                                           join pi in _context.Players on c.PlayerInId equals pi.PlayerId
-                                           join mi in _context.Members on pi.PlayerId equals mi.MemberId
-                                           join po in _context.Players on c.PlayerOutId equals po.PlayerId
-                                           join mo in _context.Members on po.PlayerId equals mo.MemberId
-                                           where c.MatchId == m.MatchId
-                                           select new SubstitutionDTOFE
-                                           {
-                                               Time = c.Time,
-                                               NameIn = mi.Name,
-                                               NameOut = mo.Name
-                                           }).ToList(),
-                                //Cach chatgpt huong dan
-                                SubAway = (_context.Substitutions
-                                            .Where(s => s.MatchId == m.MatchId)
-                                            .Select(s => new SubstitutionDTOFE
-                                            {
-                                                Time = s.Time,
-                                                NameIn = s.PlayerIn.Member.Name,
-                                                NameOut = s.PlayerOut.Member.Name
-                                            }).ToList())
-
                             }).FirstOrDefault();
-                           
-
+                data.PlayerHome = this.getPlayers(data.NameHome!);
+                data.PlayerAway = this.getPlayers(data.NameAway!);
+                data.CardsHome = this.getCards(match_id, data.NameHome!);
+                data.CardsAway = this.getCards(match_id, data.NameAway!);
+                data.SubHome = this.getSubs(match_id, data.NameHome!);
+                data.SubAway = this.getSubs(match_id, data.NameAway!);
+                data.GoalHome = this.getGoals(match_id, data.NameHome!);
+                data.GoalAway = this.getGoals(match_id, data.NameAway!);
                 return data;
             }catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return null!;
+            }
+        }
+
+        public List<PlayerDTOFE> getPlayers(string team_name)
+        {
+            try
+            {
+                List<PlayerDTOFE> list_player = (from mb in _context.Members
+                                                 join tmb in _context.TeamMembers on mb.MemberId equals tmb.MemberId
+                                                 join t in _context.Teams on tmb.TeamId equals t.TeamId
+                                                 join p in _context.Players on mb.MemberId equals p.PlayerId into groupPlayer
+                                                 from player in groupPlayer.DefaultIfEmpty()
+                                                 join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId into groupPlayerMatch
+                                                 from playerMatch in groupPlayerMatch.DefaultIfEmpty()
+                                                 where t.Name == team_name
+                                                 select new PlayerDTOFE
+                                                 {
+                                                     Id = mb.MemberId,
+                                                     Name = mb.Name,
+                                                     Position = mb.Position,
+                                                     Status = playerMatch.Status == null?false:true
+                                                 }).ToList();
+                return list_player;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
+        public List<SubstitutionDTOFE> getSubs(int match_id, string team)
+        {
+            try
+            {
+                List<SubstitutionDTOFE> SubAway = (from s in _context.Substitutions
+                                                   join pi in _context.Players on s.PlayerInId equals pi.PlayerId
+                                                   join mi in _context.Members on pi.PlayerId equals mi.MemberId
+                                                   join po in _context.Players on s.PlayerOutId equals po.PlayerId
+                                                   join mo in _context.Members on po.PlayerId equals mo.MemberId
+                                                   join tb in _context.TeamMembers on mi.MemberId equals tb.MemberId
+                                                   join t in _context.Teams on tb.TeamId equals t.TeamId
+                                                   where s.MatchId == match_id && t.Name == team
+                                                   select new SubstitutionDTOFE
+                                                   {
+                                                       Time = s.Time,
+                                                       NameIn = mi.Name,
+                                                       NameOut = mo.Name
+                                                   }).ToList();
+                return SubAway;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
                 return null;
+            }
+
+        }
+
+        public List<CardDTOFE> getCards(int match_id, string team_name)
+        {
+            try
+            {
+                List<CardDTOFE> listCards = (from c in _context.Cards
+                                             join mb in _context.Members on c.MemberId equals mb.MemberId
+                                             join tmbh in _context.TeamMembers on mb.MemberId equals tmbh.MemberId
+                                             join team in _context.Teams on tmbh.TeamId equals team.TeamId
+                                             where c.MatchId == match_id && team.Name == team_name
+                                             select new CardDTOFE
+                                             {
+                                                 NameMember = mb.Name,
+                                                 Type = c.TypeCard,
+                                                 Time = c.Time,
+                                             }).ToList();
+                return listCards;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
+
+        public List<GoalDTOFE> getGoals(int match_id, string team_name)
+        {
+            try
+            {
+                List<GoalDTOFE> listGoals = (from g in _context.Goals
+                                             join p in _context.Players on g.PlayerId equals p.PlayerId
+                                             join m in _context.Members on p.PlayerId equals m.MemberId
+                                             join t in _context.Teams on g.TeamId equals t.TeamId
+                                             where g.MatchId == match_id && t.Name == team_name
+                                             select new GoalDTOFE
+                                             {
+                                                 NamePlayer = m.Name,
+                                                 Type = g.GoalType,
+                                                 Time = g.GoalTime,
+                                             }).ToList();
+                return listGoals;
+            }
+            catch( Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
             }
         }
     }

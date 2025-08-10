@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
 using SportSchedule.DataAccess;
@@ -23,7 +24,9 @@ namespace SportSchedule.Services.Statistic
         private readonly GoalDAL _goalDAL;
         private readonly TeamMemberDAL _teamMemberDAL;
         private readonly SubstitutionDAL _substitutionDAL;
-        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context, CardDAL cardDAL, GoalDAL goalDAL, TeamMemberDAL teamMemberDAL, SubstitutionDAL substitutionDAL)
+        private readonly IMemoryCache _cache;
+
+        public StatisticService(MatchStatisticDAL matchStatictis, IHttpClientFactory httpClient, PeriodDAL periodDAL,ContextDB context, CardDAL cardDAL, GoalDAL goalDAL, TeamMemberDAL teamMemberDAL, SubstitutionDAL substitutionDAL, IMemoryCache cache)
         {
             _matchStatictis = matchStatictis;
             _httpClient = httpClient.CreateClient("FootballAPI");
@@ -33,6 +36,7 @@ namespace SportSchedule.Services.Statistic
             _goalDAL = goalDAL;
             _teamMemberDAL = teamMemberDAL;
             _substitutionDAL = substitutionDAL;
+            _cache = cache;
         }
 
         //Lay thong so cua tran dau
@@ -49,7 +53,7 @@ namespace SportSchedule.Services.Statistic
             foreach (var item in json["response"]!)
             {
                 fixture_id = (int)item["fixture"]!["id"]!;
-                if(fixture_existed.Contains(fixture_id))
+                if(fixture_existed.Contains(fixture_id) || _context.MatchStatictis.Any(ms => ms.MatchId == match_id))
                     continue;
                 string? round = (string?)item["league"]?["round"];
                 string? leagueName = (string?)item["league"]?["name"];
@@ -113,6 +117,7 @@ namespace SportSchedule.Services.Statistic
         //Ham lay thong so
         public string? getStatsValue(JArray stats, string type)
         {
+           
             var stat = stats.FirstOrDefault(s => s["type"]?.ToString() == type);
             return stat?["value"]?.ToString();
         }
@@ -131,7 +136,15 @@ namespace SportSchedule.Services.Statistic
         //Lay thong ke tran dau cho Frontend
         public async Task<StatisticDTO> getStatisticFixtureFrontend(int match_id)
         {
-            return _matchStatictis.getMatchStatistic(match_id);
+            if(_cache.TryGetValue("match_"+match_id.ToString(), out StatisticDTO statistic)){
+                return statistic;
+            }
+            var data = _matchStatictis.getMatchStatistic(match_id);
+            if(data != null)
+            {
+                _cache.Set("match_" + match_id.ToString(), data, TimeSpan.FromMinutes(30));
+            }
+            return data;
         }
 
         //Phuong thuc lay su kien trong tran dau (the, ban thang va thay nguoi)
@@ -183,5 +196,7 @@ namespace SportSchedule.Services.Statistic
                 }
             }
         }
+
+        
     }
 }

@@ -42,7 +42,9 @@ namespace SportSchedule.Services.League
             }
             return leagues;
         }
-        public async Task<List<LeaguesData>> GetLeaguesData()
+
+
+        public async Task<List<LeaguesData>> GetLeaguesDataFrontEnd()
         {
             List<string> leagues = ["European Championship", "Premier League", "UEFA Champions League", "Ligue 1", "Bundesliga", "Serie A", "FIFA World Cup"];
             var data = await _context.Leagues

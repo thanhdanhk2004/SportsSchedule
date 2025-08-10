@@ -35,9 +35,12 @@ namespace SportSchedule.Services.Member
             {
                 int coach_id = (int)item["coach"]?["id"]!;
                 //Kiem tra co ton tai HLV hay chua
-                if(!_memberDAL.isExistedMember(coach_id))
+                if (!_memberDAL.isExistedMember(coach_id))
+                {
                     await this.addInfoCoach(coach_id);
-                foreach(var player in item["startXI"]!)
+                    _teamMemberDAL.addTeamMember(i == 0 ? team_home_id : team_away_id, coach_id);
+                }
+                foreach (var player in item["startXI"]!)
                 {
                     int player_id = (int)player["player"]?["id"]!;
                     //Kiem tra co ton tai cau thu hay chua neu chua thi moi them

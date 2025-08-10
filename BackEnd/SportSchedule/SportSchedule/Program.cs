@@ -154,6 +154,6 @@ var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredServi
 var statisticService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IStatisticService>();
 var memberService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMemberService>();
 await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
-await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService);
+//await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService);
 
 app.Run();

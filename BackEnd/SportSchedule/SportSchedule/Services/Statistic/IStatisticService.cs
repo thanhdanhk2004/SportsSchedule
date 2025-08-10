@@ -1,6 +1,7 @@
 ﻿using SportSchedule.DataTranserferObject;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.Statistic;
+using SportSchedule.DataTranserferObject.Substitution;
 
 namespace SportSchedule.Services.Statistic
 {
