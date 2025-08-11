@@ -130,9 +130,117 @@
 /*Style fixture detail*/
 .detail-container {
   display: flex;
-  min-height: 100vh;
+  min-height: 10vh;
 }
 
-.detail-container > * {
-  padding: 10px;
+
+
+/*Style cho doi hinh ra san*/
+.formation-container {
+  border-radius: 15px;
+  position: relative;
+  color: white;
+  width: 550px;
+}
+
+.formation-lineup{
+  background-image: url(../assets/backgroupLineup.jpg);  
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 106.5%;
+  margin-left: -20px;
+  height: 680px;
+}
+
+.formation-header {
+  width:80%;
+  background-color: #91878795;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-top: -20px;
+  margin-left: 49px;
+  height: 40px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.formation-footer {
+  width: 80%;
+  background-color: #91878795;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: -20px;
+  margin-left: 48px;
+  height: 40px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.team-logo {
+  margin-left: 15px;
+  width: 30px;
+  height: 30px;
+}
+
+.formation-text {
+  margin-left: auto;
+  padding-right: 10px;
+  font-weight: normal;
+}
+
+.formation-row-home{
+  margin-bottom: 25px;
+}
+
+.formation-row-away{
+  margin-top: 25px;
+}
+
+.player {
+  text-align: center;
+  position: relative;
+}
+
+.shirt-home {
+  width: 35px;
+  height: 35px;
+  background-color: #0a2a66;
+  border-radius: 5px;
+  position: relative;
+  margin: 0 auto;
+}
+.shirt-away {
+  width: 35px;
+  height: 35px;
+  background-color: #ced3dc;
+  border-radius: 5px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.number {
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player-name {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: white;
+}
+
+.sub-icon {
+  color: red;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
 }

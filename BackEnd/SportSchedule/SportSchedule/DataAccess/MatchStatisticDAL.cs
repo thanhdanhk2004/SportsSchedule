@@ -68,7 +68,8 @@ namespace SportSchedule.DataAccess
                                     Corners = msh.Corners,
                                     YellowCards = msh.YellowCard,
                                     RedCare = msh.RedCard,
-                                    TeamId = msh.TeamId
+                                    TeamId = msh.TeamId,
+                                    LineUp = msh.Lineup
                                 },
                                 StatisticTeamAway = new StatisticDTOFE
                                 {
@@ -77,7 +78,8 @@ namespace SportSchedule.DataAccess
                                     Corners = msa.Corners,
                                     YellowCards = msa.YellowCard,
                                     RedCare = msa.RedCard,
-                                    TeamId = msa.TeamId
+                                    TeamId = msa.TeamId,
+                                    LineUp = msa.Lineup
                                 },
                                 GoalHomeFirst = _context.Periods
                                                 .Where(p => p.MatchId == m.MatchId && p.Name == "first")
@@ -121,7 +123,8 @@ namespace SportSchedule.DataAccess
                                                      Id = mb.MemberId,
                                                      Name = mb.Name,
                                                      Position = mb.Position,
-                                                     Status = playerMatch.Status == null?false:true
+                                                     Status = playerMatch.Status,
+                                                     Number = player.Number,
                                                  }).ToList();
                 return list_player;
             }

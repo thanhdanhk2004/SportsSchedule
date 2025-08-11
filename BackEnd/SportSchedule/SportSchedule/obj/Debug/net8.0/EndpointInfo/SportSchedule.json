@@ -26,26 +26,19 @@
         }
       }
     },
-    "/fixture/{fixture_id}": {
+    "/fixture/{league_id}": {
       "get": {
         "tags": [
           "Fixture"
         ],
         "parameters": [
           {
-            "name": "fixture_id",
+            "name": "league_id",
             "in": "path",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "date",
-            "in": "query",
-            "schema": {
-              "type": "string"
             }
           }
         ],

@@ -2,8 +2,8 @@ import { Table, Container, Row, Col, Image } from "react-bootstrap";
 
 const Statistic = ({ statisticTeamHome, statisticTeamAway, nameHome, nameAway, logoHome, logoAway }) => {
     return (
-        <div>
-            <Container className="mt-4 p-3 border rounded shadow-sm" style={{ width: "600px" }}>
+        <div >
+            <Container className="mt-4 p-3 border rounded shadow-sm" style={{ width: "600px", marginBottom:"20px"}}>
                 <h5 className="text-center fw-bold mb-4">SỐ LIỆU THỐNG KÊ</h5>
 
                 <Row className="text-center align-items-center mb-3">

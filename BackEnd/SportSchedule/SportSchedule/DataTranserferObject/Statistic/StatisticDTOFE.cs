@@ -8,5 +8,7 @@
         public int? YellowCards { get; set; }
         public int? RedCare { get; set; }
         public int? TeamId { get; set; }
+        public string? LineUp {  get; set; }
+
     }
 }

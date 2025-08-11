@@ -72,8 +72,8 @@ namespace SportSchedule.Services.Fixtures
             return fixtures;
         }
 
-        //Ham de lay du lieu cac tran dau cho FE
-        public async Task<List<FixtureDataFrontend>> GetFixtureDataFrontendsAsync(string date)
+        //Ham de lay du lieu cac tran dau cho FE (theo ngay)
+        public async Task<List<FixtureDataFrontend>> GetFixturesByDateDataFrontendsAsync(string date)
         {
             string key_cache = $"fixtures_{date}";
             if(_cache.TryGetValue(key_cache, out List<FixtureDataFrontend> _listFixtures))
@@ -83,12 +83,25 @@ namespace SportSchedule.Services.Fixtures
 
             DateTime time = TimeZoneInfo.ConvertTimeToUtc(DateTime.ParseExact(date, "dd/MM", CultureInfo.InvariantCulture), TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
             
-            List <FixtureDataFrontend> data = _matchDAL.getFixturesDAL(time, time.AddDays(1));
+            List <FixtureDataFrontend> data = _matchDAL.getFixturesByDateDAL(time, time.AddDays(1));
 
             if(data != null)
             {
                 _cache.Set(key_cache, data, TimeSpan.FromMinutes(10));
             }
+            return data;
+        }
+
+        //Ham lay du lieu cac tran dau cho FE(theo giai)
+        public async Task<List<FixtureDataFrontend>> GetFixtruesByLeagueDataFrontendAsync(int league_id)
+        {
+            string key_cache = $"league_{league_id}";
+            if (_cache.TryGetValue(key_cache, out List<FixtureDataFrontend> list)){
+                return list!;
+            }
+            var data = _matchDAL.getFixtrueByLeagueDAL(league_id);
+            if (data != null)
+                _cache.Set(key_cache, data, TimeSpan.FromMinutes(30));
             return data;
         }
 
@@ -100,9 +113,11 @@ namespace SportSchedule.Services.Fixtures
                 var result = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
                 return result!;
             }
-            List<FixtureDataFrontend> _listFixture = await this.GetFixtureDataFrontendsAsync(date);
+            List<FixtureDataFrontend> _listFixture = await this.GetFixturesByDateDataFrontendsAsync(date);
             var fixture = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
             return fixture!;
         }
+
+        
     }
 }

@@ -189,8 +189,8 @@ namespace SportSchedule.Services.Statistic
                     SubstitutionDTO sub = new SubstitutionDTO
                     {
                         Time = (int)item["time"]?["elapsed"]!,
-                        PlayerInId = player_id,
-                        PlayerOutId = (int)item["assist"]?["id"]!
+                        PlayerInId = (int)item["assist"]?["id"]!,
+                        PlayerOutId = player_id
                     };
                     _substitutionDAL.addSubstitutionDAL(sub, match_id);
                 }

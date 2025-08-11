@@ -9,6 +9,7 @@
         public int? Corners {  get; set; }
         public int? YellowCard { get; set; }
         public int? RedCard { get; set; }
+        public string? Lineup {  get; set; }
         public int? TeamId {  get; set; }
         public int? MatchId {  get; set; }
         public TeamModel? Team { get; set; }

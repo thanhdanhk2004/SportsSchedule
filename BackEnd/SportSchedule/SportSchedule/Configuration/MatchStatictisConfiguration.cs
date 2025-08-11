@@ -15,6 +15,7 @@ namespace SportSchedule.Configuration
             builder.Property(ms => ms.Corners).HasDefaultValue(0);
             builder.Property(ms => ms.YellowCard).HasDefaultValue(0);
             builder.Property(ms => ms.RedCard).HasDefaultValue(0);
+            builder.Property(ms => ms.Lineup).IsRequired();
 
             //Khoa ngoai giua MatchStatictis va Team
             builder.HasOne(ms => ms.Team)
