@@ -26,7 +26,7 @@
         }
       }
     },
-    "/fixture/{league_id}": {
+    "/fixture/{league_id}/{page}": {
       "get": {
         "tags": [
           "Fixture"
@@ -39,6 +39,16 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
             }
           }
         ],

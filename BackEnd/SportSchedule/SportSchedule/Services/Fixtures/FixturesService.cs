@@ -93,13 +93,13 @@ namespace SportSchedule.Services.Fixtures
         }
 
         //Ham lay du lieu cac tran dau cho FE(theo giai)
-        public async Task<List<FixtureDataFrontend>> GetFixtruesByLeagueDataFrontendAsync(int league_id)
+        public async Task<List<FixtureDataFrontend>> GetFixtruesByLeagueDataFrontendAsync(int league_id, int page)
         {
-            string key_cache = $"league_{league_id}";
+            string key_cache = $"league_{league_id}_{page}";
             if (_cache.TryGetValue(key_cache, out List<FixtureDataFrontend> list)){
                 return list!;
             }
-            var data = _matchDAL.getFixtrueByLeagueDAL(league_id);
+            var data = _matchDAL.getFixtrueByLeagueDAL(league_id, page);
             if (data != null)
                 _cache.Set(key_cache, data, TimeSpan.FromMinutes(30));
             return data;
@@ -118,6 +118,5 @@ namespace SportSchedule.Services.Fixtures
             return fixture!;
         }
 
-        
     }
 }

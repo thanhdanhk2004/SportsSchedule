@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "SportSchedule.Controllers.FixtureController",
-    "Method": "GetFixture",
+    "Method": "GetFixtureByDate",
     "RelativePath": "fixture",
     "HttpMethod": "GET",
     "IsController": true,
@@ -17,14 +17,19 @@
   },
   {
     "ContainingType": "SportSchedule.Controllers.FixtureController",
-    "Method": "getInfoFixtureByDate",
-    "RelativePath": "fixture/{league_id}",
+    "Method": "getInfoFixtureByLeague",
+    "RelativePath": "fixture/{league_id}/{page}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "league_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
         "Type": "System.Int32",
         "IsRequired": true
       }

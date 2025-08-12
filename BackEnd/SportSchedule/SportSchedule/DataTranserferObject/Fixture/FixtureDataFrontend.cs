@@ -17,6 +17,6 @@
         public int? GoalHomeFullTime {  get; set; }
         public int? GoalAwayFirst { get; set; }
         public int? GoalAwayFullTime { get; set; }
-
+        public int NumberRound {  get; set; }
     }
 }

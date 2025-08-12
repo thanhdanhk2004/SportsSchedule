@@ -46,9 +46,9 @@ namespace SportSchedule.Services.League
 
         public async Task<List<LeaguesData>> GetLeaguesDataFrontEnd()
         {
-            List<string> leagues = ["European Championship", "Premier League", "UEFA Champions League", "Ligue 1", "Bundesliga", "Serie A", "FIFA World Cup"];
+            List<string> leagues = ["La Liga", "Premier League", "UEFA Champions League", "Ligue 1", "Bundesliga", "Serie A", "FIFA World Cup"];
             var data = await _context.Leagues
-                .Where(l=> leagues.Contains(l.Name!))
+                .Where(l=> leagues.Contains(l.Name!) && l.Country != "Brazil")
                 .Select(l => new LeaguesData
                 {
                     Id = l.LeagueId,
@@ -57,5 +57,6 @@ namespace SportSchedule.Services.League
                 }).ToListAsync();
             return data;
         }
+
     }
 }

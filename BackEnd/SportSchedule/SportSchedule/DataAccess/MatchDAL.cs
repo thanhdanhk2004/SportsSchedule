@@ -1,5 +1,7 @@
-﻿using SportSchedule.Context;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Fixture;
+using SportSchedule.DataTranserferObject.Page;
 
 namespace SportSchedule.DataAccess
 {
@@ -59,11 +61,11 @@ namespace SportSchedule.DataAccess
         }
 
         //Lay cac tran dau theo giai
-        public List<FixtureDataFrontend> getFixtrueByLeagueDAL(int league_id)
+        public List<FixtureDataFrontend> getFixtrueByLeagueDAL(int league_id, int page)
         {
             try
             {
-                var data = (from m in _context.Matches
+                var result = (from m in _context.Matches
                             join th in _context.Teams on m.TeamIdHome equals th.TeamId
                             join tw in _context.Teams on m.TeamIdAway equals tw.TeamId
                             join l in _context.Leagues on m.LeagueId equals l.LeagueId
@@ -94,9 +96,15 @@ namespace SportSchedule.DataAccess
                                 GoalHomeFirst = (_context.Periods.Where(pf => pf.Name == "first" && pf.MatchId == m.MatchId).Select(pf => pf.GoalHome)).FirstOrDefault(),
                                 GoalAwayFirst = (_context.Periods.Where(ps => ps.Name == "second" && ps.MatchId == m.MatchId).Select(ps => ps.GoalHome)).FirstOrDefault(),
                                 GoalHomeFullTime = home.Score,
-                                GoalAwayFullTime = away.Score
+                                GoalAwayFullTime = away.Score,
                             }).ToList();
-                return data;
+                
+                int number_round = result.GroupBy(r => r.Round).Count();
+                int number_fixture_a_round = result.Where(r => r.Round == page.ToString()).Count();
+                int number_skip = (page - 1) * number_fixture_a_round;
+                var data = result.Skip(number_skip).Take(number_fixture_a_round).ToList();
+                data[0].NumberRound = number_round;
+                return (List<FixtureDataFrontend>)data;
             }
             catch(Exception ex)
             {

@@ -15,7 +15,7 @@ namespace SportSchedule.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFixture(string date)
+        public async Task<IActionResult> GetFixtureByDate(string date)
         {
             var data = await _fixtureService.GetFixturesByDateDataFrontendsAsync(date);
             if(data == null)
@@ -25,10 +25,10 @@ namespace SportSchedule.Controllers
             return Ok(data);
         }
 
-        [HttpGet("{league_id}")]
-        public async Task<IActionResult> getInfoFixtureByDate(int league_id)
+        [HttpGet("{league_id}/{page}")]
+        public async Task<IActionResult> getInfoFixtureByLeague(int league_id, int page=1)
         {
-            var data = _fixtureService.GetFixtruesByLeagueDataFrontendAsync(league_id);
+            var data = await _fixtureService.GetFixtruesByLeagueDataFrontendAsync(league_id, page);
             if(data != null)
             {
                 return Ok(data);

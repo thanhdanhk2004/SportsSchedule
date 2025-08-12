@@ -13,6 +13,7 @@ const Schedule = () => {
     const [error, setErrors] = useState("")
     const [groupLeague, setGroupLeague] = useState({})
     const [matchSelected, setMatcheSelected] = useState(null)
+    const [value, setValue] = useState("")
 
     //Lấy thứ
     function get_day(day) {
@@ -85,6 +86,27 @@ const Schedule = () => {
         getFixture(date)
     }, [])
 
+    //Tim kiem giai dau hoac tran dau hom nay
+    const groupedSearch = (text) => {
+        return Object.entries(groupLeague || {}).reduce((acc, [leagueName, matches]) =>{
+            // if(!acc[leagueName] && leagueName.toLowerCase().includes(text.toLowerCase()))
+            //     acc[leagueName] = []
+            if(leagueName.toLowerCase().includes(text.toLowerCase()))
+                acc[leagueName].push(matches) 
+        }, {})
+    }
+
+    const search = (text) =>{
+        try{
+            const grouped_search = groupedSearch(text)
+            setGroupLeague(grouped_search)
+            console.log(groupLeague)
+            alert("hello")
+        }catch(err){
+            setErrors(err)
+            alert(error)
+        }
+    }
 
     return (
         <Container className="mt-4">
@@ -127,6 +149,7 @@ const Schedule = () => {
                     <InputGroup>
                         <Form.Control
                             placeholder="Tìm kiếm trận đấu, giải đấu"
+                            onInput={(e) => search(e.target.value)}
                         />
                         <button className='btn btn-primary'>
                             Search
