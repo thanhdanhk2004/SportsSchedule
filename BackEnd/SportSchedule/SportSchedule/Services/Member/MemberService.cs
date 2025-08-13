@@ -145,7 +145,6 @@ namespace SportSchedule.Services.Member
                 info.Height = (string)item["player"]?["height"]!;
                 info.Weight = (string)item["player"]?["weight"]!;
                 info.Number = (int)item["player"]?["number"]!;
-                _playerDAL.addPlayer(info);
                 break;
             }
             return info;
@@ -155,7 +154,7 @@ namespace SportSchedule.Services.Member
         public async Task<PlayerInfoDTOFE> getPlayerInfo(int player_id)
         {
             string weight = _playerDAL.getWeightPlayer(player_id);
-            if(weight == "0kg")
+            if(weight == "0 kg")
             {
                 InfoDataMember info_player = await this.getDataPlayer(player_id);
                 _playerDAL.updateInfoPlayer(player_id, info_player);

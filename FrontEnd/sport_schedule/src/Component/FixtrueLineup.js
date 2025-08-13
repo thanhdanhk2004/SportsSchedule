@@ -3,6 +3,8 @@ import { useState } from "react";
 import "../Style/index.css"
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaArrowRightArrowLeft } from "react-icons/fa6"; // icon thay người
+import api, { endpoints } from "../Services/Apis";
+import ModalPlayer from "./Player";
 
 const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway, statisticTeamHome, statisticTeamAway, subHome, subAway }) => {
 
@@ -39,15 +41,33 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
     console.log(playerAwayGrouped)
 
     //Một người trong đội hình
-    const Player = ({ number, name, sub, team }) => (
+    const Player = ({ id, number, name, sub, team }) => (
         <div className="player">
-            <div className={team === "home"?"shirt-home":"shirt-away"}>
+            <div style={{ cursor: "pointer" }} onClick={() => { getPlayer(id); setShowModal(true) }} className={team === "home" ? "shirt-home" : "shirt-away"}>
                 <span className="number">{number}</span>
-                {sub === true &&  <FaArrowRightArrowLeft className="sub-icon" />}
+                {sub === true && <FaArrowRightArrowLeft className="sub-icon" />}
             </div>
-            <div className="player-name">{name}</div>
+            <div style={{ cursor: "pointer" }} onClick={() => { getPlayer(id); setShowModal(true) }} className="player-name">{name}</div>
+            <ModalPlayer show={showModal} close={() => setShowModal(false)} player={playerInfo} />
         </div>
     );
+
+
+    //Lay thong tin cau thủ
+    const [playerInfo, setPlayerInfo] = useState({})
+    const getPlayer = async (playerId) => {
+        try {
+            const res = await api.get(endpoints.player(playerId))
+            setPlayerInfo(res.data)
+            console.log(playerInfo)
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+    //Modal cau thu
+    const [showModal, setShowModal] = useState(false)
+
 
     return (
         <div className="d-flex justify-content-center">
@@ -64,11 +84,13 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                             </tr>
                             {playerHome.sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
-                                (<tr>
-                                    <td style={{ width: "15%" }}>{player.number}</td>
-                                    <td >{player.name}</td>
-                                    <td style={{ width: "15%" }}>{positions[`${player.position}`]}</td>
-                                </tr>)
+                                (<>
+                                    <tr>
+                                        <td style={{ width: "15%" }}>{player.number}</td>
+                                        <td style={{ cursor: "pointer" }} onClick={() => { getPlayer(player.id); setShowModal(true) }}>{player.name}</td>
+                                        <td style={{ width: "15%" }}>{positions[`${player.position}`]}</td>
+                                    </tr>
+                                </>)
                             ))}
                         </tbody>
                     </Table>
@@ -96,20 +118,20 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                                         <Row className="formation-row-home justify-content-center">
                                             {players.map((player) => (
                                                 <Col xs="auto">
-                                                    <Player number={player.number} name={player.name} sub={subHome.find(sub => sub.nameOut === player.name)? true:false} team="home" />
+                                                    <Player id={player.id} number={player.number} name={player.name} sub={subHome.find(sub => sub.nameOut === player.name) ? true : false} team="home" />
                                                 </Col>
                                             ))}
                                         </Row>
                                     ))
                                 }
                             </div>
-                            <div style={{marginTop:"75px"}}>
+                            <div style={{ marginTop: "75px" }}>
                                 {
                                     playerAwayGrouped.reverse().map((players) => (
                                         <Row className="formation-row-away justify-content-center">
                                             {players.map((player) => (
                                                 <Col xs="auto">
-                                                    <Player number={player.number} name={player.name} sub={subAway.find(sub => sub.nameOut === player.name)? true:false}  team="away" />
+                                                    <Player number={player.number} name={player.name} sub={subAway.find(sub => sub.nameOut === player.name) ? true : false} team="away" />
                                                 </Col>
                                             ))}
                                         </Row>
@@ -141,11 +163,14 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                             </tr>
                             {playerAway.sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
-                                (<tr>
-                                    <td style={{ width: "15%" }}>{player.number}</td>
-                                    <td >{player.name}</td>
-                                    <td style={{ width: "15%" }}>{positions[`${player.position}`]}</td>
-                                </tr>)
+                                (<>
+                                    <tr>
+                                        <td style={{ width: "15%" }}>{player.number}</td>
+                                        <td style={{ cursor: "pointer" }} onClick={() => { getPlayer(player.id); setShowModal(true) }}>{player.name}</td>
+                                        <td style={{ width: "15%" }}>{positions[`${player.position}`]}</td>
+                                    </tr>
+                                </>
+                                )
                             ))}
                         </tbody>
                     </Table>

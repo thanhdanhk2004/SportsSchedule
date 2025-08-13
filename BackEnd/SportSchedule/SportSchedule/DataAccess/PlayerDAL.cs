@@ -65,7 +65,10 @@ namespace SportSchedule.DataAccess
                                    Height = p.Height,
                                    Weight = p.Weight,
                                    NameCLB = t.Name,
-                                   LogoCLB = t.Logo
+                                   LogoCLB = t.Logo,
+                                   Image = m.Image,
+                                   Number = p.Number,
+                                   Age = m.Age
                                }).FirstOrDefault();
                     return data;
                 }
@@ -117,6 +120,7 @@ namespace SportSchedule.DataAccess
                         member.Birthday = TimeZoneInfo.ConvertTimeToUtc(info_player.Birthday, TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time"));
                         member.Image = info_player.Image;
                         member.Age = info_player.Age;
+                        member.Nationality = info_player.Nationaly;
                     }
                     _context.Members.Update(member);
                     _context.SaveChanges();

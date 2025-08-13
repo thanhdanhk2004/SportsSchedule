@@ -13,6 +13,7 @@ namespace SportSchedule.Controllers
         {
             _memberService = memberService;
         }
+
         [HttpGet("{player_id}")]
         public async Task<IActionResult> getPlayer(int player_id)
         {

@@ -47,6 +47,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.PlayerController",
+    "Method": "getPlayer",
+    "RelativePath": "player/{player_id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "player_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.StatisticControler",
     "Method": "GetStatisticFixture",
     "RelativePath": "statistic/{match_id}",

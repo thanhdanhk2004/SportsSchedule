@@ -11,5 +11,8 @@
         public string? Weight {  get; set; }
         public string? NameCLB {  get; set; }
         public string? LogoCLB {  get; set; }
+        public string? Image {  get; set; }
+        public int? Number { get; set; }
+        public int? Age { get; set; }
     }
 }

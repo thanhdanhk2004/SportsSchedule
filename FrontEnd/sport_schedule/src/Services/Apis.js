@@ -9,7 +9,8 @@ export const endpoints={
     'league':'/league',
     'fixtures':'/fixture',
     'statistic': (matchId) => `/statistic/${matchId}`,
-    'fixturesLeague': ({leagueId, page}) => `/fixture/${leagueId}/${page}`
+    'fixturesLeague': ({leagueId, page}) => `/fixture/${leagueId}/${page}`,
+    'player':(playerId) => `/player/${playerId}`
 }
 
 // const auth_apis = () =>{
