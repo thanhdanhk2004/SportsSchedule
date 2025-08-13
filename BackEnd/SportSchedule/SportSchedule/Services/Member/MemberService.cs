@@ -3,7 +3,9 @@ using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
 using SportSchedule.DataAccess;
 using SportSchedule.DataModel;
+using SportSchedule.DataTranserferObject.Player;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace SportSchedule.Services.Member
 {
@@ -14,13 +16,15 @@ namespace SportSchedule.Services.Member
         private readonly PlayerDAL _playerDAL;
         private readonly PlayerMatchDAL _playerMatchDAL;
         private readonly TeamMemberDAL _teamMemberDAL;
-        public MemberService(ContextDB context, IHttpClientFactory httpClient, MemberDAL member, PlayerDAL playerDAL, PlayerMatchDAL playerMatchDAL, TeamMemberDAL teamMemberDAL)
+        private readonly IMemoryCache _cache;
+        public MemberService(ContextDB context, IHttpClientFactory httpClient, MemberDAL member, PlayerDAL playerDAL, PlayerMatchDAL playerMatchDAL, TeamMemberDAL teamMemberDAL, IMemoryCache cache)
         {
             _httpClient = httpClient.CreateClient("FootballAPI");
             _memberDAL = member;
             _playerDAL = playerDAL;
             _playerMatchDAL = playerMatchDAL;
             _teamMemberDAL = teamMemberDAL;
+            _cache = cache;
         }
         public async Task getMemberService(int fixture_id, int team_home_id, int team_away_id, int match_id)
         {
@@ -120,7 +124,7 @@ namespace SportSchedule.Services.Member
 
 
         //Them du lieu cau thu
-        public async Task addInfoPlayer(int player_id)
+        public async Task<InfoDataMember> getDataPlayer(int player_id)
         {
             var response_coach = await _httpClient.GetAsync($"players/profiles?player={player_id}");
             response_coach.EnsureSuccessStatusCode();
@@ -144,7 +148,25 @@ namespace SportSchedule.Services.Member
                 _playerDAL.addPlayer(info);
                 break;
             }
-            return;
+            return info;
+        }
+        
+        //Lay thong tin cau thu (truơng hop chua co thoong tin thi phai cap nhat)
+        public async Task<PlayerInfoDTOFE> getPlayerInfo(int player_id)
+        {
+            string weight = _playerDAL.getWeightPlayer(player_id);
+            if(weight == "0kg")
+            {
+                InfoDataMember info_player = await this.getDataPlayer(player_id);
+                _playerDAL.updateInfoPlayer(player_id, info_player);
+            }
+            string key_cache = $"info_player_{player_id}";
+            if (_cache.TryGetValue(key_cache, out PlayerInfoDTOFE player))
+                return player;
+            var data = _playerDAL.getPlayer(player_id) ;
+            if (data != null)
+                _cache.Set(key_cache, data, TimeSpan.FromMinutes(30));
+            return data;
         }
     }
 }

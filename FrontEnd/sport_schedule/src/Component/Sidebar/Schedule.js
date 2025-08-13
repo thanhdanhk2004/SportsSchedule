@@ -14,6 +14,7 @@ const Schedule = () => {
     const [groupLeague, setGroupLeague] = useState({})
     const [matchSelected, setMatcheSelected] = useState(null)
     const [value, setValue] = useState("")
+    const [groupFixturesSearch, setGroupFixturesSearch] = useState({})
 
     //Lấy thứ
     function get_day(day) {
@@ -80,7 +81,8 @@ const Schedule = () => {
         }
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+    //(load trang khi vua chay len)
     useEffect(() => {
         const date = get_date(today, 0)
         getFixture(date)
@@ -88,23 +90,32 @@ const Schedule = () => {
 
     //Tim kiem giai dau hoac tran dau hom nay
     const groupedSearch = (text) => {
-        return Object.entries(groupLeague || {}).reduce((acc, [leagueName, matches]) =>{
-            // if(!acc[leagueName] && leagueName.toLowerCase().includes(text.toLowerCase()))
-            //     acc[leagueName] = []
-            if(leagueName.toLowerCase().includes(text.toLowerCase()))
-                acc[leagueName].push(matches) 
-        }, {})
-    }
+        return Object.entries(groupLeague || {}).reduce((acc, [leagueName, matches]) => {
+            if (leagueName.toLowerCase().includes(text.toLowerCase())) {
+                acc[leagueName] = matches;
+            } 
+            else {
+                const filteredMatches = matches.filter(match =>
+                    match.nameHome.toLowerCase().includes(text.toLowerCase()) ||
+                    match.nameAway.toLowerCase().includes(text.toLowerCase())
+                );
 
-    const search = (text) =>{
-        try{
+                if (filteredMatches.length > 0) {
+                    acc[leagueName] = filteredMatches;
+                }
+            }
+            return acc;
+        }, {});
+    };
+
+    //Goi ham 
+    const search = (text) => {
+        try {
             const grouped_search = groupedSearch(text)
-            setGroupLeague(grouped_search)
-            console.log(groupLeague)
-            alert("hello")
-        }catch(err){
+            setGroupFixturesSearch(grouped_search)
+        } catch (err) {
             setErrors(err)
-            alert(error)
+            console.log(error)
         }
     }
 
@@ -122,6 +133,7 @@ const Schedule = () => {
                                     const day = date.getDate().toString().padStart(2, '0')
                                     const month = (date.getMonth() + 1).toString().padStart(2, '0')
                                     getFixture(`${day}/${month}`)
+                                    setValue("")
                                 }}
                                 customInput={
                                     <div className="text-center fw-bold">
@@ -149,11 +161,10 @@ const Schedule = () => {
                     <InputGroup>
                         <Form.Control
                             placeholder="Tìm kiếm trận đấu, giải đấu"
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
                             onInput={(e) => search(e.target.value)}
                         />
-                        <button className='btn btn-primary'>
-                            Search
-                        </button>
                     </InputGroup>
                 </Col>
             </Row>
@@ -179,7 +190,7 @@ const Schedule = () => {
                     ))}
                 </div>
 
-                {Object.entries(groupLeague).map(([league, matches]) => (
+                {groupLeague && Object.keys(groupLeague).length > 0 ? Object.entries(value === "" ? groupLeague : groupFixturesSearch).map(([league, matches]) => (
                     <div className='d-flex justify-content-center mt-3'>
                         <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
                             <div className="fw-semibold mb-2">{league}</div>
@@ -198,16 +209,16 @@ const Schedule = () => {
                                         <div className="match-row d-flex align-items-center justify-content-between border-bottom py-2">
                                             <div className="team d-flex align-items-center gap-2" style={{ width: "150px" }}>
                                                 {m.logoHome && <img src={m.logoHome} alt="home" width={20} />}
-                                                <span className="team-name" style={{width: "150px"}}>{m.nameHome}</span>
+                                                <span className="team-name" style={{ width: "150px" }}>{m.nameHome}</span>
                                             </div>
 
-                                            <div key={m.matchId} className={`score-box px-2 py-1 fw-bold rounded text-white ${m.goalHomeFullTime === null ? "bg-secondary" : "bg-success"}`} style={{ height: "35px", cursor: "pointer" }} onClick={() => {setSeeModal(true); setMatcheSelected(m)}}>
+                                            <div key={m.matchId} className={`score-box px-2 py-1 fw-bold rounded text-white ${m.goalHomeFullTime === null ? "bg-secondary" : "bg-success"}`} style={{ height: "35px", cursor: "pointer" }} onClick={() => { setSeeModal(true); setMatcheSelected(m) }}>
                                                 <span>{m.goalHomeFullTime === null ? "vs" : m.goalHomeFullTime + " - " + m.goalAwayFullTime}</span>
                                             </div>
-                                            <SeeModal show={seeModal} handleClose={() => setSeeModal(false)}  match={matchSelected}/>
+                                            <SeeModal show={seeModal} handleClose={() => setSeeModal(false)} match={matchSelected} />
 
                                             <div className="team d-flex align-items-center gap-2 justify-content-start" style={{ width: "150px" }}>
-                                                <span className="team-name text-end" style={{width: "150px"}}>{m.nameAway}</span>
+                                                <span className="team-name text-end" style={{ width: "150px" }}>{m.nameAway}</span>
                                                 {m.logoAway && <img src={m.logoAway} alt="away" width={20} />}
                                             </div>
                                         </div>
@@ -221,12 +232,21 @@ const Schedule = () => {
                                     )}
 
                                 </div>
-
                             ))}
 
                         </div>
                     </div>
-                ))}
+                )) :
+                    <div className='d-flex justify-content-center mt-5'>
+                        <h3 className='text text-danger'>Không tìm thấy trận đấu nào</h3>
+                    </div>
+                }
+                {
+                    Object.keys(groupFixturesSearch).length === 0 && value !== "" &&
+                    <div className='d-flex justify-content-center mt-5'>
+                        <h3 className='text text-danger'>Không tìm thấy trận đấu nào</h3>
+                    </div>
+                }
 
             </div>
         </Container>

@@ -12,7 +12,7 @@ const FixturesLeague = () => {
     const [groupFixture, setGroupFixture] = useState({})
     const [seeModal, setSeeModal] = useState(false)
     const [matchSelected, setMatcheSelected] = useState(null)
-
+    
     //Gom cac tran dau theo ngay
     const groupDateFixture = (matches) =>{
         return matches.reduce((acc, match) =>{

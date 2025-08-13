@@ -22,7 +22,7 @@ const Header = () => {
         <Navbar.Toggle aria-controls="main-navbar" />
         <Navbar.Collapse id="main-navbar">
           <Nav className="mx-auto text-uppercase fw-bold">
-            <Nav.Link href="#" className="text-warning">Lịch thi đấu</Nav.Link>
+            <Nav.Link href="/" className="text-warning">Lịch thi đấu</Nav.Link>
             <Nav.Link href="#">Kết quả</Nav.Link>
 
             <NavDropdown title="Giải đấu" id="league-dropdown">
