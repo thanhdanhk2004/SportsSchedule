@@ -1,4 +1,5 @@
-﻿using SportSchedule.DataTranserferObject.League;
+﻿using SportSchedule.DataModel;
+using SportSchedule.DataTranserferObject.League;
 
 namespace SportSchedule.Services.League
 {
@@ -6,5 +7,6 @@ namespace SportSchedule.Services.League
     {
          Task<List<LeagueData>> GetLeagueData();
          Task<List<LeaguesData>> GetLeaguesDataFrontEnd();
+         Task<List<InfoDataLeagueTeam>> getLeagueTeamData(string league, string season);
     }
 }

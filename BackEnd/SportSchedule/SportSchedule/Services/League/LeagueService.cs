@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
+using SportSchedule.DataModel;
 using SportSchedule.DataTranserferObject.League;
 using System.Diagnostics.Metrics;
 using System.Xml.Linq;
@@ -58,5 +59,26 @@ namespace SportSchedule.Services.League
             return data;
         }
 
+        public async Task<List<InfoDataLeagueTeam>> getLeagueTeamData(string league, string season)
+        {
+            var reponse = await _httpClient.GetAsync($"competitions/{league}/teams?season={season}");
+            reponse.EnsureSuccessStatusCode();
+
+            var content = await reponse.Content.ReadAsStringAsync();
+            var json = JObject.Parse(content);
+            List<InfoDataLeagueTeam> list = new List<InfoDataLeagueTeam>();
+
+            foreach( var item in json["teams"]!)
+            {
+                InfoDataLeagueTeam leagueTeam = new InfoDataLeagueTeam
+                {
+                    LeagueId = (int)json["competition"]?["id"]!,
+                    TeamId = (int)item["id"]!,
+                    NameHome = (string)item["venue"]!
+                };
+                list.Add(leagueTeam);
+            }
+            return list;
+        }
     }
 }

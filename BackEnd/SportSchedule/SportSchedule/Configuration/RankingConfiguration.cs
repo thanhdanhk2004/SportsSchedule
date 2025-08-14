@@ -14,12 +14,8 @@ namespace SportSchedule.Configuration
             builder.Property(r => r.Win).IsRequired().HasDefaultValue(0);
             builder.Property(r => r.Draw).IsRequired().HasDefaultValue(0);
             builder.Property(r => r.Loss).IsRequired().HasDefaultValue(0);
-            builder.Property(r => r.GoalsFor).IsRequired().HasDefaultValue(0);
-            builder.Property(r => r.GoalsAgainst).IsRequired().HasDefaultValue(0);
-            builder.Property(r => r.GoalDifference).IsRequired().HasDefaultValue(0);
             builder.Property(r => r.Point).IsRequired().HasDefaultValue(0);
-            builder.Property(r => r.Position).IsRequired().HasDefaultValue(1);
-
+            builder.Property(r => r.Difference).IsRequired().HasDefaultValue(0);
             //Khoa ngoai giua Ranking va Team 
             builder.HasOne(r => r.Team)
                 .WithMany(t => t.Rankings)
@@ -29,6 +25,11 @@ namespace SportSchedule.Configuration
             builder.HasOne(r => r.League)
                 .WithMany(l => l.Rankings)
                 .HasForeignKey(r => r.LeagueId);
+
+            //KHoa ngoai giua Ranking va Season
+            builder.HasOne(r => r.Season)
+                .WithMany(s => s.Rankings)
+                .HasForeignKey(r => r.SeasonId);
 
         }
     }

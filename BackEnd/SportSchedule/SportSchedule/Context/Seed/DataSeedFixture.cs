@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SportSchedule.DataModel;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.League;
 using SportSchedule.Model;
@@ -69,7 +70,6 @@ namespace SportSchedule.Context.Seed
                 
                 foreach(FixtureData fixture in fixtures)
                 {
-                    
                     TeamModel team_home = new TeamModel
                     {
                         TeamId = fixture.HomeId,
@@ -115,6 +115,41 @@ namespace SportSchedule.Context.Seed
                     };
                     _context.Matches.Add(match);
                     _context.SaveChanges();
+                }
+            }
+
+            if (!_context.LeagueTeams.Any())
+            {
+                var leagues = _context.Leagues.Select(l => l.Name).ToList();
+                var data = new Dictionary<string, string>
+                {
+                    { "Premier League", "PL"},
+                    {"Primera Division","PD" },
+                    {"Campeonato Brasileiro Série A", "BSA " },
+                    {"Ligue 1","FL1" },
+                    {"Bundesliga","BL1 " },
+                    {"Serie A","SA" }
+                };
+                foreach (var league in leagues)
+                {
+                    List<InfoDataLeagueTeam> list = await _leagueService.getLeagueTeamData(data[league], "2025");
+                    foreach (var item in list)
+                    {
+                        LeagueTeamModel model = new LeagueTeamModel
+                        {
+                            LeagueId = item.LeagueId,
+                            TeamId = item.TeamId,
+                        };
+                        var team = _context.Teams.Where(t => t.TeamId == item.TeamId).FirstOrDefault();
+                        if (team != null)
+                        {
+                            team.NameHome = item.NameHome;
+                        }
+                        _context.Teams.Update(team);
+                        _context.SaveChanges();
+                        _context.LeagueTeams.Add(model);
+                        _context.SaveChanges();
+                    }
                 }
             }
         }

@@ -13,6 +13,7 @@ using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
 using SportSchedule.Services.Member;
 using SportSchedule.Services.Permission;
+using SportSchedule.Services.Ranking;
 using SportSchedule.Services.Statistic;
 using SportSchedule.Services.Users;
 using System.Text;
@@ -85,6 +86,7 @@ builder.Services.AddTransient<ILeagueService, LeagueService>();
 builder.Services.AddTransient<IFixturesService, FixturesService>();
 builder.Services.AddTransient<IStatisticService, StatisticService>();
 builder.Services.AddTransient<IMemberService, MemberService>();
+builder.Services.AddTransient<IRankingService, RankingService>();   
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
@@ -103,6 +105,7 @@ builder.Services.AddScoped<GoalDAL>();
 builder.Services.AddScoped<CardDAL>();
 builder.Services.AddScoped<MatchDAL>();
 builder.Services.AddScoped<SubstitutionDAL>();
+builder.Services.AddScoped<RankingDAL>();
 
 var app = builder.Build();
 
@@ -153,7 +156,9 @@ var leagueService = app.Services.CreateScope().ServiceProvider.GetRequiredServic
 var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IFixturesService>();
 var statisticService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IStatisticService>();
 var memberService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMemberService>();
+var rankingService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IRankingService>();
 await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
-//await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService);
+//await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService, rankingService);
+await DataSeedRanking.SeedRanking(context, rankingService);
 
 app.Run();

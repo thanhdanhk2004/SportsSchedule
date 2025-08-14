@@ -35,6 +35,7 @@ namespace SportSchedule.DataAccess
                             where m.Time >= time && m.Time < nextTime
                             select new FixtureDataFrontend
                             {
+                                LeagueId = l.LeagueId,
                                 LeagueName = l.Name,
                                 Round = m.Round,
                                 LeagueLogo = l.Logo,

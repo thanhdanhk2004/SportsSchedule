@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import SeeModal from "../See"
 import api, { endpoints } from "../../Services/Apis"
+import { Nav } from 'react-bootstrap';
 
 const Schedule = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -15,6 +16,7 @@ const Schedule = () => {
     const [matchSelected, setMatcheSelected] = useState(null)
     const [value, setValue] = useState("")
     const [groupFixturesSearch, setGroupFixturesSearch] = useState({})
+    const [yearSelected, setYearSelected] = useState(today.getFullYear())
 
     //Lấy thứ
     function get_day(day) {
@@ -93,7 +95,7 @@ const Schedule = () => {
         return Object.entries(groupLeague || {}).reduce((acc, [leagueName, matches]) => {
             if (leagueName.toLowerCase().includes(text.toLowerCase())) {
                 acc[leagueName] = matches;
-            } 
+            }
             else {
                 const filteredMatches = matches.filter(match =>
                     match.nameHome.toLowerCase().includes(text.toLowerCase()) ||
@@ -193,7 +195,16 @@ const Schedule = () => {
                 {groupLeague && Object.keys(groupLeague).length > 0 ? Object.entries(value === "" ? groupLeague : groupFixturesSearch).map(([league, matches]) => (
                     <div className='d-flex justify-content-center mt-3'>
                         <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
-                            <div className="fw-semibold mb-2">{league}</div>
+                            <div className="fw-semibold mb-2 league-name d-flex justify-content-between aline-item-center">
+                                <div className="text-center flex-grow-1">
+                                    {league}
+                                </div>
+                                <div style={{marginTop:"-5px"}}>
+                                    <Nav>
+                                        <Nav.Link href={`/ranking?leagueId=${matches[0].leagueId}&season=${yearSelected}`}>BXH</Nav.Link>
+                                    </Nav>
+                                </div>
+                            </div>
                             {matches.map((m) => (
                                 <div className="d-flex border-bottom py-4 mt-2 gap-3 align-items-center">
                                     <div style={{ width: "150px" }} className="text-sm text-start">

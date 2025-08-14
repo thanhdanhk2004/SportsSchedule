@@ -2,6 +2,7 @@
 using SportSchedule.DataAccess;
 using SportSchedule.DataModel;
 using SportSchedule.Services.Member;
+using SportSchedule.Services.Ranking;
 using SportSchedule.Services.Statistic;
 using System.Globalization;
 
@@ -9,7 +10,7 @@ namespace SportSchedule.Context.Seed
 {
     public class DataSeedStatistic
     {        
-        public static async Task SeenDataStatistic(ContextDB _context, IStatisticService _statisticService, IMemberService _memberService)
+        public static async Task SeenDataStatistic(ContextDB _context, IStatisticService _statisticService, IMemberService _memberService, IRankingService _rankingService)
         {
             _context.Database.Migrate();
             DateTime dateNow = DateTime.Now;
@@ -52,6 +53,7 @@ namespace SportSchedule.Context.Seed
                     {
                         await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0, response.MatchId ?? 0);
                         await _statisticService.getEventFixture(fixture_id, response.MatchId ?? 0);
+                        await _rankingService.updateRankings(response.MatchId ?? 0);
                     }
                     fixtures_existed.Add(fixture_id);
                 }

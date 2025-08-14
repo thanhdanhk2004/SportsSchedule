@@ -244,3 +244,14 @@
   right: -5px;
   font-size: 12px;
 }
+
+/*Style ten giai dau*/
+.league-name{
+  background-color: rgb(181, 174, 174);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 929px;
+  margin-top: -15px;
+  margin-left: -16px;
+  height: 30px;
+}

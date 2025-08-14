@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
 using SportSchedule.DataAccess;
 using SportSchedule.DataModel;

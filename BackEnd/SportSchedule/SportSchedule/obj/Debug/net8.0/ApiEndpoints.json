@@ -63,6 +63,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.RankingController",
+    "Method": "getRanking",
+    "RelativePath": "ranking",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "league_id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "season",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.StatisticControler",
     "Method": "GetStatisticFixture",
     "RelativePath": "statistic/{match_id}",
