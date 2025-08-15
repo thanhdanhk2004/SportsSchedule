@@ -7,8 +7,10 @@ using Microsoft.IdentityModel.Tokens;
 using SportSchedule.Context;
 using SportSchedule.Context.Seed;
 using SportSchedule.DataAccess;
+using SportSchedule.DataTranserferObject.Article;
 using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
+using SportSchedule.Services.Article;
 using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
 using SportSchedule.Services.Member;
@@ -19,7 +21,7 @@ using SportSchedule.Services.Users;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var _context = new ContextDB();
 
 //Cau hinh PostgreSQL
 builder.Services.AddDbContext<ContextDB>(options =>
@@ -75,7 +77,22 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddAuthorization();
+//Dang ky Authorization
+var permissions = new List<string>();
+using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ContextDB>();
+    permissions = dbContext.Permissions.Select(p => p.PermisstionName).ToList();
+}
+
+builder.Services.AddAuthorization(options =>
+{
+    foreach (var permission in permissions)
+    {
+        options.AddPolicy($"Permission.{permission}", policy =>
+            policy.Requirements.Add(new PermissionRequirement(permission)));
+    }
+});
 
 //Cau hinh Authorization
 builder.Services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
@@ -87,6 +104,7 @@ builder.Services.AddTransient<IFixturesService, FixturesService>();
 builder.Services.AddTransient<IStatisticService, StatisticService>();
 builder.Services.AddTransient<IMemberService, MemberService>();
 builder.Services.AddTransient<IRankingService, RankingService>();   
+builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
@@ -108,6 +126,7 @@ builder.Services.AddScoped<SubstitutionDAL>();
 builder.Services.AddScoped<RankingDAL>();
 builder.Services.AddScoped<LeagueDAL>();
 builder.Services.AddScoped<UserDAL>();
+builder.Services.AddScoped<PostDAL>();
 
 var app = builder.Build();
 
@@ -124,23 +143,6 @@ app.UseCors(builder =>
     .AllowAnyHeader()
     .AllowAnyMethod();
 });
-
-//Dang ky Authorization
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ContextDB>();
-    var permissions = dbContext.Permissions.Select(p => p.PermisstionName).ToList();
-
-    var authOptions = app.Services.GetRequiredService<IAuthorizationPolicyProvider>() as AuthorizationOptions;
-    if (authOptions != null)
-    {
-        foreach (var permission in permissions)
-        {
-            authOptions.AddPolicy($"Permission.{permission}", policy =>
-                policy.Requirements.Add(new PermissionRequirement(permission!)));
-        }
-    }
-}
 
 
 app.UseAuthentication();

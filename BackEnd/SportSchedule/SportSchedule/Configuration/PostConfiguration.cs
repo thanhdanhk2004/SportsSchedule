@@ -14,6 +14,7 @@ namespace SportSchedule.Configuration
             builder.Property(p => p.Description).IsRequired(false);
             builder.Property(p => p.Image).IsRequired(false);
             builder.Property(p => p.Created).HasDefaultValue(DateTime.UtcNow);
+            builder.Property(p => p.Status).HasDefaultValue("Chờ duyệt");
 
             //Thiet lap khoa ngoai giua bang User va bang Post
             builder.HasOne(p => p.User)

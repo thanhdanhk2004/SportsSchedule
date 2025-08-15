@@ -35,7 +35,6 @@ function Login({ show, onHide, switchToRegister}) {
                     login(res.data.user.token)
                     onHide()
                     navigate('/')
-                    // window.location.href = '/'
                 }
             }
         } catch (err) {

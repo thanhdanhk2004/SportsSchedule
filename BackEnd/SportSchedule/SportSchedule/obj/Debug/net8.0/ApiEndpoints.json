@@ -1,5 +1,74 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "getArticle",
+    "RelativePath": "article/{articleId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "updateArticle",
+    "RelativePath": "article/{articleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "article",
+        "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "articleId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "deleteArticle",
+    "RelativePath": "article/{articleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "postArticle",
+    "RelativePath": "article/post",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "article",
+        "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.FixtureController",
     "Method": "GetFixtureByDate",
     "RelativePath": "fixture",
@@ -109,7 +178,7 @@
     "Parameters": [
       {
         "Name": "user_data",
-        "Type": "SportSchedule.DataTranserferObject.User.UserDataTransferObject",
+        "Type": "SportSchedule.DataTranserferObject.User.UserDTO",
         "IsRequired": true
       }
     ],
@@ -125,7 +194,7 @@
     "Parameters": [
       {
         "Name": "user",
-        "Type": "SportSchedule.DataTranserferObject.User.UserDataTransferObject",
+        "Type": "SportSchedule.DataTranserferObject.User.UserDTO",
         "IsRequired": true
       }
     ],

@@ -4,6 +4,7 @@ import Home from "./Component/Home"
 import FixtureDetail from "./Component/FixtureDetail"
 import League from "./Component/League"
 import Ranking from "./Component/Raking";
+import Article from "./Component/PostArticle";
 
 const Main = () => {
     return (
@@ -14,6 +15,7 @@ const Main = () => {
                     <Route path="/detail/:matchId" element={<MainLayout><FixtureDetail /></MainLayout>} />
                     <Route path="/fixtures/:id" element={<MainLayout><League /></MainLayout>} />
                     <Route path="/ranking" element={<MainLayout><Ranking /></MainLayout>} />
+                    <Route path="/article/post" element={<MainLayout><Article/></MainLayout>} />
                 </Routes>
             </BrowserRouter>
         </>

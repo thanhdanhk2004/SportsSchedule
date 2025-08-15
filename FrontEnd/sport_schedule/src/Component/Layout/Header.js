@@ -48,7 +48,7 @@ const Header = () => {
             <Nav.Link href="#">Việt Nam</Nav.Link>
             {isLogin === true ?
               <>
-                <Nav.Link>Đăng bài viết</Nav.Link>
+                <Nav.Link href="/article/post">Đăng bài viết</Nav.Link>
                 <Nav.Link>Minigame</Nav.Link>
               </>
               : ""}
@@ -56,12 +56,10 @@ const Header = () => {
 
           {isLogin ?
             <div className="d-flex gap-2">
-              <div>
-                <i class="bi bi-person-hearts" style={{ fontSize: "25px" }}></i>
-              </div>
+              
               <div className="dropdown my-auto" style={{ fontSize: "30px" }}>
                 <a href="/" className="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i className="fas fa-user fa-2x" />
+                  <i class="bi bi-person-hearts" style={{ fontSize: "25px" }}></i>
                 </a>
                 <div className="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuLink">
 
@@ -72,7 +70,7 @@ const Header = () => {
                     Lịch sử bài viết
                   </a>
                   <hr className="dropdown-divider" />
-                  <Link onClick={logout} className="dropdown-item">
+                  <Link onClick={logout} href="/" className="dropdown-item">
                     Đăng xuất
                   </Link>
                 </div>

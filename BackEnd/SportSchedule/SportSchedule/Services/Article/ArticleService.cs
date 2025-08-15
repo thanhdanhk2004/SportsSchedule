@@ -1,0 +1,42 @@
+﻿using SportSchedule.DataAccess;
+using SportSchedule.DataTranserferObject.Article;
+
+namespace SportSchedule.Services.Article
+{
+    public class ArticleService : IArticleService
+    {
+        private readonly PostDAL _postDAL;
+        public ArticleService(PostDAL postDAL)
+        {
+            _postDAL = postDAL;
+        }
+
+        public async Task deleteArticle(int? article_id)
+        {
+            if (article_id == null)
+                return;
+            _postDAL.deleteArticle(article_id);
+        }
+
+        public async Task<ArticleDTOFE> getArticle(int? article_id)
+        {
+            if (!article_id.HasValue)
+                return null;
+            return _postDAL.getArticle(article_id.Value);
+        }
+
+        public async Task postArticle(ArticleDTO article)
+        {
+            if(article == null)
+                return;
+            _postDAL.addArticle(article);
+        }
+
+        public async Task updateArticle(ArticleDTO article)
+        {
+            if (article == null)
+                return;
+            _postDAL.updateArticle(article);
+        }
+    }
+}

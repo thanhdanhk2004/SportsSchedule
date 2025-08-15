@@ -49,7 +49,7 @@ namespace SportSchedule.DataAccess
                     LastName = user_data.LastName,
                     FirstName = user_data.FirstName,
                     Email = user_data.Email,
-                    RoleId = 2
+                    RoleId = 1
                 };
                 _context.Users.Add(user);
                 _context.SaveChanges();

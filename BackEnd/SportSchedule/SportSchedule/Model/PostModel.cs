@@ -8,6 +8,7 @@
         public string? Image {  get; set; }
         public DateTime? Created { get; set; } = DateTime.UtcNow;
         public int? UserId { get; set; }
+        public string? Status {  get; set; }
         public UserModel? User { get; set; }
         public List<CommentModel>? Comments { get; set; }
     }
