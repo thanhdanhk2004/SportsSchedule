@@ -83,6 +83,7 @@ namespace SportSchedule.DataAccess
                             where l.LeagueId == league_id
                             select new FixtureDataFrontend
                             {
+                                LeagueId = l.LeagueId,
                                 LeagueName = l.Name,
                                 Round = m.Round,
                                 LeagueLogo = l.Logo,

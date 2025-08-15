@@ -106,6 +106,8 @@ builder.Services.AddScoped<CardDAL>();
 builder.Services.AddScoped<MatchDAL>();
 builder.Services.AddScoped<SubstitutionDAL>();
 builder.Services.AddScoped<RankingDAL>();
+builder.Services.AddScoped<LeagueDAL>();
+builder.Services.AddScoped<UserDAL>();
 
 var app = builder.Build();
 

@@ -104,19 +104,5 @@ namespace SportSchedule.Services.Fixtures
                 _cache.Set(key_cache, data, TimeSpan.FromMinutes(30));
             return data;
         }
-
-        //Ham de lay du lieu cua mot tran dau
-        public async Task<FixtureDataFrontend> GetInfoFixtureAsync(int match_id, string date)
-        {
-            if(_cache.TryGetValue($"fixtures_{date}", out List<FixtureDataFrontend>? _listFixtures))
-            {
-                var result = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
-                return result!;
-            }
-            List<FixtureDataFrontend> _listFixture = await this.GetFixturesByDateDataFrontendsAsync(date);
-            var fixture = _listFixtures?.FirstOrDefault(lf => lf.MatchId == match_id);
-            return fixture!;
-        }
-
     }
 }

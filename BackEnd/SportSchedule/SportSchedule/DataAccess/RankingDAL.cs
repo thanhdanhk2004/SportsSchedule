@@ -133,10 +133,11 @@ namespace SportSchedule.DataAccess
                 int? season_id = _context.Seasons
                        .Where(s => s.SeasonYear == season.ToString())
                         .Select(s =>s.SeasonId).FirstOrDefault();
-                var rankings = _context.Rankings
+                var rankings = _context.Rankings.Include(l => l.League)
                             .Where(r => r.LeagueId == league_id && r.SeasonId == season_id)
                             .Select(r => new RankingDTOFE
                             {
+                                LeagueName = r.League.Name,
                                 TeamId = r.TeamId,
                                 TeamName = _context.Teams.Where(t => t.TeamId == r.TeamId).Select(t => t.Name).FirstOrDefault(),
                                 Logo = _context.Teams.Where(t => t.TeamId == r.TeamId).Select(t => t.Logo).FirstOrDefault(),
@@ -146,6 +147,7 @@ namespace SportSchedule.DataAccess
                                 Loss = r.Loss,
                                 Point = r.Point,
                                 Difference = r.Difference,
+
                             }).OrderByDescending(r => r.Point)
                             .ThenByDescending(r => r.Difference)
                             .ThenByDescending(r => r.Win).ToList();

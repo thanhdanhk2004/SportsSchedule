@@ -3,12 +3,21 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import api, { endpoints } from "../../Services/Apis";
 import '../../Style/index.css'
 import { Nav, NavLink } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Leagues = () => {
-
     const [leagues, setLeagues] = new useState([])
     const navigate = useNavigate()
+    const location = useLocation() // Lay duong dan hien tai
+    const today = new Date()
+
+    const handlePath = (leagueId) => {
+        if(location.pathname.startsWith("/ranking"))
+            navigate(`/ranking?leagueId=${leagueId}&season=${today.getFullYear()}`);
+        else if(location.pathname.startsWith("/") || location.pathname.startsWith("/fixtures"))
+            navigate(`/fixtures/${leagueId}`)
+    }
+
     useEffect(() => {
         const fetchLengues = async () => {
             try {
@@ -31,7 +40,7 @@ const Leagues = () => {
                 <ul className="list-group list-group-flush">
                     {leagues.map((league) => (
                         <li key={league.id} className="list-group-item p-0">
-                            <Nav.Link onClick={() => navigate(`/fixtures/${league.id}`)} className="hover-link d-block px-3 py-2">
+                            <Nav.Link onClick={() => handlePath(league.id)} className="hover-link d-block px-3 py-2">
                                 <strong>{league.name}</strong>
                             </Nav.Link>
                         </li>

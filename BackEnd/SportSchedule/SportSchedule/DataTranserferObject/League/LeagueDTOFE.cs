@@ -1,6 +1,6 @@
 ﻿namespace SportSchedule.DataTranserferObject.League
 {
-    public class LeaguesData
+    public class LeagueDTOFE
     {
         public int? Id {  get; set; }
         public string? Name { get; set; }

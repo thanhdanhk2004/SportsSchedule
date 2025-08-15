@@ -1,6 +1,6 @@
 ﻿namespace SportSchedule.DataTranserferObject.User
 {
-    public class UserDataTransferObject
+    public class UserDTO
     {
         public string? FirstName {  get; set; }
         public string? LastName { get; set; }

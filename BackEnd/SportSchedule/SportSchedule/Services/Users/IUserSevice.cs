@@ -4,8 +4,8 @@ namespace SportSchedule.Services.Users
 {
     public interface IUserSevice
     {
-        UserDataLogin? getUser(UserDataTransferObject user);
-        string addUser(UserDataTransferObject user);
+        UserDTOFE? getUser(UserDTO user);
+        string addUser(UserDTO user);
         Boolean updateUser(string username, string password, string email);
     }
 }

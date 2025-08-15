@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import api, { endpoints } from "../../Services/Apis"
 import { Container } from "react-bootstrap";
 import SeeModal from "../See";
+import {Nav} from "react-bootstrap"
 
 const FixturesLeague = () => {
     const { id } = useParams()
@@ -12,6 +13,8 @@ const FixturesLeague = () => {
     const [groupFixture, setGroupFixture] = useState({})
     const [seeModal, setSeeModal] = useState(false)
     const [matchSelected, setMatcheSelected] = useState(null)
+    const today = new Date()
+    const [yearSelected, setYearSelected] = useState(today.getFullYear())
     
     //Gom cac tran dau theo ngay
     const groupDateFixture = (matches) =>{
@@ -58,7 +61,16 @@ const FixturesLeague = () => {
                 {Object.entries(groupFixture).map(([date, matches]) => (
                     <div className='d-flex justify-content-center mt-3'>
                         <div className="justify-content-center text-center bg-white rounded shadow p-3 mt-3 w-75">
-                            <div className="fw-semibold mb-2">{date}</div>
+                            <div className="fw-semibold mb-2 league-name d-flex justify-content-between aline-item-center">
+                                <div className="text-center flex-grow-1">
+                                    {date}
+                                </div>
+                                <div style={{marginTop:"-5px"}}>
+                                    <Nav>
+                                        <Nav.Link href={`/ranking?leagueId=${matches[0].leagueId}&season=${yearSelected}`}>BXH</Nav.Link>
+                                    </Nav>
+                                </div>
+                            </div>
                             {matches.map((m) => (
                                 <div className="d-flex border-bottom py-4 mt-2 gap-3 align-items-center">
                                     <div style={{ width: "150px" }} className="text-sm text-start">

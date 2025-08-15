@@ -15,7 +15,7 @@ namespace SportSchedule.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserDataTransferObject user)
+        public async Task<IActionResult> Register(UserDTO user)
         {
             string message = _userSevice.addUser(user);
             if(message == "")
@@ -24,7 +24,7 @@ namespace SportSchedule.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(UserDataTransferObject user_data)
+        public async Task<IActionResult> Login(UserDTO user_data)
         {
             var u = _userSevice.getUser(user_data);
             if (u == null)
