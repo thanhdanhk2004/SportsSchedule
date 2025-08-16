@@ -16,7 +16,9 @@ namespace SportSchedule.Services.Member
         private readonly PlayerMatchDAL _playerMatchDAL;
         private readonly TeamMemberDAL _teamMemberDAL;
         private readonly IMemoryCache _cache;
-        public MemberService(ContextDB context, IHttpClientFactory httpClient, MemberDAL member, PlayerDAL playerDAL, PlayerMatchDAL playerMatchDAL, TeamMemberDAL teamMemberDAL, IMemoryCache cache)
+        private readonly MatchStatisticDAL _matchStatisticDAL;
+
+        public MemberService(ContextDB context, IHttpClientFactory httpClient, MemberDAL member, PlayerDAL playerDAL, PlayerMatchDAL playerMatchDAL, TeamMemberDAL teamMemberDAL, IMemoryCache cache, MatchStatisticDAL matchStatisticDAL)
         {
             _httpClient = httpClient.CreateClient("FootballAPI");
             _memberDAL = member;
@@ -24,6 +26,7 @@ namespace SportSchedule.Services.Member
             _playerMatchDAL = playerMatchDAL;
             _teamMemberDAL = teamMemberDAL;
             _cache = cache;
+            _matchStatisticDAL = matchStatisticDAL;
         }
         public async Task getMemberService(int fixture_id, int team_home_id, int team_away_id, int match_id)
         {
@@ -36,13 +39,24 @@ namespace SportSchedule.Services.Member
             int i = 0;
             foreach(var item  in json["response"]!)
             {
-                int coach_id = (int)item["coach"]?["id"]!;
+                string line_up = (string)item["formation"]!;
+                if(i == 0)
+                {
+                    _matchStatisticDAL.updateLineUp(match_id, team_home_id, line_up);
+                }
+                else
+                {
+                    _matchStatisticDAL.updateLineUp(match_id, team_away_id, line_up);
+                }
+
+                    int coach_id = (int)item["coach"]?["id"]!;
                 //Kiem tra co ton tai HLV hay chua
                 if (!_memberDAL.isExistedMember(coach_id))
                 {
                     await this.addInfoCoach(coach_id);
                     _teamMemberDAL.addTeamMember(i == 0 ? team_home_id : team_away_id, coach_id);
                 }
+
                 foreach (var player in item["startXI"]!)
                 {
                     int player_id = (int)player["player"]?["id"]!;

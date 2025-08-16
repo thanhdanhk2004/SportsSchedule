@@ -52,7 +52,6 @@ namespace SportSchedule.Services.Statistic
 
             foreach (var item in json["response"]!)
             {
-                fixture_id = (int)item["fixture"]!["id"]!;
                 if(fixture_existed.Contains(fixture_id) || _context.MatchStatictis.Any(ms => ms.MatchId == match_id))
                     continue;
                 string? round = (string?)item["league"]?["round"];
@@ -61,6 +60,10 @@ namespace SportSchedule.Services.Statistic
 
                 if (round == Round && leagueName == league_name)
                 {
+                    var home = item["score"]?["fulltime"]?["home"]?.Value<int?>() ?? null;
+                    if (home == null)
+                        continue;
+                    fixture_id = (int)item["fixture"]!["id"]!;
                     int team_home_id =(int) item["teams"]!["home"]!["id"]!;
                     int team_away_id =(int) item["teams"]!["away"]!["id"]!;
                     FixtureStatisticData fixture_statistic_home = new FixtureStatisticData();
@@ -117,7 +120,6 @@ namespace SportSchedule.Services.Statistic
         //Ham lay thong so
         public string? getStatsValue(JArray stats, string type)
         {
-           
             var stat = stats.FirstOrDefault(s => s["type"]?.ToString() == type);
             return stat?["value"]?.ToString();
         }

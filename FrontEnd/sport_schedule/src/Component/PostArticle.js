@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { authApis, endpoints} from '../Services/Apis'
 import { useNavigate } from "react-router-dom";
+import AcceptModal from "./AcceptModal"
 
 const Article = () => {
-    const [formData, setFormData] = useState({title: "",description: "",imageUrl: "", status:"Chờ duyệt"});
+    const [formData, setFormData] = useState({title: "",description: "",image: "", status:"Chờ duyệt"});
     const navigate = useNavigate()
+    const [showModal, setShowModal] = useState(false)
 
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
@@ -24,9 +26,8 @@ const Article = () => {
             const result = await res.json();
             setFormData((prev) => ({
                 ...prev,
-                imageUrl: result.secure_url,
+                image: result.secure_url,
             }));
-            console.log(formData)
         } catch (err) {
             console.error("Upload failed", err);
         }
@@ -39,11 +40,11 @@ const Article = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
+            
             const res = await authApis().post(endpoints.postArticle, formData)
             if(res.status === 200)
             {
-                alert("Dang bai thanh cong")
-                navigate("/")
+                setShowModal(true)
             }
         }catch(err){
             console.log(err)
@@ -52,32 +53,32 @@ const Article = () => {
 
     return (
         <div className="container mt-4">
-            <h2>Đăng bài viết mới</h2>
+            <h2 className="text-center">Đăng bài viết mới</h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                    <label className="form-label">Tiêu đề</label>
+                    <label className="form-label">Tiêu đề bài viết</label>
                     <input type="text" name="title" className="form-control" value={formData.title} onChange={handleChange} required/>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Nội dung</label>
-                    <textarea id="description" name="description" className="form-control" onChange={handleChange}></textarea>
+                    <label className="form-label">Nội dung bài viết</label>
+                    <textarea id="description" name="description" className="form-control" onChange={handleChange} required></textarea>
                 </div>
-
                 <div className="mb-3">
-                    <label className="form-label">Hình ảnh</label>
-                    <input type="file" className="form-control" onChange={handleImageUpload} accept="image/*"/>
+                    <label className="form-label">Hình ảnh đại diện bài viết</label>
+                    <input type="file" className="form-control" onChange={handleImageUpload} accept="image/*" required/>
                 </div>
 
-                {formData.imageUrl && (
+                {formData.image && (
                     <div className="mb-3">
-                        <img src={formData.imageUrl} alt="Preview" style={{ maxWidth: "200px" }} />
+                        <img src={formData.image} alt="Preview" style={{ maxWidth: "200px" }} />
                     </div>
                 )}
 
                 <button type="submit" className="btn btn-primary">
                     Đăng bài
                 </button>
+                <AcceptModal show={showModal} handleClose={() => {setShowModal(false); navigate("/")}}/>
             </form>
         </div>
     );

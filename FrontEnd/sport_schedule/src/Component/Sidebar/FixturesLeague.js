@@ -101,12 +101,15 @@ const FixturesLeague = () => {
                                         </div>
                                     </div>
 
-                                    {m.goalHomeFullTime === null && (
+                                    {m.goalHomeFullTime === null ? (
                                         <>
                                             <div className='btn btn-info'>Hẹn lịch</div>
                                             <div className='btn btn-success'>Minigame</div>
                                         </>
-                                    )}
+                                    ): 
+                                    <div className='bg-primary' style={{width: "200px"}}>
+                                        
+                                    </div>}
 
                                 </div>
 

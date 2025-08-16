@@ -59,7 +59,7 @@ const Header = () => {
               
               <div className="dropdown my-auto" style={{ fontSize: "30px" }}>
                 <a href="/" className="dropdown-toggle d-flex align-items-center" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="bi bi-person-hearts" style={{ fontSize: "25px" }}></i>
+                  <i className="bi bi-person-hearts" style={{ fontSize: "25px" }}></i>
                 </a>
                 <div className="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuLink">
 

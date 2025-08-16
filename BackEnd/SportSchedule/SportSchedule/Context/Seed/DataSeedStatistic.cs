@@ -39,16 +39,20 @@ namespace SportSchedule.Context.Seed
                                Round = "Regular Season - " + x.Match.Round,
                            }).ToList();
 
+           
+
             List<int> fixtures_existed = new List<int>();
-            foreach ( var response in responses )
+            foreach (var response in responses )
             {
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;
+
                 if (dateNow >= timeFixture.AddHours(3) &&
                     !_context.MatchStatictis.Any(ms => ms.MatchId == response.MatchId))
                 {
                     int fixture_id = await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
-                       response.Time, response.LeagueName, response.HomeId, response.AwayId,
+                       timeFixture.AddHours(-7).Day >= dateNow.Day?response.Time : dateNow.AddDays(-1), response.LeagueName, response.HomeId, response.AwayId,
                        response.MatchId, response.Round, fixtures_existed);
+
                     if(fixture_id != 0)
                     {
                         await _memberService.getMemberService(fixture_id, response.HomeId ?? 0, response.AwayId ?? 0, response.MatchId ?? 0);

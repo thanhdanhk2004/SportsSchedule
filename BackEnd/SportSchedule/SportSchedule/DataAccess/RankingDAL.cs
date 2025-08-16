@@ -102,8 +102,8 @@ namespace SportSchedule.DataAccess
                 }
                 else if(list[0].Score < list[1].Score)
                 {
-                    rankingTeamOne.Win += 1;
-                    rankingTeamTwo.Loss += 1;
+                    rankingTeamOne.Loss += 1;
+                    rankingTeamTwo.Win += 1;
                     rankingTeamTwo.Point += 3;
                 }
                 else
@@ -114,7 +114,12 @@ namespace SportSchedule.DataAccess
                     rankingTeamTwo.Point += 1;
                 }
                 rankingTeamOne.Difference = rankingTeamOne.Difference + list[0].Score - list[1].Score;
-                rankingTeamOne.Difference = rankingTeamOne.Difference + list[1].Score - list[0].Score;
+                rankingTeamTwo.Difference = rankingTeamTwo.Difference + list[1].Score - list[0].Score;
+
+                _context.Rankings.Update(rankingTeamOne);
+                _context.SaveChanges();
+                _context.Rankings.Update(rankingTeamTwo);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

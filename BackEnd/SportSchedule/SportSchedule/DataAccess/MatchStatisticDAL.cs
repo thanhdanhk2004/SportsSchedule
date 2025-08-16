@@ -29,7 +29,8 @@ namespace SportSchedule.DataAccess
                 YellowCard = data.YellowCard,
                 RedCard = data.RedCard,
                 TeamId = team_id,
-                MatchId = match_id
+                MatchId = match_id,
+                Lineup = "4-4-3"
             };
             _context.MatchStatictis.Add(model);
             _context.SaveChanges();
@@ -206,6 +207,27 @@ namespace SportSchedule.DataAccess
             {
                 Console.WriteLine(ex.ToString());
                 return null!;
+            }
+        }
+
+        public void updateLineUp(int match_id, int team_id, string lineup)
+        {
+            try 
+            {
+                if (match_id == null || team_id == null)
+                    return;
+                var statictisMatch = _context.MatchStatictis
+                                    .Where(ms => ms.MatchId == match_id && ms.TeamId == team_id)
+                                    .FirstOrDefault();
+                if (statictisMatch == null)
+                    return;
+                statictisMatch.Lineup = lineup;
+                _context.MatchStatictis.Update(statictisMatch);
+                _context.SaveChanges();
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return;
             }
         }
     }

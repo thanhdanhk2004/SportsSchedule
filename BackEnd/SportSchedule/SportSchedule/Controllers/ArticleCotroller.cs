@@ -26,7 +26,7 @@ namespace SportSchedule.Controllers
         }
 
         //Dang bai viet
-        [Authorize(Roles = "Member")]
+        [Authorize(Roles = "Member, Admin", Policy = ("permission.PostArticles"))]
         [HttpPost("post")]
         public async Task<IActionResult> postArticle(ArticleDTO article)
         {
@@ -35,7 +35,8 @@ namespace SportSchedule.Controllers
         }
 
         //Chinh sua bai viet
-        [Authorize(Roles = "Member,Admin")]
+        
+        [Authorize(Policy = "Permission.PostArticle")]
         [HttpPut("{articleId}")]
         public async Task<IActionResult> updateArticle(ArticleDTO article)
         {

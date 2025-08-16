@@ -24,7 +24,7 @@ namespace SportSchedule.Services.Users
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, account!.UserName!),
-                new Claim(ClaimTypes.Role, account!.User!.RoleId.ToString())
+                new Claim(ClaimTypes.Role, account!.User!.Role!.Name!.ToString())
             };
 
             var permissions = (from a in _context.Accounts
@@ -38,7 +38,7 @@ namespace SportSchedule.Services.Users
             //Them permission
             foreach(var permission in permissions)
             {
-                claims.Add(new Claim("Permission", permission));
+                claims.Add(new Claim("permission", permission));
             }
 
             var token = new JwtSecurityToken

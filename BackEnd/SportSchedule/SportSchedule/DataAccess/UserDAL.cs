@@ -75,7 +75,7 @@ namespace SportSchedule.DataAccess
         {
             try
             {
-                var u = _context.Accounts.Include(a => a.User)
+                var u = _context.Accounts.Include(a => a.User).Include(u => u.User.Role)
                 .Where(a => a.UserName == user_data.UserName)
                 .FirstOrDefault();
 

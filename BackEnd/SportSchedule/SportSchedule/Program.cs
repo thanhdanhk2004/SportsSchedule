@@ -89,7 +89,7 @@ builder.Services.AddAuthorization(options =>
 {
     foreach (var permission in permissions)
     {
-        options.AddPolicy($"Permission.{permission}", policy =>
+        options.AddPolicy($"permission.{permission}", policy =>
             policy.Requirements.Add(new PermissionRequirement(permission)));
     }
 });
@@ -161,8 +161,8 @@ var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredServi
 var statisticService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IStatisticService>();
 var memberService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMemberService>();
 var rankingService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IRankingService>();
-await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
+//await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
 //await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService, rankingService);
-await DataSeedRanking.SeedRanking(context, rankingService);
+//await DataSeedRanking.SeedRanking(context, rankingService);
 
 app.Run();
