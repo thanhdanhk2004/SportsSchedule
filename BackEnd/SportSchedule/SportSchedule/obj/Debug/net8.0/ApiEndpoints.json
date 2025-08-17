@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
-    "Method": "getArticle",
+    "Method": "getArticleByArticleId",
     "RelativePath": "article/{articleId}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -50,6 +50,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "getArticleByUserId",
+    "RelativePath": "article/history",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

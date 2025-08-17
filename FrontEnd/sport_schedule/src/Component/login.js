@@ -14,6 +14,7 @@ function Login({ show, onHide, switchToRegister}) {
     const navigate = useNavigate()
     const [errors, setErrors] = useState({Username: true, Password: true})
     const { login } = useContext(AuthContext);
+    
 
     const change_handle = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })

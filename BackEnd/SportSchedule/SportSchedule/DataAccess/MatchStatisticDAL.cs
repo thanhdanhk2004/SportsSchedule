@@ -214,6 +214,8 @@ namespace SportSchedule.DataAccess
         {
             try 
             {
+                if (lineup == null)
+                    lineup = "4-5-1";
                 if (match_id == null || team_id == null)
                     return;
                 var statictisMatch = _context.MatchStatictis

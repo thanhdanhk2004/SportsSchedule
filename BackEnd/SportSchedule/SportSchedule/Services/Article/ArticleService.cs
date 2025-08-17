@@ -6,6 +6,7 @@ namespace SportSchedule.Services.Article
     public class ArticleService : IArticleService
     {
         private readonly PostDAL _postDAL;
+        
         public ArticleService(PostDAL postDAL)
         {
             _postDAL = postDAL;
@@ -18,18 +19,24 @@ namespace SportSchedule.Services.Article
             _postDAL.deleteArticle(article_id);
         }
 
-        public async Task<ArticleDTOFE> getArticle(int? article_id)
+        public async Task<List<ArticleDTOFE>> getArticlesByUserId(string username)
+        {
+            var data = _postDAL.GetArticlesByUserId(username);
+            return data;
+        }
+
+        public async Task<ArticleDTOFE> getArticleByArticleId(int? article_id)
         {
             if (!article_id.HasValue)
                 return null;
-            return _postDAL.getArticle(article_id.Value);
+            return _postDAL.getArticleByArticleId(article_id.Value);
         }
 
-        public async Task postArticle(ArticleDTO article)
+        public async Task postArticle(ArticleDTO article, string username)
         {
             if(article == null)
                 return;
-            _postDAL.addArticle(article);
+            _postDAL.addArticle(article, username);
         }
 
         public async Task updateArticle(ArticleDTO article)

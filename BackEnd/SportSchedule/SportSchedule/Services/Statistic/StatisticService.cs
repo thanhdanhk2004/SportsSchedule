@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json.Linq;
 using SportSchedule.Context;
@@ -40,7 +41,7 @@ namespace SportSchedule.Services.Statistic
         }
 
         //Lay thong so cua tran dau
-        public async Task<int> getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round, List<int> fixture_existed)
+        public async Task<int> getStatisticFixture(string? name_home, string? name_away, DateTime? time, string? league_name, int? home_id, int? away_id, int? match_id, string? Round, List<int> fixture_existed, DateTime? timeFixture)
         {
             var response_fixtures = await _httpClient.GetAsync($"fixtures?date={time.Value.ToString("yyyy-MM-dd")}&round={Round}");
             response_fixtures.EnsureSuccessStatusCode();
@@ -52,18 +53,19 @@ namespace SportSchedule.Services.Statistic
 
             foreach (var item in json["response"]!)
             {
-                if(fixture_existed.Contains(fixture_id) || _context.MatchStatictis.Any(ms => ms.MatchId == match_id))
+                if (fixture_existed.Contains(fixture_id) || _context.MatchStatictis.Any(ms => ms.MatchId == match_id))
                     continue;
                 string? round = (string?)item["league"]?["round"];
                 string? leagueName = (string?)item["league"]?["name"];
                 DateTime? date = (DateTime?)item["fixture"]?["date"];
 
-                if (round == Round && leagueName == league_name)
+                if (round == Round && leagueName == league_name && date == timeFixture)
                 {
+                    fixture_id = (int)item["fixture"]!["id"]!;
                     var home = item["score"]?["fulltime"]?["home"]?.Value<int?>() ?? null;
                     if (home == null)
                         continue;
-                    fixture_id = (int)item["fixture"]!["id"]!;
+                    
                     int team_home_id =(int) item["teams"]!["home"]!["id"]!;
                     int team_away_id =(int) item["teams"]!["away"]!["id"]!;
                     FixtureStatisticData fixture_statistic_home = new FixtureStatisticData();

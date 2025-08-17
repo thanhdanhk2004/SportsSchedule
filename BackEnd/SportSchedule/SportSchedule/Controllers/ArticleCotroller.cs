@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SportSchedule.DataTranserferObject.Article;
 using SportSchedule.Services.Article;
+using System.Security.Claims;
 
 namespace SportSchedule.Controllers
 {
@@ -15,11 +16,23 @@ namespace SportSchedule.Controllers
             _articleService = articleService;
         }
 
-        //Xem bai viet
+        //Xem bai viet theo id bai viet
         [HttpGet("{articleId}")]
-        public async Task<IActionResult> getArticle(int articleId)
+        public async Task<IActionResult> getArticleByArticleId(int articleId)
         {
-            var data = await _articleService.getArticle(articleId);
+            var data = await _articleService.getArticleByArticleId(articleId);
+            if (data == null)
+                return NotFound();
+            return Ok(data);
+        }
+
+        //Xem bai viet theo id user
+        [Authorize(Roles = "Member", Policy = ("permission.HistoryArticle"))]
+        [HttpGet("history")]
+        public async Task<IActionResult> getArticleByUserId()
+        {
+            string username = User.Identity.Name;
+            var data = await _articleService.getArticlesByUserId(username);
             if (data == null)
                 return NotFound();
             return Ok(data);
@@ -30,7 +43,8 @@ namespace SportSchedule.Controllers
         [HttpPost("post")]
         public async Task<IActionResult> postArticle(ArticleDTO article)
         {
-            await _articleService.postArticle(article);
+            string username = User.Identity.Name;
+            await _articleService.postArticle(article, username);
             return Ok();
         }
 

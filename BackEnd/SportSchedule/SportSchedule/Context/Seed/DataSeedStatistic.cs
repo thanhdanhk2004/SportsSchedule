@@ -42,6 +42,7 @@ namespace SportSchedule.Context.Seed
            
 
             List<int> fixtures_existed = new List<int>();
+
             foreach (var response in responses )
             {
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;
@@ -51,7 +52,7 @@ namespace SportSchedule.Context.Seed
                 {
                     int fixture_id = await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
                        timeFixture.AddHours(-7).Day >= dateNow.Day?response.Time : dateNow.AddDays(-1), response.LeagueName, response.HomeId, response.AwayId,
-                       response.MatchId, response.Round, fixtures_existed);
+                       response.MatchId, response.Round, fixtures_existed, response.Time);
 
                     if(fixture_id != 0)
                     {

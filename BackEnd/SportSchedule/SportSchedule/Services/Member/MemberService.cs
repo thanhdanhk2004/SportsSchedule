@@ -37,7 +37,7 @@ namespace SportSchedule.Services.Member
             var json = JObject.Parse(content);
 
             int i = 0;
-            foreach(var item  in json["response"]!)
+            foreach(var item in json["response"]!)
             {
                 string line_up = (string)item["formation"]!;
                 if(i == 0)
@@ -49,7 +49,7 @@ namespace SportSchedule.Services.Member
                     _matchStatisticDAL.updateLineUp(match_id, team_away_id, line_up);
                 }
 
-                    int coach_id = (int)item["coach"]?["id"]!;
+                int coach_id = (int)item["coach"]?["id"]!;
                 //Kiem tra co ton tai HLV hay chua
                 if (!_memberDAL.isExistedMember(coach_id))
                 {
@@ -84,7 +84,9 @@ namespace SportSchedule.Services.Member
                 }
                 foreach (var player in item["substitutes"]!)
                 {
-                    int player_id = (int)player["player"]?["id"]!;
+                    int player_id = player["player"]?["id"]?.Value<int?>()??0;
+                    if (player_id == 0)
+                        continue;
                     if (!_playerDAL.isExistedPlayer(player_id))
                     {
                         InfoDataMember info = new InfoDataMember

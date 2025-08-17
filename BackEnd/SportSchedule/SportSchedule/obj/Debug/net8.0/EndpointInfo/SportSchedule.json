@@ -88,6 +88,18 @@
         }
       }
     },
+    "/article/history": {
+      "get": {
+        "tags": [
+          "ArticleCotroller"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/article/post": {
       "post": {
         "tags": [

@@ -8,13 +8,16 @@ namespace SportSchedule.DataAccess
     public class PostDAL
     {
         private readonly ContextDB _context;
-        public PostDAL(ContextDB context)
+        private readonly UserDAL _userDAL;
+
+        public PostDAL(ContextDB context, UserDAL userDAL)
         {
             _context = context;
+            _userDAL = userDAL;
         }
 
         //Them bai viet
-        public void addArticle(ArticleDTO article)
+        public void addArticle(ArticleDTO article, string username)
         {
             try
             {
@@ -26,7 +29,7 @@ namespace SportSchedule.DataAccess
                     Description = article.Description,
                     Image = article.Image,
                     Created = DateTime.UtcNow,
-                    UserId = 3,
+                    UserId = _userDAL.getUserId(username),
                     Status = "Chờ duyệt"
                 };
                 _context.Posts.Add(model);
@@ -77,8 +80,8 @@ namespace SportSchedule.DataAccess
             }
         }
 
-        //Xem bai viet
-        public ArticleDTOFE getArticle(int article_id)
+        //Xem bai viet theo id bai viet
+        public ArticleDTOFE getArticleByArticleId(int article_id)
         {
             try
             {
@@ -95,6 +98,31 @@ namespace SportSchedule.DataAccess
                         AuthorName = p.User.LastName + p.User.FirstName
                     }).FirstOrDefault();
                 return article;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        //Xem bai viet thoe user id
+        public List<ArticleDTOFE> GetArticlesByUserId(string username)
+        {
+            try
+            {
+                if (username == null)
+                    return null;
+                var data = _context.Posts.Where(p => p.UserId == _userDAL.getUserId(username))
+                    .Select(p => new ArticleDTOFE
+                    {
+                        ArticleId = p.PostId,
+                        Title = p.Title,
+                        Description = p.Description,
+                        Image = p.Image,
+                        CreatedDate = p.Created,
+                    }).ToList();
+                Console.WriteLine(data[0].Title);
+                return data;
             }catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);

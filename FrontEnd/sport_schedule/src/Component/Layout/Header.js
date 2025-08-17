@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/logo.jpg';
 import Login from "../Login"
 import Register from "../Register";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 
 const Header = () => {
@@ -66,13 +65,13 @@ const Header = () => {
                   <a className="dropdown-item" href="/">
                     Thông tin tài khoản
                   </a>
-                  <a className="dropdown-item" href="/">
+                  <a className="dropdown-item" href="/history/article">
                     Lịch sử bài viết
                   </a>
                   <hr className="dropdown-divider" />
-                  <Link onClick={logout} href="/" className="dropdown-item">
+                  <Nav.Link onClick={logout} href="/" className="dropdown-item" style={{marginLeft: "15px"}}>
                     Đăng xuất
-                  </Link>
+                  </Nav.Link>
                 </div>
               </div>
 

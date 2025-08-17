@@ -13,7 +13,8 @@ export const endpoints={
     'fixturesLeague': ({leagueId, page}) => `/fixture/${leagueId}/${page}`,
     'player':(playerId) => `/player/${playerId}`,
     'ranking':'/ranking',
-    'postArticle':'/article/post'
+    'postArticle':'/article/post',
+    'historyArticle':'/article/history'
 }
 
 export const authApis = () =>{

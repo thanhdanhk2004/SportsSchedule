@@ -3,6 +3,7 @@ import { Cookies } from "react-cookie";
 
 export const AuthContext = createContext()
 
+
 export const AuthProvider = ({children}) =>{
     const cookies = new Cookies()
     const [isLogin, setIsLogin]  = useState(false)

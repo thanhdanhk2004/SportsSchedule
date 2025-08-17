@@ -103,5 +103,20 @@ namespace SportSchedule.DataAccess
             }
         }
 
+        public int getUserId(string username)
+        {
+            try
+            {
+                if (username == null)
+                    return -1;
+                return (int)_context.Accounts.Where(a => a.UserName == username)
+                    .Select(a => a.UserId).FirstOrDefault()!;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return 0;
+            }
+        }
     }
 }
