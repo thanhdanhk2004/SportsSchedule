@@ -38,6 +38,16 @@ namespace SportSchedule.Controllers
             return Ok(data);
         }
 
+        //Xem bai viet theo trang (Khon can dang nhap van xem duoc)
+        [HttpGet("articles/{page}")]
+        public async Task<IActionResult> getArticlesByPage(int page)
+        {
+            var data = await _articleService.getArticlesByPage(page-1);
+            if(data == null)
+                return NotFound();
+            return Ok(data);
+        }
+
         //Dang bai viet
         [Authorize(Roles = "Member, Admin", Policy = ("permission.PostArticles"))]
         [HttpPost("post")]
@@ -50,17 +60,17 @@ namespace SportSchedule.Controllers
 
         //Chinh sua bai viet
         
-        [Authorize(Policy = "Permission.PostArticle")]
-        [HttpPut("{articleId}")]
-        public async Task<IActionResult> updateArticle(ArticleDTO article)
+        [Authorize(Policy = "permission.UpdateArticle", Roles = "Member")]
+        [HttpPut("update/{articleId}")]
+        public async Task<IActionResult> updateArticle(int articleId, ArticleDTO article)
         {
-            await _articleService.updateArticle(article);
+            await _articleService.updateArticle(article, articleId);
             return Ok();
         }
 
         //Xoa bai viet
-        [Authorize(Roles = "Admin,Member")]
-        [HttpDelete("{articleId}")]
+        [Authorize(Roles = "Admin,Member", Policy ="permission.DeleteArticle")]
+        [HttpDelete("delete/{articleId}")]
         public async Task<IActionResult> deleteArticle(int articleId)
         {
             await _articleService.deleteArticle(articleId);

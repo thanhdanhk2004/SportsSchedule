@@ -7,11 +7,13 @@ namespace SportSchedule.DataAccess
     public class CardDAL
     {
         private readonly ContextDB _context;
-        public CardDAL(ContextDB context)
+        private readonly MemberDAL _memberDAL;
+        public CardDAL(ContextDB context, MemberDAL memberDAL)
         {
             _context = context;
+            _memberDAL = memberDAL;
         }
-
+        
         public void addCard(CardDTO card)
         {
             try
@@ -24,7 +26,7 @@ namespace SportSchedule.DataAccess
                         Time = card.Time,
                         Status = card.Status,
                         MatchId = card.MatchId,
-                        MemberId = card.MemberId,
+                        MemberId = _memberDAL.isExistedMember(card.MemberId ?? 0) == true? card.MemberId:null,
                     };
                     _context.Cards.Add(model);
                     _context.SaveChanges();

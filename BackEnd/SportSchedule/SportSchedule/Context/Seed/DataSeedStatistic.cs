@@ -42,7 +42,6 @@ namespace SportSchedule.Context.Seed
            
 
             List<int> fixtures_existed = new List<int>();
-
             foreach (var response in responses )
             {
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;

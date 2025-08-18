@@ -17,20 +17,15 @@
   },
   {
     "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
-    "Method": "updateArticle",
-    "RelativePath": "article/{articleId}",
-    "HttpMethod": "PUT",
+    "Method": "getArticlesByPage",
+    "RelativePath": "article/articles/{page}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "article",
-        "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",
-        "IsRequired": true
-      },
-      {
-        "Name": "articleId",
-        "Type": "",
+        "Name": "page",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -39,7 +34,7 @@
   {
     "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
     "Method": "deleteArticle",
-    "RelativePath": "article/{articleId}",
+    "RelativePath": "article/delete/{articleId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -70,6 +65,27 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [
+      {
+        "Name": "article",
+        "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "updateArticle",
+    "RelativePath": "article/update/{articleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "articleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
       {
         "Name": "article",
         "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",

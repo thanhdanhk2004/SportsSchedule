@@ -42,18 +42,17 @@ namespace SportSchedule.DataAccess
         }
         
         //Chinh sua (member) hoac cap nhat trang thai (admin) bai viet
-        public void updateArticle(ArticleDTO article)
+        public void updateArticle(ArticleDTO article, int articleId)
         {
             try
             {
                 if (article == null) return;
-                var model = _context.Posts.FirstOrDefault(p => p.PostId == article.ArticleId);
+                var model = _context.Posts.FirstOrDefault(p => p.PostId == articleId);
                 if (model == null)
                     return;
                 model.Title = article.Title;
                 model.Description = article.Description;
                 model.Image = article.Image;
-                model.Status = article.Status;
                 _context.Posts.Update(model);
                 _context.SaveChanges();
             }catch(Exception ex)
@@ -119,7 +118,8 @@ namespace SportSchedule.DataAccess
                         Title = p.Title,
                         Description = p.Description,
                         Image = p.Image,
-                        CreatedDate = p.Created,
+                        CreatedDate = p.Created.Value.AddHours(7).ToString("dd/MM/yyyy hh:mm:ss"), 
+                        Status = p.Status,
                     }).ToList();
                 Console.WriteLine(data[0].Title);
                 return data;
@@ -128,6 +128,24 @@ namespace SportSchedule.DataAccess
                 Console.WriteLine(ex.Message);
                 return null;
             }
+        }
+
+        //Xem bai viet theo trang
+        public List<ArticlePageDTOFE> getArticleByPage(int page)
+        {
+            var articles = _context.Posts.Include(p => p.User)
+                        .Where(p => p.Status == "Đã duyệt")
+                        .OrderByDescending(p => p.Created)
+                        .Select(p => new ArticlePageDTOFE
+                        {
+                            ArticleId = p.PostId,
+                            Title = p.Title,
+                            Image = p.Image,
+                            TotalPage = (int)(Math.Ceiling((decimal)_context.Posts.Count(p => p.Status == "Đã duyệt") / 3))
+                        })
+                        .ToList();
+            articles[0].TotalPage = (int)(Math.Ceiling((decimal)articles.Count / 3));
+            return articles.Skip(page * 3).Take(3).ToList();
         }
     }
 }

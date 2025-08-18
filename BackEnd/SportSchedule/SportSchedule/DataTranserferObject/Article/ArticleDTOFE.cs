@@ -7,6 +7,7 @@
         public string? Description { get; set; }
         public string? Image { get; set; }
         public string? AuthorName {  get; set; }
-        public DateTime? CreatedDate {  get; set; }
+        public string? CreatedDate {  get; set; }
+        public string? Status {  get; set; }
     }
 }

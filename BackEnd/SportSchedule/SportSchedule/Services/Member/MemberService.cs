@@ -66,9 +66,9 @@ namespace SportSchedule.Services.Member
                         InfoDataMember info = new InfoDataMember
                         {
                             Id = player_id,
-                            Name = (string)player["player"]?["name"]!,
-                            Number = (int)player["player"]?["number"]!,
-                            Position = (string)player["player"]?["pos"]!,
+                            Name = (string?)player["player"]?["name"] ?? "",
+                            Number = (int?)player["player"]?["number"]?? 0,
+                            Position = (string?)player["player"]?["pos"] ?? "M",
                             Birthday = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
                             Nationaly = "",
                             Age = 0,
@@ -92,9 +92,9 @@ namespace SportSchedule.Services.Member
                         InfoDataMember info = new InfoDataMember
                         {
                             Id = player_id,
-                            Name = (string)player["player"]?["name"]!,
-                            Number = (int)player["player"]?["number"]!,
-                            Position = (string)player["player"]?["pos"]!,
+                            Name = (string?)player["player"]?["name"] ?? "",
+                            Number = (int?)player["player"]?["number"] ?? 0,
+                            Position = (string?)player["player"]?["pos"] ?? "",
                             Birthday = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified),
                             Nationaly = "",
                             Age = 0,
@@ -125,12 +125,12 @@ namespace SportSchedule.Services.Member
             foreach (var item in json["response"]!)
             {
                 info.Id = coach_id;
-                info.Name = (string)item["name"]!;
-                info.Birthday = (DateTime)item["birth"]?["date"]!;
-                info.Nationaly = (string)item["nationality"]!;
+                info.Name = (string?)item["name"] ?? "";
+                info.Birthday = (DateTime?)item["birth"]?["date"] ?? DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Unspecified);
+                info.Nationaly = (string?)item["nationality"] ?? "";
                 info.Position = "Huấn luyện viên";
-                info.Age = (int)item["age"]!;
-                info.Image = (string)item["photo"]!;
+                info.Age =(int?) item["age"] ?? 0;
+                info.Image = (string?)item["photo"] ?? "";
                 _memberDAL.addMember(info);
                 break;
             }
@@ -151,15 +151,15 @@ namespace SportSchedule.Services.Member
             foreach (var item in json["response"]!)
             {
                 info.Id = player_id;
-                info.Name = (string)item["player"]?["name"]!;
-                info.Birthday = (DateTime)item["player"]?["birth"]?["date"]!;
-                info.Nationaly = (string)item["player"]?["nationality"]!;
-                info.Position = (string)item["player"]?["position"]!;
-                info.Age = (int)item["player"]?["age"]!;
-                info.Image = (string)item["player"]?["photo"]!;
-                info.Height = (string)item["player"]?["height"]!;
-                info.Weight = (string)item["player"]?["weight"]!;
-                info.Number = (int)item["player"]?["number"]!;
+                info.Name = (string?)item["player"]?["name"] ?? "";
+                info.Birthday = (DateTime?)item["player"]?["birth"]?["date"] ?? DateTime.MinValue;
+                info.Nationaly = (string?)item["player"]?["nationality"] ?? "";
+                info.Position = (string?)item["player"]?["position"] ?? "";
+                info.Age = (int?)item["player"]?["age"] ?? 0;
+                info.Image = (string?)item["player"]?["photo"] ?? "";
+                info.Height = (string?)item["player"]?["height"] ?? "";
+                info.Weight = (string?)item["player"]?["weight"] ?? "";
+                info.Number = (int?)item["player"]?["number"] ?? 0;
                 break;
             }
             return info;

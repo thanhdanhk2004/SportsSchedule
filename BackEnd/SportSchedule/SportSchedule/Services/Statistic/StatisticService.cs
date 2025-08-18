@@ -50,9 +50,11 @@ namespace SportSchedule.Services.Statistic
             var json = JObject.Parse(content);
 
             int fixture_id = 0;
+            bool flag = false;
 
             foreach (var item in json["response"]!)
             {
+                fixture_id = (int)item["fixture"]!["id"]!;
                 if (fixture_existed.Contains(fixture_id) || _context.MatchStatictis.Any(ms => ms.MatchId == match_id))
                     continue;
                 string? round = (string?)item["league"]?["round"];
@@ -61,7 +63,7 @@ namespace SportSchedule.Services.Statistic
 
                 if (round == Round && leagueName == league_name && date == timeFixture)
                 {
-                    fixture_id = (int)item["fixture"]!["id"]!;
+                    flag = true;
                     var home = item["score"]?["fulltime"]?["home"]?.Value<int?>() ?? null;
                     if (home == null)
                         continue;
@@ -116,7 +118,7 @@ namespace SportSchedule.Services.Statistic
                     break;
                 }
             }
-            return fixture_id;
+            return flag == true ? fixture_id:0;
         }
 
         //Ham lay thong so
@@ -167,8 +169,8 @@ namespace SportSchedule.Services.Statistic
                 {
                     CardDTO card = new CardDTO
                     {
-                        TypeCard = (string)item["detail"]!,
-                        Time = (int)item["time"]?["elapsed"]!,
+                        TypeCard = (string?)item["detail"] ?? "",
+                        Time = (int?)item["time"]?["elapsed"] ?? 0,
                         Status = "Còn hiệu lực",
                         MatchId = match_id,
                         MemberId = player_id,
@@ -180,22 +182,26 @@ namespace SportSchedule.Services.Statistic
                 {
                     GoalDTO goal = new GoalDTO
                     {
-                        GoalType = (string)item["detail"]!,
+                        GoalType = (string?)item["detail"] ?? "",
                         PlayerId = player_id,
                         MatchId = match_id,
                         TeamId = _teamMemberDAL.getTeamId(player_id),
-                        GoalTime = (int)item["time"]?["elapsed"]!
+                        GoalTime = (int?)item["time"]?["elapsed"] ?? 0
                     };
                     _goalDAL.addGoal(goal);
                 }
                 else
                 {
+                    if ((string)item["type"]! != "subst")
+                        continue;
                     SubstitutionDTO sub = new SubstitutionDTO
                     {
-                        Time = (int)item["time"]?["elapsed"]!,
-                        PlayerInId = (int)item["assist"]?["id"]!,
+                        Time = (int?)item["time"]?["elapsed"] ?? 0,
+                        PlayerInId = (int?)item["assist"]?["id"] ?? 0,
                         PlayerOutId = player_id
                     };
+                    if(sub.PlayerInId == 0 || sub.PlayerOutId == 0)
+                        continue;
                     _substitutionDAL.addSubstitutionDAL(sub, match_id);
                 }
             }

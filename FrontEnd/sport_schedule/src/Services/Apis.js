@@ -14,7 +14,10 @@ export const endpoints={
     'player':(playerId) => `/player/${playerId}`,
     'ranking':'/ranking',
     'postArticle':'/article/post',
-    'historyArticle':'/article/history'
+    'historyArticle':'/article/history',
+    'updateArticle':(articleId) => `/article/update/${articleId}`,
+    'deleteArticle':(articleId) => `/article/delete/${articleId}`,
+    'getArticle': (page) => `/article/articles/${page}`
 }
 
 export const authApis = () =>{

@@ -39,11 +39,18 @@ namespace SportSchedule.Services.Article
             _postDAL.addArticle(article, username);
         }
 
-        public async Task updateArticle(ArticleDTO article)
+        public async Task updateArticle(ArticleDTO article, int articleId)
         {
             if (article == null)
                 return;
-            _postDAL.updateArticle(article);
+            _postDAL.updateArticle(article, articleId);
+        }
+
+        public async Task<List<ArticlePageDTOFE>> getArticlesByPage(int page)
+        {
+            if (page == null)
+                return null;
+            return _postDAL.getArticleByPage(page);
         }
     }
 }

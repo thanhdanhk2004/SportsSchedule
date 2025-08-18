@@ -7,9 +7,11 @@ namespace SportSchedule.DataAccess
     public class GoalDAL
     {
         private readonly ContextDB _context;
-        public GoalDAL(ContextDB context)
+        private readonly MemberDAL _memberDAL;
+        public GoalDAL(ContextDB context, MemberDAL memberDAL)
         {
             _context = context;
+            _memberDAL = memberDAL;
         }
         public void addGoal(GoalDTO goal)
         {
@@ -20,7 +22,7 @@ namespace SportSchedule.DataAccess
                     GoalModel model = new GoalModel
                     {
                         GoalType = goal.GoalType,
-                        PlayerId = goal.PlayerId,
+                        PlayerId = _memberDAL.isExistedMember(goal.PlayerId ?? 0) == true ? goal.PlayerId:null,
                         TeamId = goal.TeamId,
                         MatchId = goal.MatchId,
                         GoalTime = goal.GoalTime,
