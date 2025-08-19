@@ -94,7 +94,8 @@ namespace SportSchedule.DataAccess
                         Title = p.Title,
                         Description = p.Description,
                         Image = p.Image,
-                        AuthorName = p.User.LastName + p.User.FirstName
+                        AuthorName = p.User.LastName + p.User.FirstName,
+                        CreatedDate = p.Created.Value.ToString("dd/MM/yyyy hh:mm"),
                     }).FirstOrDefault();
                 return article;
             }catch(Exception ex)

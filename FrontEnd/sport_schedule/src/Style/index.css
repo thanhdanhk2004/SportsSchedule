@@ -282,3 +282,9 @@
         background-color: #4b5563 !important;
     }
 }
+
+/*Style cho bai bao*/
+.title-new:hover{
+  color: #28a745;
+  cursor: pointer;
+}

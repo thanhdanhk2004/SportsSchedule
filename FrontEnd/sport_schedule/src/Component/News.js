@@ -2,16 +2,18 @@ import { useEffect, useState } from "react"
 import api, { endpoints } from "../Services/Apis"
 import { Container, Image } from "react-bootstrap"
 import { Pagination } from "react-bootstrap"
+import { useNavigate } from "react-router-dom"
 
 const News = () => {
     const [articles, setArticles] = useState(null)
     const [page, setPage] = useState(1)
     const [totalPage, setTotalPage] = useState()
     const [pageSelected, setPageSelected] = useState(1)
+    const navigate = useNavigate()
 
     const getArticles = async () => {
         try {
-            var res = await api.get(endpoints.getArticle(page))
+            var res = await api.get(endpoints.getPageArticles(page))
             setArticles(res.data)
             setTotalPage(articles && articles[0].totalPage)
         } catch (err) {
@@ -29,13 +31,13 @@ const News = () => {
                 {articles && articles.map((article) => (
                     <div key={article.articleId} style={{ width: "30%", backgroundColor: "light", borderRadius: "5px", boxShadow: "0 4px 8px rgba(0,0,0,0.1)", padding: "10px", margin: "10px", border: "1px solid #ddd" }}>
                         <div>
-                            <Image
+                            <Image onClick={() => navigate(`/article?articleId=${article.articleId}`)}
                                 src={article.image}
-                                style={{ height: "200px", objectFit: "cover", width: "100%", borderRadius: "5px" }}
+                                style={{ height: "200px", objectFit: "cover", width: "100%", borderRadius: "5px", cursor:"pointer" }}
                             />
                         </div>
                         <div>
-                            <h5 className="text-center mt-3" style={{ fontWeight: "500" }}>
+                            <h5 onClick={() => navigate(`/article?articleId=${article.articleId}`)} className="text-center mt-3 title-new" style={{ fontWeight: "500"}}>
                                 {article.title}
                             </h5>
                         </div>

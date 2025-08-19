@@ -8,6 +8,7 @@ import Article from "./Component/PostArticle";
 import Protected from "./Protected"
 import HistoryArticle from "./Component/HistoryArticle";
 import News from './Component/News'
+import DetailArticle from "./Component/DetailArticle";
 
 const Main = () => {
     return (
@@ -20,7 +21,8 @@ const Main = () => {
                     <Route path="/ranking" element={<MainLayout><Ranking /></MainLayout>} />
                     <Route path="/article/post" element={<Protected><Article/></Protected>} />
                     <Route path="/history/article" element={<Protected><HistoryArticle/></Protected>} />
-                    <Route path="/news/:page" element={<MainLayout><News /></MainLayout>}/>
+                    <Route path="/news" element={<MainLayout><News /></MainLayout>}/>
+                    <Route path="/article" element={<MainLayout><DetailArticle /></MainLayout>}/>
                 </Routes>
             </BrowserRouter>
         </>

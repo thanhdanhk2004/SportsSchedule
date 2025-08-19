@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from 'react-bootstrap';
 import { FaFacebookF, FaGoogle } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
-import {useNavigate } from "react-router-dom";
 import '../Style/index.css'
 import logo_login from '../assets/logo_login.jpg'
 import { AuthContext } from "../Context/AuthContext";
@@ -11,7 +10,6 @@ import { useContext } from "react";
 function Login({ show, onHide, switchToRegister}) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
-    const navigate = useNavigate()
     const [errors, setErrors] = useState({Username: true, Password: true})
     const { login } = useContext(AuthContext);
     
@@ -35,7 +33,6 @@ function Login({ show, onHide, switchToRegister}) {
                 if (res.status === 200) {
                     login(res.data.user.token)
                     onHide()
-                    navigate('/')
                 }
             }
         } catch (err) {

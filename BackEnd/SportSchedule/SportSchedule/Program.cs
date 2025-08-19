@@ -11,6 +11,7 @@ using SportSchedule.DataTranserferObject.Article;
 using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services;
 using SportSchedule.Services.Article;
+using SportSchedule.Services.Comment;
 using SportSchedule.Services.Fixtures;
 using SportSchedule.Services.League;
 using SportSchedule.Services.Member;
@@ -105,6 +106,7 @@ builder.Services.AddTransient<IStatisticService, StatisticService>();
 builder.Services.AddTransient<IMemberService, MemberService>();
 builder.Services.AddTransient<IRankingService, RankingService>();   
 builder.Services.AddTransient<IArticleService, ArticleService>();
+builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
@@ -127,6 +129,7 @@ builder.Services.AddScoped<RankingDAL>();
 builder.Services.AddScoped<LeagueDAL>();
 builder.Services.AddScoped<UserDAL>();
 builder.Services.AddScoped<PostDAL>();
+builder.Services.AddScoped<CommentDAL>();
 
 var app = builder.Build();
 

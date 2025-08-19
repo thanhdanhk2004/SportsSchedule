@@ -95,6 +95,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.CommentController",
+    "Method": "addComment",
+    "RelativePath": "Comment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "comment",
+        "Type": "SportSchedule.DataTranserferObject.Comment.CommentDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.CommentController",
+    "Method": "getComments",
+    "RelativePath": "Comment/comment/{postId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "postId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.CommentController",
+    "Method": "getCommentsReply",
+    "RelativePath": "Comment/comment/reply/{commentId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "commentId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.FixtureController",
     "Method": "GetFixtureByDate",
     "RelativePath": "fixture",

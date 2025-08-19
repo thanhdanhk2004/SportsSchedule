@@ -22,7 +22,7 @@ const Header = () => {
         <Navbar.Collapse id="main-navbar">
           <Nav className="mx-auto text-uppercase fw-bold">
             <Nav.Link href="/" className="text-warning">Lịch thi đấu</Nav.Link>
-            <Nav.Link href={`/news/${1}`}>Tin tức</Nav.Link>
+            <Nav.Link href={`/news`}>Tin tức</Nav.Link>
 
             <NavDropdown title="Giải đấu" id="league-dropdown">
               <NavDropdown.Item href="#">Ngoại hạng Anh</NavDropdown.Item>

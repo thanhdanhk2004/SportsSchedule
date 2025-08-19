@@ -17,7 +17,11 @@ export const endpoints={
     'historyArticle':'/article/history',
     'updateArticle':(articleId) => `/article/update/${articleId}`,
     'deleteArticle':(articleId) => `/article/delete/${articleId}`,
-    'getArticle': (page) => `/article/articles/${page}`
+    'getPageArticles': (page) => `/article/articles/${page}`,
+    'getArticle':(articleId) => `/article/${articleId}`,
+    'addComment': '/comment',
+    'getComments':(postId) => `/Comment/comment/${postId}`,
+    'getCommentsReply':(commentId) =>`/Comment/comment/reply/${commentId}`
 }
 
 export const authApis = () =>{
