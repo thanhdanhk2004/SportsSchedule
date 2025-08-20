@@ -1,9 +1,10 @@
 import { useContext, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import api, { authApis, endpoints } from "../Services/Apis"
-import { Container, Image, Form, Button, Tabs, Tab, Card, Row, Col } from "react-bootstrap"
+import { Container, Image, Form, Button, Tabs, Tab } from "react-bootstrap"
 import { AuthContext } from "../Context/AuthContext"
 import Login from "./Login"
+import CommentItem from "./CommentItem"
 
 const DetailArticle = () => {
     const [searchParams] = useSearchParams()
@@ -14,6 +15,7 @@ const DetailArticle = () => {
     const [showRegister, setShowRegister] = useState(false)
     const [valueContentReply, setValueContentReply] = useState("")
     const [flagReply, setFlagReply] = useState(false)
+    const[commendIdExpend, setCommentIdExpend] = useState([])
 
 
     /*Lay thong tin bai bao*/ 
@@ -29,8 +31,6 @@ const DetailArticle = () => {
 
     /*Xu ly comment (them binh luan)*/
     const [comment, setComment] = useState({ postId: articleId, content: "", commentReplyId: null });
-
-
     const addComment = async (data) => {
         try {
             var res = authApis().post(endpoints.addComment, data);
@@ -42,10 +42,10 @@ const DetailArticle = () => {
             }))
 
             if(flagReply === true){
-                setValueContentReply("")
                 setReplyingTo(-1)
                 setFlagReply(false)
-            }            
+            }      
+            console.log(replyingTo)      
         } catch (err) {
             console.log(err)
         }
@@ -65,7 +65,6 @@ const DetailArticle = () => {
 
     /*Xu ly comment (Xem binh luan)*/
     const [comments, setComments] = useState(null);
-
     const getComments = async () => {
         try {
             var res = await api.get(endpoints.getComments(articleId))
@@ -85,17 +84,20 @@ const DetailArticle = () => {
             content: contentReply,
             commentReplyId: commentId,
         }
+        console.log(commentReply)
         handleSubmit(commentReply)
+        setCommentIdExpend(-1)
     }   
 
     /*Xem phan hoi*/
     const [commentsReply, setCommentReply] = useState(null)
-    const getCommentReply = async (commentId) =>{
+    const getCommentReply = async (commentId) => {
         var res = await api.get(endpoints.getCommentsReply(commentId))
         if(res.status === 200)
         {
             setCommentReply(res.data)
             console.log(commentsReply)
+            setCommentIdExpend(commentId)
         }
 
     }
@@ -155,31 +157,21 @@ const DetailArticle = () => {
                 <Tabs defaultActiveKey="hot" className="mt-4">
                     <Tab eventKey="hot" title="Các bình luận">
                         <div style={{ maxHeight: "350px", overflowY: "auto" }}>
-                            {comments && comments.map((c, index) => (
-                                <Card key={index} className="mt-3 p-3">
-                                    <Row>
-                                        <Col xs={12}>
-                                            <strong>{c.authorNameComment} ({c.timeComment})</strong>
-                                            <p className="mt-2">{c.content}</p>
-                                            <div>
-                                                 <span style={{cursor:"pointer"}} onClick={() => getCommentReply(c.commentId)}>Xem {c.totalCommentReply} phản hồi </span>
-                                            </div>
-                                            <div className="d-flex text-muted">
-                                                <span className="mt-3" style={{ cursor: "pointer", color:"blue" }} onClick={() => {setReplyingTo(index); setFlagReply(true)}}>Trả lời</span>
-                                            </div>
-                                        </Col>
-                                    </Row>
-                                    {replyingTo === index && (
-                                        <div className="mt-2">
-                                            <Form.Control as="textarea" rows={2} placeholder="Nhập câu trả lời..." value={valueContentReply} name="content"
-                                            onChange={(e) => setValueContentReply(e.target.value)} />
-                                            <Button className="mt-2" size="sm" variant="primary" onClick={() => {handleCommentId(c.commentId, valueContentReply)}}>
-                                                Gửi trả lời
-                                            </Button>
-                                        </div>
-                                    )}
-                                </Card>
-                            ))}
+                            <CommentItem
+                                comments={comments}
+                                getCommentReply={getCommentReply}
+                                handleCommentId={handleCommentId}
+                                replyingTo={replyingTo}
+                                setReplyingTo={setReplyingTo}
+                                setFlagReply={setFlagReply}
+                                flagReply={flagReply}
+                                valueContentReply={valueContentReply}
+                                setValueContentReply={setValueContentReply}
+                                commentsReply={commentsReply}
+                                setCommentReply={setCommentReply}
+                                commentIdExpend={commendIdExpend}
+                                setCommentIdExpend={setCommentIdExpend}
+                            />
                         </div>
                     </Tab>
                 </Tabs>

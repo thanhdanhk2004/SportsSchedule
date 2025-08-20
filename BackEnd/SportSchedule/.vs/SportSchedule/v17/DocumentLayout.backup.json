@@ -54,9 +54,9 @@
               "Title": "CommentController.cs",
               "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\CommentController.cs",
               "RelativeDocumentMoniker": "SportSchedule\\Controllers\\CommentController.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\CommentController.cs*",
-              "RelativeToolTip": "SportSchedule\\Controllers\\CommentController.cs*",
-              "ViewState": "AgIAACAAAAAAAAAAAAAgwCoAAAAWAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\CommentController.cs",
+              "RelativeToolTip": "SportSchedule\\Controllers\\CommentController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwC4AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-19T04:57:45.028Z",
               "EditorCaption": ""
@@ -71,8 +71,7 @@
               "RelativeToolTip": "SportSchedule\\Services\\Comment\\CommentService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T04:56:22.48Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-19T04:56:22.48Z"
             },
             {
               "$type": "Document",
@@ -84,8 +83,7 @@
               "RelativeToolTip": "SportSchedule\\Services\\Comment\\ICommentService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T04:55:00.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-19T04:55:00.749Z"
             },
             {
               "$type": "Document",
@@ -97,8 +95,7 @@
               "RelativeToolTip": "SportSchedule\\DataTranserferObject\\Comment\\CommentDTOFE.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T04:46:31.412Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-19T04:46:31.412Z"
             },
             {
               "$type": "Document",
@@ -110,8 +107,7 @@
               "RelativeToolTip": "SportSchedule\\DataTranserferObject\\Comment\\CommentDTO.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T04:36:14.614Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-19T04:36:14.614Z"
             },
             {
               "$type": "Document",
@@ -119,12 +115,11 @@
               "Title": "CommentDAL.cs",
               "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\CommentDAL.cs",
               "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\CommentDAL.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\CommentDAL.cs*",
-              "RelativeToolTip": "SportSchedule\\DataAccess\\CommentDAL.cs*",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\CommentDAL.cs",
+              "RelativeToolTip": "SportSchedule\\DataAccess\\CommentDAL.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAiwCgAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-19T04:34:22.333Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-19T04:34:22.333Z"
             }
           ]
         }
