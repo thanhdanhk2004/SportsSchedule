@@ -9,6 +9,7 @@ import Protected from "./Protected"
 import HistoryArticle from "./Component/HistoryArticle";
 import News from './Component/News'
 import DetailArticle from "./Component/DetailArticle";
+import PredictMatch from "./Component/PredictMatchs";
 
 const Main = () => {
     return (
@@ -23,6 +24,7 @@ const Main = () => {
                     <Route path="/history/article" element={<Protected><HistoryArticle/></Protected>} />
                     <Route path="/news" element={<MainLayout><News /></MainLayout>}/>
                     <Route path="/article" element={<MainLayout><DetailArticle /></MainLayout>}/>
+                    <Route path="/predict" element={<Protected><PredictMatch /></Protected>}/>
                 </Routes>
             </BrowserRouter>
         </>

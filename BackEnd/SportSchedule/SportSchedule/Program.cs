@@ -13,6 +13,7 @@ using SportSchedule.Services;
 using SportSchedule.Services.Article;
 using SportSchedule.Services.Comment;
 using SportSchedule.Services.Fixtures;
+using SportSchedule.Services.Guess;
 using SportSchedule.Services.League;
 using SportSchedule.Services.Member;
 using SportSchedule.Services.Permission;
@@ -107,6 +108,7 @@ builder.Services.AddTransient<IMemberService, MemberService>();
 builder.Services.AddTransient<IRankingService, RankingService>();   
 builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
+builder.Services.AddTransient<IGuessService, GuessService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
@@ -130,6 +132,7 @@ builder.Services.AddScoped<LeagueDAL>();
 builder.Services.AddScoped<UserDAL>();
 builder.Services.AddScoped<PostDAL>();
 builder.Services.AddScoped<CommentDAL>();
+builder.Services.AddScoped<GuessDAL>();
 
 var app = builder.Build();
 

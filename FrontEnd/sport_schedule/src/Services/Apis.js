@@ -21,7 +21,9 @@ export const endpoints={
     'getArticle':(articleId) => `/article/${articleId}`,
     'addComment': '/comment',
     'getComments':(postId) => `/Comment/comment/${postId}`,
-    'getCommentsReply':(commentId) =>`/Comment/comment/reply/${commentId}`
+    'getCommentsReply':(commentId) =>`/Comment/comment/reply/${commentId}`,
+    'getMatchesGuess':(time) => `/guess/${time}`,
+    'addGuess':(matchId)  => `/guess/add/${matchId}`
 }
 
 export const authApis = () =>{

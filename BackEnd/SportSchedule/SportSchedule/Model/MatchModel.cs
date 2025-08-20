@@ -10,6 +10,7 @@
         public int? TeamIdAway { get; set; }
         public int? SeasonId { get; set; }
         public int? LeagueId {  get; set; }
+        public bool? Predict { get; set; }
         public TeamModel? TeamHome { get; set; }
         public TeamModel? TeamAway {  get; set; }
         public SeasonModel? Season { get; set; }

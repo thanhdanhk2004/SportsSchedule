@@ -12,6 +12,7 @@ namespace SportSchedule.Configuration
             builder.HasKey(m => m.MatchId);
             builder.Property(m => m.Venue).IsRequired();
             builder.Property(m => m.Round).IsRequired();
+            builder.Property(m => m.Predict).HasDefaultValue(false);
 
             //Khoa ngoai giua Match va TeamHome, TeamAway
             builder.HasOne(m => m.TeamHome)

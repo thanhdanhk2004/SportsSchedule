@@ -180,6 +180,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.GuessControler",
+    "Method": "getMatchsGuess",
+    "RelativePath": "guess/{time}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "time",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.GuessControler",
+    "Method": "addGuess",
+    "RelativePath": "guess/add/{matchId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guess",
+        "Type": "SportSchedule.DataTranserferObject.Guess.GuessDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.LeagueController",
     "Method": "GetLeague",
     "RelativePath": "league",

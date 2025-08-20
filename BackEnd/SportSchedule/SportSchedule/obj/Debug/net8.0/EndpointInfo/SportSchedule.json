@@ -290,6 +290,70 @@
         }
       }
     },
+    "/guess/{time}": {
+      "get": {
+        "tags": [
+          "GuessControler"
+        ],
+        "parameters": [
+          {
+            "name": "time",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/guess/add/{matchId}": {
+      "post": {
+        "tags": [
+          "GuessControler"
+        ],
+        "parameters": [
+          {
+            "name": "matchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuessDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuessDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuessDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/league": {
       "get": {
         "tags": [
@@ -487,6 +551,22 @@
             "nullable": true
           },
           "commentReplyId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuessDTO": {
+        "type": "object",
+        "properties": {
+          "predictHomeScore": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "predictAwayScore": {
             "type": "integer",
             "format": "int32",
             "nullable": true

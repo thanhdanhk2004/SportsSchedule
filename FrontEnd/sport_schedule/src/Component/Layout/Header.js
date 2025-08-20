@@ -48,7 +48,7 @@ const Header = () => {
             {isLogin === true ?
               <>
                 <Nav.Link href="/article/post">Đăng bài viết</Nav.Link>
-                <Nav.Link>Minigame</Nav.Link>
+                <Nav.Link href="/predict">Minigame</Nav.Link>
               </>
               : ""}
           </Nav>
