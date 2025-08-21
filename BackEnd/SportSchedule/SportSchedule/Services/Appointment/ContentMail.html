@@ -1,0 +1,130 @@
+﻿<!Doctype html>
+<html>
+<head>
+    <style>
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            margin-bottom: 20px;
+            overflow: hidden;
+            width: 700px;
+        }
+
+        .card-header {
+            background-color: #7c4dff;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            text-align: center;
+        }
+
+        .col {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+        }
+
+        .team-logo {
+            width: 60px;
+        }
+
+        .team-name {
+            margin-top: 10px;
+        }
+
+        .middle .match-time {
+            margin-bottom: 10px;
+            color: #6c757d;
+        }
+
+        .score-input {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .score-box {
+            width: 60px;
+            text-align: center;
+            margin: 0 8px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+             background-color: #0b5ed7;
+        }
+
+        .note {
+            margin-top: 10px;
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            <h1>Thông tin trận đấu</h1>
+        </div>
+        <div class="email-body">
+            <h2>Xin chào</h2>
+            <p>Cảm ơn bạn đã sử dụng website của chúng tôi. Dưới đây là thông tin trận đấu</p>
+            <div class="card">
+                <div class="card-header">
+                    <strong>Thời gian trận đấu: [Time]</strong>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Đội nhà -->
+                        <div class="col team">
+                            <img src="[LogoHome]" alt="Team Home" class="team-logo" />
+                            <h5 class="team-name">[TeamHome]</h5>
+                        </div>
+
+                        <!-- Giữa -->
+                        <div class="col middle">                          
+                            <button class="btn" disabled>Với</button>
+                        </div>
+
+                        <!-- Đội khách -->
+                        <div class="col team">
+                            <img src="[LogoAway]" alt="Team Away" class="team-logo" />
+                            <h5 class="team-name">[TeamAway]</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="email-footer">
+            <p>Website the thao</p>
+            <p>Hotline: 0363950054</p>
+            <p>Email: 251052011dan@ou.edu.vn</p>
+        </div>
+    </div>
+</body>
+</html>

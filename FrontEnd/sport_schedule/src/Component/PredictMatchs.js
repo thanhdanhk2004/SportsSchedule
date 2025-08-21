@@ -68,7 +68,6 @@ const PredictMatch = () => {
             {
                 matchesGuess && matchesGuess.map((match) => {
                     const guess = guesses[match.matchId] || { PredictHomeScore: "", PredictAwayScore: "" }
-
                     return (
                         <Card key={match.matchId} className="mb-4 shadow-lg border-0 rounded-4">
                             <Card.Header className="text-white rounded-top-4" style={{ backgroundColor: "#7c4dff" }}>
@@ -76,36 +75,21 @@ const PredictMatch = () => {
                             </Card.Header>
                             <Card.Body>
                                 <Row className="align-items-center">
-                                    {/* Team A */}
                                     <Col xs={12} md={4} className="text-center">
                                         <img src={match.logoNameHome} alt={match.teamNameHome} style={{ width: 60 }} />
                                         <h5 className="mt-2">{match.teamNameHome}</h5>
                                     </Col>
 
-                                    {/* Input score */}
                                     <Col xs={12} md={4} className="text-center">
                                         <p className="mb-2 text-muted">
                                             {match.matchTime && match.matchTime.split(" ")[1].substring(0, 5) + " " + match.matchTime.split(" ")[0]}
                                         </p>
                                         <div className="d-flex justify-content-center align-items-center mb-3">
-                                            <Form.Control
-                                                type="number"
-                                                min={0}
-                                                name="PredictHomeScore"
-                                                value={guess.PredictHomeScore}
-                                                className="mx-2 text-center"
-                                                style={{ width: "60px" }}
-                                                onChange={(e) => handleChange(match.matchId, e)}
-                                            />
+                                            <Form.Control type="number" min={0} name="PredictHomeScore" value={guess.PredictHomeScore}
+                                             className="mx-2 text-center" style={{ width: "60px" }} onChange={(e) => handleChange(match.matchId, e)}/>
                                             <span>-</span>
-                                            <Form.Control
-                                                type="number"
-                                                min={0}
-                                                name="PredictAwayScore"
-                                                value={guess.PredictAwayScore}
-                                                className="mx-2 text-center"
-                                                style={{ width: "60px" }}
-                                                onChange={(e) => handleChange(match.matchId, e)}
+                                            <Form.Control type="number" min={0} name="PredictAwayScore" value={guess.PredictAwayScore}
+                                                className="mx-2 text-center" style={{ width: "60px" }} onChange={(e) => handleChange(match.matchId, e)}
                                             />
                                         </div>
                                         <Button variant="primary" className="px-4" onClick={() => addGuess(match.matchId)}>
@@ -114,7 +98,6 @@ const PredictMatch = () => {
                                         <p className="mt-2 text-muted">Cơ hội trúng ngay 500.000 đồng!!!</p>
                                     </Col>
 
-                                    {/* Team B */}
                                     <Col xs={12} md={4} className="text-center">
                                         <img src={match.logoNameAway} alt={match.teamNameAway} style={{ width: 60 }} />
                                         <h5 className="mt-2">{match.teamNameAway}</h5>

@@ -22,5 +22,6 @@
         public List<CardModel>? Cards { get; set; }
         public List<GoalModel>? Goals { get; set; }
         public List<SubstitutionModel>? Substitutions { get; set; }
+        public List<AppointmentModel>? Appointments { get; set; }
     }
 }

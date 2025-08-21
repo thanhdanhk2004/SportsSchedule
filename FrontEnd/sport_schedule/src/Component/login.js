@@ -7,12 +7,11 @@ import logo_login from '../assets/logo_login.jpg'
 import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
 
-function Login({ show, onHide, switchToRegister}) {
+function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
     const [errors, setErrors] = useState({Username: true, Password: true})
     const { login } = useContext(AuthContext);
-    
 
     const change_handle = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -32,6 +31,7 @@ function Login({ show, onHide, switchToRegister}) {
                 const res = await api.post(endpoints.login, user)
                 if (res.status === 200) {
                     login(res.data.user.token)
+                    onLoginSuccess()
                     onHide()
                 }
             }

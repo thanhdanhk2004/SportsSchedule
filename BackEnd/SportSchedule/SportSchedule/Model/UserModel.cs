@@ -4,7 +4,6 @@ namespace SportSchedule.Model
 {
     public class UserModel
     {
-        
         public int? UserId {  get; set; }
         public string? LastName { get; set; }
         public string? FirstName {  get; set; }
@@ -18,6 +17,7 @@ namespace SportSchedule.Model
         public List<MessageModel>? MessageSends {  get; set; }
         public List<MessageModel>? MessageRevices {  get; set; }
         public List<GuessModel>? Guess { get; set; }
+        public List<AppointmentModel>? Appointments { get; set; }
 
     }
 }

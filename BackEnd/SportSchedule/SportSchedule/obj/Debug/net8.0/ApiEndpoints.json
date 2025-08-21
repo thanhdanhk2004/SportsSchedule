@@ -1,5 +1,31 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.AppointmentController",
+    "Method": "addAppointment",
+    "RelativePath": "appointment/{matchId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AppointmentController",
+    "Method": "getMatchAppointmented",
+    "RelativePath": "appointmented",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
     "Method": "getArticleByArticleId",
     "RelativePath": "article/{articleId}",

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Fixture;
+using SportSchedule.DataTranserferObject.Guess;
 using SportSchedule.DataTranserferObject.Page;
+using SportSchedule.DataTranserferObject.Appointment;
 
 namespace SportSchedule.DataAccess
 {
@@ -114,5 +116,6 @@ namespace SportSchedule.DataAccess
                 return null;
             }
         }
+
     }
 }

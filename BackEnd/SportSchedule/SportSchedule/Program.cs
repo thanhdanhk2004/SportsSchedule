@@ -18,6 +18,7 @@ using SportSchedule.Services.League;
 using SportSchedule.Services.Member;
 using SportSchedule.Services.Permission;
 using SportSchedule.Services.Ranking;
+using SportSchedule.Services.Appointment;
 using SportSchedule.Services.Statistic;
 using SportSchedule.Services.Users;
 using System.Text;
@@ -109,6 +110,8 @@ builder.Services.AddTransient<IRankingService, RankingService>();
 builder.Services.AddTransient<IArticleService, ArticleService>();
 builder.Services.AddTransient<ICommentService, CommentService>();
 builder.Services.AddTransient<IGuessService, GuessService>();
+builder.Services.AddTransient<IAppointmentService, AppointmentService>();
+builder.Services.AddHostedService<MailBackgroundService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
@@ -133,6 +136,7 @@ builder.Services.AddScoped<UserDAL>();
 builder.Services.AddScoped<PostDAL>();
 builder.Services.AddScoped<CommentDAL>();
 builder.Services.AddScoped<GuessDAL>();
+builder.Services.AddScoped<AppointmentDAL>();
 
 var app = builder.Build();
 
@@ -167,8 +171,9 @@ var fixtureService = app.Services.CreateScope().ServiceProvider.GetRequiredServi
 var statisticService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IStatisticService>();
 var memberService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IMemberService>();
 var rankingService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IRankingService>();
+var appointmentService = app.Services.CreateScope().ServiceProvider.GetRequiredService<IAppointmentService>();
 //await DataSeedFixture.SeedingData(context, leagueService, fixtureService);
 //await DataSeedStatistic.SeenDataStatistic(context, statisticService, memberService, rankingService);
 //await DataSeedRanking.SeedRanking(context, rankingService);
-
+//await DataSeedMail.SeedDataMail(_context, appointmentService);
 app.Run();

@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Container, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import SeeModal from "../See"
-import api, { endpoints } from "../../Services/Apis"
+import api, { endpoints, authApis } from "../../Services/Apis"
 import { Nav } from 'react-bootstrap';
+import { AuthContext } from '../../Context/AuthContext';
+import Login from '../Login';
+import { Cookies } from "react-cookie";
+
 
 const Schedule = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -83,12 +87,6 @@ const Schedule = () => {
         }
     }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-    //(load trang khi vua chay len)
-    useEffect(() => {
-        const date = get_date(today, 0)
-        getFixture(date)
-    }, [])
 
     //Tim kiem giai dau hoac tran dau hom nay
     const groupedSearch = (text) => {
@@ -120,6 +118,56 @@ const Schedule = () => {
             console.log(error)
         }
     }
+
+    /*Xu ly hen lich*/
+    const { isLogin } = useContext(AuthContext)
+    const [showLogin, setShowLogin] = useState(false)
+    const [showRegister, setShowRegister] = useState(false)
+    const [matchesAppointmented, setMatchesAppointmented] = useState()
+    const cookie = new Cookies()
+
+    const getMatchesAppointmented = async () => {
+        try {
+            var res = await authApis().get(endpoints.getMatchesAppointmented)
+            setMatchesAppointmented(res.data)
+            console.log(matchesAppointmented)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const handleLoginSuccess = () => {
+        getMatchesAppointmented()
+    }
+
+    const handleAppontment = async (matchId) => {
+        if (!isLogin) {
+            if (window.confirm("Vui lòng đăng nhập để hẹn lịch")) {
+                setShowLogin(true)
+            }
+        }
+        else {
+            try {
+                var res = await authApis().post(endpoints.addAppointment(matchId))
+                if (res.status === 200) {
+                    alert("Hẹn lịch thành công")
+                    getMatchesAppointmented()
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+    //(load trang khi vua chay len)
+    useEffect(() => {
+        const date = get_date(today, 0)
+        getFixture(date)
+        if (cookie.get('token')!== "") {
+            getMatchesAppointmented()
+        }
+    },[])
 
     return (
         <Container className="mt-4">
@@ -199,7 +247,7 @@ const Schedule = () => {
                                 <div className="text-center flex-grow-1">
                                     {league}
                                 </div>
-                                <div style={{marginTop:"-5px"}}>
+                                <div style={{ marginTop: "-5px" }}>
                                     <Nav>
                                         <Nav.Link href={`/ranking?leagueId=${matches[0].leagueId}&season=${yearSelected}`}>BXH</Nav.Link>
                                     </Nav>
@@ -234,17 +282,16 @@ const Schedule = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     {m.goalHomeFullTime === null ? (
                                         <>
-                                            <div className='btn btn-info'>Hẹn lịch</div>
-                                            <div className='btn btn-success'>Minigame</div>
+                                            <button disabled={matchesAppointmented && matchesAppointmented.includes(m.matchId)} onClick={() => handleAppontment(m.matchId)} className='btn btn-info'>Hẹn lịch</button>
                                         </>
-                                    ): 
-                                    <div className='bg-primary' style={{width: "200px"}}>
-                                        
-                                    </div>}
+                                    ) :
+                                        <div className='bg-primary' style={{ width: "200px" }}>
 
+                                        </div>}
+                                    <Login show={showLogin} onHide={() => setShowLogin(false)} switchToRegister={() => { setShowLogin(false); setShowRegister(true)}} onLoginSuccess={() => handleLoginSuccess()} />
                                 </div>
                             ))}
 
