@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\appointment\\mailbackgroundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\appointment\\mailbackgroundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\controllers\\awardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\controllers\\awardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\appointment\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\appointment\\appointmentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\award\\awardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\award\\awardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\award\\iawardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\award\\iawardservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\appointment\\contentmail.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\appointment\\contentmail.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\dataaccess\\appointmentdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\dataaccess\\appointmentdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\dataaccess\\awarddal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\dataaccess\\awarddal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,21 +30,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Program.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
-              "RelativeToolTip": "SportSchedule\\Program.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAEwHEAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T15:46:58.962Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
@@ -60,53 +47,66 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MailBackgroundService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\MailBackgroundService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Appointment\\MailBackgroundService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\MailBackgroundService.cs*",
-              "RelativeToolTip": "SportSchedule\\Services\\Appointment\\MailBackgroundService.cs*",
-              "ViewState": "AgIAABsAAAAAAAAAAAAcwBcAAAAZAAAAAAAAAA==",
+              "Title": "AwardController.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\AwardController.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Controllers\\AwardController.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\AwardController.cs*",
+              "RelativeToolTip": "SportSchedule\\Controllers\\AwardController.cs*",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwC0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T16:05:09.532Z",
+              "WhenOpened": "2025-08-23T10:02:36.475Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AppointmentService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\AppointmentService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Appointment\\AppointmentService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\AppointmentService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Appointment\\AppointmentService.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAvwCMAAAA+AAAAAAAAAA==",
+              "Title": "AwardService.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Award\\AwardService.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Services\\Award\\AwardService.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Award\\AwardService.cs*",
+              "RelativeToolTip": "SportSchedule\\Services\\Award\\AwardService.cs*",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T04:07:33.012Z",
+              "WhenOpened": "2025-08-23T04:38:37.513Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AppointmentDAL.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\AppointmentDAL.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\AppointmentDAL.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\AppointmentDAL.cs",
-              "RelativeToolTip": "SportSchedule\\DataAccess\\AppointmentDAL.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAEwBcAAAA2AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "IAwardService.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Award\\IAwardService.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Services\\Award\\IAwardService.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Award\\IAwardService.cs*",
+              "RelativeToolTip": "SportSchedule\\Services\\Award\\IAwardService.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T04:01:20.214Z",
+              "WhenOpened": "2025-08-23T04:38:29.066Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "ContentMail.html",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\ContentMail.html",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Appointment\\ContentMail.html",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Appointment\\ContentMail.html",
-              "RelativeToolTip": "SportSchedule\\Services\\Appointment\\ContentMail.html",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAoAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-08-21T09:54:12.977Z",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Program.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
+              "RelativeToolTip": "SportSchedule\\Program.cs",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAAHcAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T04:37:40.96Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AwardDAL.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\AwardDAL.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\AwardDAL.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\AwardDAL.cs*",
+              "RelativeToolTip": "SportSchedule\\DataAccess\\AwardDAL.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-23T04:28:06.559Z",
               "EditorCaption": ""
             }
           ]

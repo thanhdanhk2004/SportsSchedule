@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Services.Users;
 
@@ -34,6 +35,46 @@ namespace SportSchedule.Controllers
                 message = "Đăng nhập thành công",
                 user = u
             });
+        }
+
+        [HttpGet("/users")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> getUsers()
+        {
+            var data = await _userSevice.getUsers();
+            if(data == null)
+                return NotFound();
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> getUser(int userId)
+        {
+            var data = await _userSevice.getUser(userId);
+            if (data == null)
+                return NotFound();
+            return Ok(data);
+        }
+
+        [HttpDelete("delete/{userId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> deleteUser(int userId)
+        {
+            bool resutle = await _userSevice.deleteUser(userId);
+            if(resutle)
+                return Ok();
+            return BadRequest();
+        }
+
+        [HttpPut("update")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> updateUser(UserDTOUpdate user)
+        {
+            bool resutl = await _userSevice.updateUser(user);
+            if(resutl)
+                return Ok();
+            return BadRequest();
         }
     }
 }

@@ -5,7 +5,6 @@ using SportSchedule.DataTranserferObject.User;
 using SportSchedule.Model;
 using System.Security.Principal;
 
-
 namespace SportSchedule.Services.Users
 {
     public class UserService : IUserSevice
@@ -28,6 +27,8 @@ namespace SportSchedule.Services.Users
             return _userDAL.addUser(user_data);
         }
 
+        
+
         //Them user khi dang nhap tai khoan
         public UserDTOFE? getUser(UserDTO user_data)
         {
@@ -36,9 +37,62 @@ namespace SportSchedule.Services.Users
             return _userDAL.getInforUser(user_data);
         }
 
-        public bool updateUser(string username, string password, string email)
+
+        //Chuc nang cua admin
+        public async Task<UserDTOFEAdmin> getUser(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (userId == 0)
+                    return null;
+                return _userDAL.getUser(userId);
+            }catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<UserDTOFEAdmin>> getUsers()
+        {
+            try
+            {
+                return _userDAL.getUsers();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+        public async Task<bool> updateUser(UserDTOUpdate user)
+        {
+            try
+            {
+                if (user == null)
+                    return false;
+                return _userDAL.updateUser(user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<bool> deleteUser(int userId)
+        {
+            try
+            {
+                if (userId == null)
+                    return false;
+                return _userDAL.deleteUser(userId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
     }
 }

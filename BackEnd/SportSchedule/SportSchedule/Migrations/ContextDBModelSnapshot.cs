@@ -63,7 +63,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("DateSend")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 21, 3, 48, 32, 65, DateTimeKind.Utc).AddTicks(9664));
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 22, 28, DateTimeKind.Utc).AddTicks(5036));
 
                     b.Property<int?>("MatchId")
                         .HasColumnType("integer");
@@ -96,12 +96,18 @@ namespace SportSchedule.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<string>("Gift")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<int?>("GuessId")
                         .HasColumnType("integer");
+
+                    b.Property<bool?>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("TimeAward")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 22, 18, DateTimeKind.Utc).AddTicks(4200));
 
                     b.HasKey("AwardId");
 
@@ -165,7 +171,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 21, 3, 48, 32, 17, DateTimeKind.Utc).AddTicks(8647));
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 21, 979, DateTimeKind.Utc).AddTicks(675));
 
                     b.Property<int?>("PostId")
                         .HasColumnType("integer");
@@ -231,7 +237,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("GuessTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 21, 3, 48, 32, 58, DateTimeKind.Utc).AddTicks(9543));
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 22, 17, DateTimeKind.Utc).AddTicks(4045));
 
                     b.Property<int?>("MatchId")
                         .HasColumnType("integer");
@@ -474,7 +480,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("SendTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 21, 3, 48, 32, 19, DateTimeKind.Utc).AddTicks(8587));
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 21, 982, DateTimeKind.Utc).AddTicks(528));
 
                     b.Property<string>("Type")
                         .ValueGeneratedOnAdd()
@@ -601,7 +607,7 @@ namespace SportSchedule.Migrations
                     b.Property<DateTime?>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTime(2025, 8, 21, 3, 48, 32, 12, DateTimeKind.Utc).AddTicks(5641));
+                        .HasDefaultValue(new DateTime(2025, 8, 23, 9, 49, 21, 969, DateTimeKind.Utc).AddTicks(7174));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -758,11 +764,9 @@ namespace SportSchedule.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.HasIndex("PlayerInId")
-                        .IsUnique();
+                    b.HasIndex("PlayerInId");
 
-                    b.HasIndex("PlayerOutId")
-                        .IsUnique();
+                    b.HasIndex("PlayerOutId");
 
                     b.ToTable("Substitution", (string)null);
                 });
@@ -850,7 +854,8 @@ namespace SportSchedule.Migrations
                 {
                     b.HasOne("SportSchedule.Model.UserModel", "User")
                         .WithOne("Account")
-                        .HasForeignKey("SportSchedule.Model.AccountModel", "UserId");
+                        .HasForeignKey("SportSchedule.Model.AccountModel", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });
@@ -907,7 +912,8 @@ namespace SportSchedule.Migrations
 
                     b.HasOne("SportSchedule.Model.UserModel", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Comment");
 
@@ -1142,12 +1148,12 @@ namespace SportSchedule.Migrations
                         .HasForeignKey("MatchId");
 
                     b.HasOne("SportSchedule.Model.PlayerModel", "PlayerIn")
-                        .WithOne("SubstitutionIn")
-                        .HasForeignKey("SportSchedule.Model.SubstitutionModel", "PlayerInId");
+                        .WithMany("SubstitutionIn")
+                        .HasForeignKey("PlayerInId");
 
                     b.HasOne("SportSchedule.Model.PlayerModel", "PlayerOut")
-                        .WithOne("SubstitutionOut")
-                        .HasForeignKey("SportSchedule.Model.SubstitutionModel", "PlayerOutId");
+                        .WithMany("SubstitutionOut")
+                        .HasForeignKey("PlayerOutId");
 
                     b.Navigation("Match");
 
@@ -1246,11 +1252,9 @@ namespace SportSchedule.Migrations
 
                     b.Navigation("PlayerMatches");
 
-                    b.Navigation("SubstitutionIn")
-                        .IsRequired();
+                    b.Navigation("SubstitutionIn");
 
-                    b.Navigation("SubstitutionOut")
-                        .IsRequired();
+                    b.Navigation("SubstitutionOut");
                 });
 
             modelBuilder.Entity("SportSchedule.Model.PostModel", b =>

@@ -1,4 +1,5 @@
-﻿using SportSchedule.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Appointment;
 using SportSchedule.Model;
 
@@ -92,8 +93,8 @@ namespace SportSchedule.DataAccess
                                    join m in _context.Matches on a.MatchId equals m.MatchId
                                    join u in _context.Users on a.UserId equals u.UserId
                                    where a.Status == false &&
-                                         (m.Time.Value <= DateTime.Now.AddHours(24)
-                                         && m.Time.Value >= DateTime.Now.AddHours(12))
+                                         (m.Time.Value <= DateTime.UtcNow.AddHours(31)
+                                         && m.Time.Value >= DateTime.UtcNow.AddHours(19))
                                     select new AppointmentDTO{
                                        AppointmentId = a.AppointmentId,
                                        MatchId = m.MatchId,

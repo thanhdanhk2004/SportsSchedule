@@ -117,5 +117,56 @@ namespace SportSchedule.DataAccess
             }
         }
 
+        //Chuc nang cua Admin
+        //Cap nhat trang thai Predict
+        public bool updateStatusPrdict(int matchId, bool status)
+        {
+            try
+            {
+                if(matchId == null)
+                    return false;
+                var match = _context.Matches.FirstOrDefault(m => m.MatchId == matchId);
+                if(match == null) 
+                    return false;
+                match.Predict = status;
+                _context.Entry(match).Property(m => m.Predict).IsModified = true;
+                _context.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        //Lay cac tran dau cho admin set du doan
+        public List<FixtureDTOFEAdmin> getFixturesAdmin(int page)
+        {
+            try
+            {
+                if (page == 0)
+                    return null;
+                var data = (from m in _context.Matches
+                            join th in _context.Teams on m.TeamIdHome equals th.TeamId
+                            join ta in _context.Teams on m.TeamIdAway equals ta.TeamId
+                            where DateTime.UtcNow.AddDays(7) <= m.Time.Value
+                                 && DateTime.UtcNow.AddDays(14) >= m.Time.Value
+                            select new FixtureDTOFEAdmin
+                            {
+                                MatchId = m.MatchId,
+                                TeamHome = th.Name,
+                                TeamAway = ta.Name,
+                                Time = m.Time.ToString(),
+                                Predict = m.Predict,
+                            }).ToList();
+                var result = data.Skip((page-1)*10).Take(10).ToList();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
     }
 }

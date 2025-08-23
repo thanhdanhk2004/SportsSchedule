@@ -121,6 +121,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "updateStatusArticle",
+    "RelativePath": "article/update/status/{article_id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "article_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "addAward",
+    "RelativePath": "award/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guessId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "updateStatusAward",
+    "RelativePath": "award/update/{awardId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "awardId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.CommentController",
     "Method": "addComment",
     "RelativePath": "Comment",
@@ -206,6 +254,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "getFixturesToPredict",
+    "RelativePath": "fixtures/predict/{page}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "getGuessExactly",
+    "RelativePath": "guess/{matchId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.GuessControler",
     "Method": "getMatchsGuess",
     "RelativePath": "guess/{time}",
@@ -246,6 +326,64 @@
     "ContainingType": "SportSchedule.Controllers.LeagueController",
     "Method": "GetLeague",
     "RelativePath": "league",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "addPermission",
+    "RelativePath": "permission/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permissionName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "deletePermisison",
+    "RelativePath": "permission/delete/{permisisonId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permisisonId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "updatePermission",
+    "RelativePath": "permission/update",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permission",
+        "Type": "SportSchedule.Model.PermissionModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "getPermissions",
+    "RelativePath": "permissions",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -306,6 +444,59 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "updateStatusPredict",
+    "RelativePath": "update/{matchId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "status",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "getUser",
+    "RelativePath": "user",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "deleteUser",
+    "RelativePath": "user/delete/{userId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.UserController",
     "Method": "Login",
     "RelativePath": "user/login",
@@ -335,6 +526,32 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "updateUser",
+    "RelativePath": "user/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "user",
+        "Type": "SportSchedule.DataTranserferObject.User.UserDTOUpdate",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.UserController",
+    "Method": "getUsers",
+    "RelativePath": "users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

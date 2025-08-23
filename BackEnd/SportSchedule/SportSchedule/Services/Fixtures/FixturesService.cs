@@ -104,5 +104,36 @@ namespace SportSchedule.Services.Fixtures
                 _cache.Set(key_cache, data, TimeSpan.FromMinutes(30));
             return data;
         }
+
+        //Chuc nang admin
+        //Thay doi trang thai predict
+        public async Task<bool> updateStatusPredict(int match_id, bool status)
+        {
+            try
+            {
+                if(match_id == null || status == null)
+                    return false;
+                return _matchDAL.updateStatusPrdict(match_id, status);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        //Lay cac tran dau
+        public async Task<List<FixtureDTOFEAdmin>> getFixturesAdmin(int page)
+        {
+            try
+            {
+                if (page == null)
+                    return null!;
+                return _matchDAL.getFixturesAdmin(page);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
     }
 }

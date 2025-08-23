@@ -7,6 +7,7 @@ namespace SportSchedule.Services.Article
     {
         private readonly PostDAL _postDAL;
         
+        //Chuc nang cua member
         public ArticleService(PostDAL postDAL)
         {
             _postDAL = postDAL;
@@ -51,6 +52,14 @@ namespace SportSchedule.Services.Article
             if (page == null)
                 return null;
             return _postDAL.getArticleByPage(page);
+        }
+
+        //Chuc nang cua admin
+        //Chuc nang cap nhật trang thai bai viet
+        public async Task<bool> updateStatusArticle(int article_id)
+        {
+            var result = _postDAL.updateStatusArticle(article_id);
+            return result;
         }
     }
 }

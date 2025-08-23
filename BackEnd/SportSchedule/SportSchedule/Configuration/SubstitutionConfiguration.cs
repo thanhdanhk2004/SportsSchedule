@@ -17,7 +17,14 @@ namespace SportSchedule.Configuration
                 .WithMany(m => m.Substitutions)
                 .HasForeignKey(s => s.MatchId);
 
-           
+            //Khoa ngoai voi PlayerIn va PlayerOut
+            builder.HasOne(s => s.PlayerIn)
+                .WithMany(p => p.SubstitutionIn)
+                .HasForeignKey(s => s.PlayerInId);
+
+            builder.HasOne(s => s.PlayerOut)
+               .WithMany(p => p.SubstitutionOut)
+               .HasForeignKey(s => s.PlayerOutId);
         }
     }
 }

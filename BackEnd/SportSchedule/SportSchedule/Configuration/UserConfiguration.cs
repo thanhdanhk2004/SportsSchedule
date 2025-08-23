@@ -17,7 +17,8 @@ namespace SportSchedule.Configuration
             // Thiet lap khoa ngoai voi Tai khoan
             builder.HasOne(u => u.Account)
                 .WithOne(a => a.User)
-                .HasForeignKey<AccountModel>(a => a.UserId);
+                .HasForeignKey<AccountModel>(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //Thiet lap khoa ngoai voi Role
             builder.HasOne(u => u.Role)

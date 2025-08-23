@@ -76,5 +76,16 @@ namespace SportSchedule.Controllers
             await _articleService.deleteArticle(articleId);
             return Ok();
         }
+
+        //Cap nhat trang thai bai viet (duyet bai viet)
+        [Authorize(Roles ="Admin", Policy = "permission.ApproveArticles")]
+        [HttpPatch("update/status/{article_id}")]
+        public async Task<IActionResult> updateStatusArticle(int article_id)
+        {
+            var result = await _articleService.updateStatusArticle(article_id);
+            if (result == false)
+                return BadRequest();
+            return Ok();
+        }
     }
 }

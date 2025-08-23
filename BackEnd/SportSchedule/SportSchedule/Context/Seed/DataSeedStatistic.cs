@@ -47,7 +47,8 @@ namespace SportSchedule.Context.Seed
                 DateTime timeFixture = response.Time ?? DateTime.MinValue;
 
                 if (dateNow >= timeFixture.AddHours(3) &&
-                    !_context.MatchStatictis.Any(ms => ms.MatchId == response.MatchId))
+                    !_context.MatchStatictis.Any(ms => ms.MatchId == response.MatchId)
+                    && response.LeagueName == "Premier League")
                 {
                     int fixture_id = await _statisticService.getStatisticFixture(response.NameHome, response.NameAway,
                        timeFixture.AddHours(-7).Day >= dateNow.Day?response.Time : dateNow.AddDays(-1), response.LeagueName, response.HomeId, response.AwayId,

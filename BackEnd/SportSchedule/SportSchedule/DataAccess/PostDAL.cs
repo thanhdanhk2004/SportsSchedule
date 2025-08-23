@@ -41,7 +41,7 @@ namespace SportSchedule.DataAccess
             }
         }
         
-        //Chinh sua (member) hoac cap nhat trang thai (admin) bai viet
+        //Chinh sua (member)  bai viet
         public void updateArticle(ArticleDTO article, int articleId)
         {
             try
@@ -147,6 +147,27 @@ namespace SportSchedule.DataAccess
                         .ToList();
             articles[0].TotalPage = (int)(Math.Ceiling((decimal)articles.Count / 3));
             return articles.Skip(page * 3).Take(3).ToList();
+        }
+
+        //Admin duyet bai viet
+        public bool updateStatusArticle(int article_id)
+        {
+            try
+            {
+                if(article_id  == null) 
+                    return false;
+                var article = _context.Posts.FirstOrDefault(p => p.PostId == article_id);
+                if(article == null)
+                    return false;
+                article.Status = "Đã duyệt";
+                _context.Posts.Update(article);
+                _context.SaveChanges();
+                return true;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }

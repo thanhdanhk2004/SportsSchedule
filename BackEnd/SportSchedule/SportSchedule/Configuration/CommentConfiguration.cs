@@ -22,7 +22,9 @@ namespace SportSchedule.Configuration
             //Khoa ngoai bang User va Comment
             builder.HasOne(c => c.User)
                 .WithMany(u => u.Comments)
-                .HasForeignKey(c => c.UserId);
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
 
             // Thiet lap khoa ngoai khi phan hoi Comment
             builder.HasOne(c => c.Comment)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.Services.Fixtures;
 
@@ -34,6 +35,26 @@ namespace SportSchedule.Controllers
                 return Ok(data);
             }
             return NotFound();
+        }
+
+        [HttpGet("/fixtures/predict/{page}")]
+        [Authorize(Roles="Admin")]
+        public async Task<IActionResult> getFixturesToPredict(int page)
+        {
+            var data = await _fixtureService.getFixturesAdmin(page);
+            if( data != null )
+                return Ok(data);
+            return NotFound();
+        }
+
+        [HttpPatch("/update/{matchId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updateStatusPredict(int matchId, bool status)
+        {
+            bool result = await _fixtureService.updateStatusPredict(matchId, status);
+            if (result)
+                return Ok();
+            return BadRequest();
         }
     }
 }

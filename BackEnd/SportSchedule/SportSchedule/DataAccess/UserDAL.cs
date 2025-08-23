@@ -118,5 +118,116 @@ namespace SportSchedule.DataAccess
                 return 0;
             }
         }
+
+        
+        //Chuc nang cua Admin
+        //Lay danh sach cac user
+        public List<UserDTOFEAdmin> getUsers()
+        {
+            try
+            {
+                var users = _context.Users.Include(u => u.Account).Include(u => u.Role)
+                    .Select(u => new UserDTOFEAdmin
+                    {
+                        UserId = u.UserId,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        UserName = u.Account!.UserName,
+                        Password = u.Account!.Password,
+                        Email = u.Email,
+                        RoleName = u.Role!.Name
+                    }).ToList();
+                return users;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null!;
+            }
+        }
+
+        //Xoa user
+        public bool deleteUser(int userId)
+        {
+            try
+            {
+                if(userId == null)
+                    return false;
+                var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+                if(user == null) 
+                    return false;
+                _context.Users.Remove(user);
+                _context.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        //Lay thong tin user de chinh sua
+        public UserDTOFEAdmin getUser(int userId)
+        {
+            try
+            {
+                if (userId == null)
+                    return null;
+                var user = _context.Users.Include(u => u.Account)
+                    .Include(u => u.Role)
+                    .Where(u => u.UserId == userId)
+                    .Select(u => new UserDTOFEAdmin
+                    {
+                        UserId = u.UserId,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        UserName = u.Account!.UserName,
+                        Password = u.Account!.Password,
+                        Email = u.Email,
+                        RoleName = u.Role!.Name
+                    }).FirstOrDefault();
+                if (user == null)
+                    return null!;
+                return user;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null!;
+            }
+        }
+
+        //Edit user
+        public bool updateUser(UserDTOUpdate user)
+        {
+            try
+            {
+                if(user == null)
+                    return false;
+                //Tim user
+                var userExisted = _context.Users.FirstOrDefault(u => u.UserId == user.UserId);
+                if(userExisted == null)
+                    return false;
+
+                //Tim accout
+                var accoutExisted = _context.Accounts.FirstOrDefault(a => a.UserId == user.UserId);
+                if(accoutExisted == null)
+                    return false;
+
+                userExisted.LastName = user.LastName;
+                userExisted.FirstName = user.FirstName;
+                userExisted.Email = user.Email;
+                _context.Users.Update(userExisted);
+                accoutExisted.UserName = user.UserName;
+                accoutExisted.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                _context.Accounts.Update(accoutExisted);
+                _context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

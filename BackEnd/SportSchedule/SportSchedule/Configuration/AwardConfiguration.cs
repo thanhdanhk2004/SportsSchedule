@@ -11,7 +11,8 @@ namespace SportSchedule.Configuration
             builder.ToTable("Award");
             builder.HasKey(a => a.AwardId);
             builder.Property(a => a.Description).IsRequired(false);
-            builder.Property(a => a.Gift).IsRequired();
+            builder.Property(a => a.Status).HasDefaultValue(false);
+            builder.Property(a => a.TimeAward).HasDefaultValue(DateTime.UtcNow);
         }
     }
 }

@@ -6,12 +6,16 @@ import '../Style/index.css'
 import logo_login from '../assets/logo_login.jpg'
 import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode"; //thu vien de giai ma jwt
 
-function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
+function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
-    const [errors, setErrors] = useState({Username: true, Password: true})
+    const [errors, setErrors] = useState({ Username: true, Password: true })
     const { login } = useContext(AuthContext);
+    const Client_ID = process.env.REACT_APP_Client_ID;
+
 
     const change_handle = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -27,7 +31,7 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
 
             setErrors(newErrors)
 
-            if(user.Username !== "" && user.Password !== "") {
+            if (user.Username !== "" && user.Password !== "") {
                 const res = await api.post(endpoints.login, user)
                 if (res.status === 200) {
                     login(res.data.user.token)
@@ -40,6 +44,67 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
         }
     }
 
+
+    /*Login google*/
+
+
+    const handleLoginSuccess = async (credentialResponse) => {
+        const token = credentialResponse.credential;
+        const userInfo = jwtDecode(token);
+
+        const newUser = {
+            LastName: userInfo.family_name,
+            FirstName: userInfo.given_name,
+            Email: userInfo.email,
+            Username: userInfo.email,
+            Password: "123456",
+            ConfirmPassword: "123456"
+        };
+
+        try {
+            const resRegister = await api.post(endpoints.register, newUser);
+            if (resRegister.status === 200) {
+                const userLogin = {
+                    Username: userInfo.email,
+                    Password: "123456"
+                };
+
+                const resLogin = await api.post(endpoints.login, userLogin);
+
+                if (resLogin.status === 200) {
+                    login(resLogin.data.user.token);
+                    onLoginSuccess();
+                    onHide();
+                }
+            }
+        } catch (error) {
+            const userLogin = {
+                Username: userInfo.email,
+                Password: "123456"
+            };
+
+            try {
+                const resLogin = await api.post(endpoints.login, userLogin);
+                if (resLogin.status === 200) {
+                    login(resLogin.data.user.token);
+                    onLoginSuccess();
+                    onHide();
+                }
+            } catch (err) {
+                console.log("Login failed:", err);
+            }
+        }
+    };
+
+
+    // Hàm xử lý khi đăng nhập thất bại
+    const handleLoginError = () => {
+        console.log("Hello")
+        console.log(Client_ID)
+        console.log("Đăng nhập Google thất bại!");
+        alert("Đăng nhập Google thất bại, vui lòng thử lại!");
+    };
+
     return (
         <Modal show={show} onHide={onHide} centered size="lg">
             <Modal.Body>
@@ -50,11 +115,11 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
                             <div><p className="text-danger">{message}</p></div>
                             <Form onSubmit={login_handle} name="formLogin">
                                 <Form.Group className="mb-3" controlId="formUserName">
-                                    <Form.Control className={errors.Username === false ? "is-invalid":""} onChange={change_handle} name="Username" type="username" placeholder="Tên đăng nhập" />
+                                    <Form.Control className={errors.Username === false ? "is-invalid" : ""} onChange={change_handle} name="Username" type="username" placeholder="Tên đăng nhập" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formPassword">
-                                    <Form.Control className={errors.Username === false ? "is-invalid":""} onChange={change_handle} name="Password" type="password" placeholder="Mật khẩu" />
+                                    <Form.Control className={errors.Username === false ? "is-invalid" : ""} onChange={change_handle} name="Password" type="password" placeholder="Mật khẩu" />
                                 </Form.Group>
 
                                 <Form.Group className="mb-3 d-flex align-items-center">
@@ -78,9 +143,12 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
                                 </div>
 
                                 <div className="d-grid gap-2">
-                                    <Button variant="danger" className="d-flex align-items-center justify-content-center gap-2">
-                                        <FaGoogle /> Đăng nhập bằng Google
-                                    </Button>
+                                    <GoogleOAuthProvider clientId={Client_ID}>
+                                        <GoogleLogin
+                                            onSuccess={handleLoginSuccess}
+                                            onError={handleLoginError}
+                                        />
+                                    </GoogleOAuthProvider>
 
                                     <Button variant="primary" className="d-flex align-items-center justify-content-center gap-2" style={{ backgroundColor: '#3b5998' }}>
                                         <FaFacebookF /> Đăng nhập bằng Facebook
@@ -94,8 +162,8 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess}) {
                         </div>
 
                         <div className="col-md-5 illustration d-flex flex-column justify-content-center align-items-center">
-                            <img src={logo_login} alt="Bóng đá minh họa"/>
-                            
+                            <img src={logo_login} alt="Bóng đá minh họa" />
+
                         </div>
                     </div>
 
