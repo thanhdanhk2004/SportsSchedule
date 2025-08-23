@@ -8,14 +8,16 @@ import { AuthContext } from "../Context/AuthContext";
 import { useContext } from "react";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode"; //thu vien de giai ma jwt
+import { useNavigate } from "react-router-dom";
+
 
 function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
     const [errors, setErrors] = useState({ Username: true, Password: true })
-    const { login } = useContext(AuthContext);
+    const { login, role } = useContext(AuthContext);
     const Client_ID = process.env.REACT_APP_Client_ID;
-
+    const navigate = useNavigate();
 
     const change_handle = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -35,19 +37,24 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
                 const res = await api.post(endpoints.login, user)
                 if (res.status === 200) {
                     login(res.data.user.token)
-                    onLoginSuccess()
+                    if (onLoginSuccess) 
+                        onLoginSuccess()
+                    const decode = jwtDecode(res.data.user.token);
+                    const userRole = decode.role || decode["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+                    if (userRole === "Admin") {
+                        navigate('/admin/user');
+                    }
                     onHide()
                 }
             }
         } catch (err) {
+            console.log(err)
             setMessage("Tên đăng nhập hoặc mật khẩu không đúng")
         }
     }
 
 
     /*Login google*/
-
-
     const handleLoginSuccess = async (credentialResponse) => {
         const token = credentialResponse.credential;
         const userInfo = jwtDecode(token);
@@ -104,6 +111,7 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
         console.log("Đăng nhập Google thất bại!");
         alert("Đăng nhập Google thất bại, vui lòng thử lại!");
     };
+
 
     return (
         <Modal show={show} onHide={onHide} centered size="lg">

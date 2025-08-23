@@ -25,7 +25,10 @@ export const endpoints={
     'getMatchesGuess':(time) => `/guess/${time}`,
     'addGuess':(matchId)  => `/guess/add/${matchId}`,
     'addAppointment':(matchId) => `/appointment/${matchId}`,
-    'getMatchesAppointmented':'/appointmented'
+    'getMatchesAppointmented':'/appointmented',
+    'getUsers':'/users',
+    'deleteUser': (userId) => `/user/delete/${userId}`,
+    'updateUser': '/user/update'
 }
 
 export const authApis = () =>{

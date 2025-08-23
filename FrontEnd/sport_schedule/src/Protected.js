@@ -5,8 +5,8 @@ import Header from "./Component/Layout/Header"
 import Footer from "./Component/Layout/Footer"
 import Slider from "./Component/Layout/Slider"
 
-const Protected = ({ children }) => {
-    const { isLogin } = useContext(AuthContext)
+const Protected = ({ children, roleNeed }) => {
+    const { isLogin, role } = useContext(AuthContext)
     if (!isLogin)
         return (
             <>
@@ -18,12 +18,35 @@ const Protected = ({ children }) => {
                 <Footer />
             </>
         )
+    else if (role !== roleNeed) {
+        return (
+            <>
+                <Header />
+                <Slider />
+                <main>
+                    <NotFound />
+                </main>
+                <Footer />
+            </>
+        )
+    }
     return (
         <>
-            <Header />
-            <Slider />
-            <main>{children}</main>
-            <Footer />
+            {
+                role !== "Admin" ?
+                    <>
+                        <Header />
+                        <Slider />
+                        <main>{children}</main>
+                        <Footer />
+                    </>
+                    :
+                    <>
+                        <Header />
+                        <main>{children}</main>
+                        <Footer />
+                    </>
+            }
         </>
     )
 }

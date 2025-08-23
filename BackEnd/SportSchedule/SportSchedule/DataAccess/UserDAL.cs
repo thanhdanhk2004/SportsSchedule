@@ -127,6 +127,7 @@ namespace SportSchedule.DataAccess
             try
             {
                 var users = _context.Users.Include(u => u.Account).Include(u => u.Role)
+                    .Where(u => u.Role.Name == "Member")
                     .Select(u => new UserDTOFEAdmin
                     {
                         UserId = u.UserId,
