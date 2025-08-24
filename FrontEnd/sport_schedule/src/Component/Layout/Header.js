@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../assets/logo.jpg';
 import Login from "../Login"
@@ -11,7 +11,7 @@ const Header = () => {
 
   const [showLogin, setShowLogin] = useState(false)
   const [showRegister, setShowRegister] = useState(false)
-  const { isLogin, logout, role } = useContext(AuthContext)
+  const {  logout, role } = useContext(AuthContext)
 
   return (
     <Navbar expand="lg" style={{ backgroundColor: "#6349dbff" }} variant="dark">
@@ -31,8 +31,9 @@ const Header = () => {
               </> :
               role === "Admin" ?
                 <>
-                  <Nav.Link href="/admin/dashboard">Dashboard</Nav.Link>
+                  <Nav.Link href="/admin/article">Quản lý bài viết</Nav.Link>
                   <Nav.Link href="/admin/users">Quản lý người dùng</Nav.Link>
+                  <Nav.Link href="/admin/permissions">Quản lý vai trò</Nav.Link>
                 </> :
                 <>
                   <Nav.Link href="/" className="text-warning">Lịch thi đấu</Nav.Link>

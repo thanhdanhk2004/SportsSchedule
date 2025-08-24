@@ -49,7 +49,7 @@ const ManagerUser = () => {
                     <h3>Quản lý người dùng</h3>
                 </div>
                 <div className="mt-5 mx-5" style={{ marginBottom: "200px" }}>
-                    <Table className="" style={{ marginLeft: "50px", width: "1300px" }} bordered hover>
+                    <Table className="" style={{ marginLeft: "50px", width: "1350px" }} bordered hover>
                         <thead className="text-center">
                             <tr>
                                 <th>STT</th>
@@ -59,7 +59,7 @@ const ManagerUser = () => {
                                 <th>Mật khẩu</th>
                                 <th>Email</th>
                                 <th>Vai trò</th>
-                                <td style={{ width: "250px" }}>Chức năng</td>
+                                <td style={{ width: "300px" }}>Chức năng</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,13 +74,13 @@ const ManagerUser = () => {
                                         <td>{user.email}</td>
                                         <td>{user.roleName}</td>
                                         <td>
-                                            <button className="btn btn-danger mx-2" onClick={() => handleDeleteUser(user.userId)}>Delete</button>
+                                            <button className="btn btn-danger mx-3" onClick={() => handleDeleteUser(user.userId)}>Delete</button>
                                             <button className="btn btn-primary"  onClick={() => handleUpdateUser(user)}>Update</button>
                                         </td>
                                     </tr>
                                 ))                             
                             }
-                            <ModalUpdateUser show={showModal} onHide={() => setShowModal(false)} onSubmit={handleUpdateUser} User={userUpdateSelected} />
+                        <ModalUpdateUser show={showModal} onHide={() => {setShowModal(false); getUsers()}} onSubmit={handleUpdateUser} User={userUpdateSelected} />
                         </tbody>
                     </Table>
 

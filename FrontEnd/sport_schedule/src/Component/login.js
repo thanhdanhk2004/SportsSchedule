@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Form, Button } from 'react-bootstrap';
-import { FaFacebookF, FaGoogle } from 'react-icons/fa';
+import { FaFacebookF } from 'react-icons/fa';
 import api, { endpoints } from "../Services/Apis";
 import '../Style/index.css'
 import logo_login from '../assets/logo_login.jpg'
@@ -15,7 +15,7 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
     const [user, setUser] = useState({ Username: "", Password: "" })
     const [message, setMessage] = useState("")
     const [errors, setErrors] = useState({ Username: true, Password: true })
-    const { login, role } = useContext(AuthContext);
+    const { login } = useContext(AuthContext);
     const Client_ID = process.env.REACT_APP_Client_ID;
     const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ function Login({ show, onHide, switchToRegister, onLoginSuccess }) {
                     const decode = jwtDecode(res.data.user.token);
                     const userRole = decode.role || decode["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
                     if (userRole === "Admin") {
-                        navigate('/admin/user');
+                        navigate('/admin/users');
                     }
                     onHide()
                 }

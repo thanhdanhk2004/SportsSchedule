@@ -11,6 +11,8 @@ import News from './Component/News'
 import DetailArticle from "./Component/DetailArticle";
 import PredictMatch from "./Component/PredictMatchs";
 import ManagerUser from "./Component/Admin/ManagerUser";
+import ManagerArticle from "./Component/Admin/ManagerArticle";
+import ManagerPermission from "./Component/Admin/ManagerPermission";
 
 const Main = () => {
     return (
@@ -27,6 +29,8 @@ const Main = () => {
                     <Route path="/article" element={<MainLayout><DetailArticle /></MainLayout>}/>
                     <Route path="/predict" element={<Protected roleNeed="Member"><PredictMatch /></Protected>}/>
                     <Route path="/admin/users" element={<Protected roleNeed="Admin"><ManagerUser /></Protected>}/>
+                    <Route path="/admin/article" element={<Protected roleNeed="Admin"><ManagerArticle /></Protected>}/>
+                    <Route path="/admin/permissions" element={<Protected roleNeed="Admin"><ManagerPermission /></Protected>}/>
                 </Routes>
             </BrowserRouter>
         </>

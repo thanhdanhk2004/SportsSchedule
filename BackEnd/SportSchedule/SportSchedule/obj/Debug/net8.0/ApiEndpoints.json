@@ -1,5 +1,105 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "getArticleByPageAdmin",
+    "RelativePath": "admin/articles/{page}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "addPermission",
+    "RelativePath": "admin/permission/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permissionDTO",
+        "Type": "SportSchedule.DataTranserferObject.Permission.PermissionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "deletePermisison",
+    "RelativePath": "admin/permission/delete/{permisisonId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permisisonId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "updatePermission",
+    "RelativePath": "admin/permission/update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "permission",
+        "Type": "SportSchedule.DataTranserferObject.Permission.PermissionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.PermissionController",
+    "Method": "getPermissions",
+    "RelativePath": "admin/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.RoleController",
+    "Method": "getRoles",
+    "RelativePath": "admin/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
+    "Method": "updateStatusArticle",
+    "RelativePath": "admin/update/status/{article_id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "article_id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.AppointmentController",
     "Method": "addAppointment",
     "RelativePath": "appointment/{matchId}",
@@ -115,22 +215,6 @@
       {
         "Name": "article",
         "Type": "SportSchedule.DataTranserferObject.Article.ArticleDTO",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
-    "Method": "updateStatusArticle",
-    "RelativePath": "article/update/status/{article_id}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "article_id",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -326,64 +410,6 @@
     "ContainingType": "SportSchedule.Controllers.LeagueController",
     "Method": "GetLeague",
     "RelativePath": "league",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.PermissionController",
-    "Method": "addPermission",
-    "RelativePath": "permission/add",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "permissionName",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.PermissionController",
-    "Method": "deletePermisison",
-    "RelativePath": "permission/delete/{permisisonId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "permisisonId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.PermissionController",
-    "Method": "updatePermission",
-    "RelativePath": "permission/update",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "permission",
-        "Type": "SportSchedule.Model.PermissionModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.PermissionController",
-    "Method": "getPermissions",
-    "RelativePath": "permissions",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

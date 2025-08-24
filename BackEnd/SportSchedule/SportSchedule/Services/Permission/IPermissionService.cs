@@ -6,8 +6,8 @@ namespace SportSchedule.Services.Permission
     public interface IPermissionService
     {
         Task<List<PermissionDTOFE>> getPermissions();
-        Task<bool> addPermission(string permissionName);
+        Task<bool> addPermission(PermissionDTO permissionDTO);
         Task<bool> deletePermission(int permissionId);
-        Task<bool> updatePermission(PermissionModel permisison);
+        Task<bool> updatePermission(PermissionDTO permisison);
     }
 }

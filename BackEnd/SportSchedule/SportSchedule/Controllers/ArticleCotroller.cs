@@ -79,13 +79,24 @@ namespace SportSchedule.Controllers
 
         //Cap nhat trang thai bai viet (duyet bai viet)
         [Authorize(Roles ="Admin", Policy = "permission.ApproveArticles")]
-        [HttpPatch("update/status/{article_id}")]
+        [HttpPatch("/admin/update/status/{article_id}")]
         public async Task<IActionResult> updateStatusArticle(int article_id)
         {
             var result = await _articleService.updateStatusArticle(article_id);
             if (result == false)
                 return BadRequest();
             return Ok();
+        }
+
+        //Lay danh sach bai viet do ra FE
+        [HttpGet("/admin/articles/{page}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> getArticleByPageAdmin(int page)
+        {
+            var data = await _articleService.getArticleByPageAdmin(page);
+            if (data == null)
+                return NotFound();
+            return Ok(data);
         }
     }
 }

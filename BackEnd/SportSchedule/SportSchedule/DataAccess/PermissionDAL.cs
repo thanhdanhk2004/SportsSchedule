@@ -2,6 +2,7 @@
 using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Permission;
 using SportSchedule.Model;
+using System.Security;
 
 namespace SportSchedule.DataAccess
 {
@@ -14,19 +15,33 @@ namespace SportSchedule.DataAccess
         }
 
         //Them permission
-        public bool addPermisison(string name_permission)
+        public bool addPermisison(PermissionDTO permissionDTO)
         {
             try
             {
-                if (string.IsNullOrEmpty(name_permission))
+                if (permissionDTO == null)
                     return false;
                 PermissionModel permission = new PermissionModel
                 {
                     PermissionId = _context.Permissions.Count() + 1,
-                    PermisstionName = name_permission,
+                    PermisstionName = permissionDTO.PermissionName,
                 };
                 _context.Permissions.Add(permission);
                 _context.SaveChanges();
+
+                if(permissionDTO.ListRoleId != null)
+                {
+                    foreach (int roleId in permissionDTO.ListRoleId)
+                    {
+                        RolePermissionModel model = new RolePermissionModel
+                        {
+                            RoleId = roleId,
+                            PermissionId = permission.PermissionId,
+                        };
+                        _context.RolePermissions.Add(model);
+                        _context.SaveChanges();
+                    }
+                }
                 return true;
             }
             catch (Exception ex)
@@ -56,19 +71,41 @@ namespace SportSchedule.DataAccess
         }
 
         //cap nhat permission 
-        public bool updatePermission(PermissionModel permission)
+        public bool updatePermission(PermissionDTO permissionDTO)
         {
             try
             {
-                if (permission == null)
+                if (permissionDTO == null)
                     return false;
                 var model = _context.Permissions
-                    .FirstOrDefault(p => p.PermissionId == permission.PermissionId);
+                    .FirstOrDefault(p => p.PermissionId == permissionDTO.PermissionId);
                 if (model == null)
                     return false;
-                model.PermisstionName = permission.PermisstionName;
+                //Cap nhat permission name
+                model.PermisstionName = permissionDTO.PermissionName;
                 _context.Permissions.Update(model);
                 _context.SaveChanges();
+
+                //Xoa cac hang chua rolepermission nay
+                var rolePermission = _context.RolePermissions.Where(rp => rp.PermissionId == permissionDTO.PermissionId).ToList();
+                _context.RolePermissions.RemoveRange(rolePermission);
+                _context.SaveChanges();
+
+                //Them lai
+                if(permissionDTO.ListRoleId != null)
+                {
+                    foreach(var roleId in permissionDTO.ListRoleId)
+                    {
+                        RolePermissionModel rp = new RolePermissionModel
+                        {
+                            RoleId = roleId,
+                            PermissionId = model.PermissionId,
+                        };
+                        _context.RolePermissions.Add(rp);
+                        _context.SaveChanges();
+                    }
+                }
+
                 return true;
             }
             catch (Exception ex)

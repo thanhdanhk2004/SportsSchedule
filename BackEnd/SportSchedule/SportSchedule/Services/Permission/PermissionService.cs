@@ -12,13 +12,13 @@ namespace SportSchedule.Services.Permission
             _permissionDAL = permissionDAL;
         }
 
-        public async Task<bool> addPermission(string permissionName)
+        public async Task<bool> addPermission(PermissionDTO permissionDTO)
         {
             try
             {
-                if(permissionName == null) 
+                if(permissionDTO == null) 
                     return false;
-                return _permissionDAL.addPermisison(permissionName);
+                return _permissionDAL.addPermisison(permissionDTO);
             }catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
@@ -52,7 +52,7 @@ namespace SportSchedule.Services.Permission
             }
         }
 
-        public async Task<bool> updatePermission(PermissionModel permisison)
+        public async Task<bool> updatePermission(PermissionDTO permisison)
         {
             try
             {

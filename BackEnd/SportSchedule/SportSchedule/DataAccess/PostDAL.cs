@@ -149,6 +149,41 @@ namespace SportSchedule.DataAccess
             return articles.Skip(page * 3).Take(3).ToList();
         }
 
+
+        //Chức năng của admin
+        //Lay danh sach bai viet
+        public List<ArticleDTOFEAdmin> getArticleByPageAdmin(int page)
+        {
+            try
+            {
+                if (page == null)
+                    return null!;
+
+                var articles = _context.Posts.Include(p => p.User)
+                        .Include(p => p.User.Account)
+                        .OrderByDescending(p => p.Created)
+                        .Select(p => new ArticleDTOFEAdmin
+                        {
+                            ArticleId = p.PostId,
+                            Title = p.Title,
+                            Image = p.Image,
+                            Description = p.Description,
+                            UserName = p.User.Account.UserName,
+                            CreatedDate = p.Created.ToString(),
+                            Status = p.Status,
+                            TotalPage = (int)(Math.Ceiling((decimal)_context.Posts.Count() / 10))
+                        })
+                        .ToList();
+                articles[0].TotalPage = (int)(Math.Ceiling((decimal)articles.Count / 10));
+                return articles.Skip((page-1) * 10).Take(10).ToList();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null!;
+            }
+        }
+
         //Admin duyet bai viet
         public bool updateStatusArticle(int article_id)
         {
@@ -156,7 +191,8 @@ namespace SportSchedule.DataAccess
             {
                 if(article_id  == null) 
                     return false;
-                var article = _context.Posts.FirstOrDefault(p => p.PostId == article_id);
+                var article = _context.Posts
+                    .FirstOrDefault(p => p.PostId == article_id);
                 if(article == null)
                     return false;
                 article.Status = "Đã duyệt";
@@ -167,6 +203,25 @@ namespace SportSchedule.DataAccess
             {
                 Console.WriteLine(e.Message);
                 return false;
+            }
+        }
+         
+        //Lay email de gui mail
+        public string getEmail(int articleId)
+        {
+            try
+            {
+                if (articleId == null)
+                    return null!;
+                string email = _context.Posts.Include(p => p.User)
+                    .Where(p => p.PostId == articleId)
+                    .Select(p => p.User.Email)
+                    .FirstOrDefault()!;
+                return email;
+            }catch( Exception ex )
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
             }
         }
     }

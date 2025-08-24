@@ -28,7 +28,14 @@ export const endpoints={
     'getMatchesAppointmented':'/appointmented',
     'getUsers':'/users',
     'deleteUser': (userId) => `/user/delete/${userId}`,
-    'updateUser': '/user/update'
+    'updateUser': '/user/update',
+    'getArticlesByPageAdmin': (page) => `/admin/articles/${page}`,
+    'approveArticle': (article_id) => `/admin/update/status/${article_id}`,
+    'getPermissions': '/admin/permissions',
+    'addPermission':'/admin/permission/add',
+    'deletePermission':(permissionId) => `/admin/permission/delete/${permissionId}`,
+    "updatePermission": '/admin/permission/update',
+    'getRoles': '/admin/roles'
 }
 
 export const authApis = () =>{

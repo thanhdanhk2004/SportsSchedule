@@ -13,6 +13,8 @@ namespace SportSchedule.Services.Article
         Task<List<ArticlePageDTOFE>> getArticlesByPage(int page);
 
         //Chuc nang cua admin
+        Task<List<ArticleDTOFEAdmin>> getArticleByPageAdmin(int page);
         Task<bool> updateStatusArticle(int article_id);
+        Task sendMail(int articleId);
     }
 }

@@ -23,6 +23,7 @@ using SportSchedule.Services.Statistic;
 using SportSchedule.Services.Users;
 using System.Text;
 using SportSchedule.Services.Award;
+using SportSchedule.Services.Role;
 
 var builder = WebApplication.CreateBuilder(args);
 var _context = new ContextDB();
@@ -114,6 +115,7 @@ builder.Services.AddTransient<IGuessService, GuessService>();
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 builder.Services.AddTransient<IPermissionService, PermissionService>();
 builder.Services.AddTransient<IAwardService, AwardService>();
+builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddHostedService<MailBackgroundService>();
 builder.Services.AddMemoryCache();
 
@@ -142,6 +144,7 @@ builder.Services.AddScoped<GuessDAL>();
 builder.Services.AddScoped<AppointmentDAL>();
 builder.Services.AddScoped<PermissionDAL>();
 builder.Services.AddScoped<AwardDAL>();
+builder.Services.AddScoped<RoleDAL>();
 
 var app = builder.Build();
 

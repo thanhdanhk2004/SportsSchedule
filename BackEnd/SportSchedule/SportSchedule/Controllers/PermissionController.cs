@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SportSchedule.DataTranserferObject.Permission;
 using SportSchedule.Model;
 using SportSchedule.Services.Permission;
 
@@ -14,7 +15,7 @@ namespace SportSchedule.Controllers
             _permissionService = permissionService;
         }
 
-        [HttpGet("/permissions")]
+        [HttpGet("/admin/permissions")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> getPermissions()
         {
@@ -24,17 +25,17 @@ namespace SportSchedule.Controllers
             return Ok(data);
         }
 
-        [HttpPost("/permission/add")]
+        [HttpPost("/admin/permission/add")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> addPermission(string permissionName)
+        public async Task<IActionResult> addPermission(PermissionDTO permissionDTO)
         {
-            bool result = await _permissionService.addPermission(permissionName);
+            bool result = await _permissionService.addPermission(permissionDTO);
             if (!result)
                 return BadRequest();
             return Ok();
         }
 
-        [HttpDelete("/permission/delete/{permisisonId}")]
+        [HttpDelete("/admin/permission/delete/{permisisonId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> deletePermisison(int permisisonId)
         {
@@ -44,9 +45,9 @@ namespace SportSchedule.Controllers
             return Ok();
         }
 
-        [HttpPatch("/permission/update")]
+        [HttpPut("/admin/permission/update")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> updatePermission(PermissionModel permission)
+        public async Task<IActionResult> updatePermission(PermissionDTO permission)
         {
             bool result = await _permissionService.updatePermission(permission);
             if(result)
