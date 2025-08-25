@@ -8,5 +8,9 @@ namespace SportSchedule.Services.League
          Task<List<LeagueData>> GetLeagueData();
          Task<List<LeagueDTOFE>> GetLeaguesDataFrontEnd();
          Task<List<InfoDataLeagueTeam>> getLeagueTeamData(string league, string season);
+
+         //Chuc nang cua admin
+         Task<List<LeagueDTOFEAdmin>> getLeaguesAdmin();
+         Task<bool> deleteLeague(int leagueId);
     }
 }

@@ -117,6 +117,7 @@ builder.Services.AddTransient<IPermissionService, PermissionService>();
 builder.Services.AddTransient<IAwardService, AwardService>();
 builder.Services.AddTransient<IRoleService, RoleService>();
 builder.Services.AddHostedService<MailBackgroundService>();
+builder.Services.AddHostedService<StatisticBackgroundService>();
 builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();

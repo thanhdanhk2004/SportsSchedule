@@ -77,5 +77,31 @@ namespace SportSchedule.Services.League
             }
             return list;
         }
+
+        //Chuc nang cua admin
+        public async Task<List<LeagueDTOFEAdmin>> getLeaguesAdmin()
+        {
+            try
+            {
+                return _leagueDAL.getLeaguesAdmin();
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null!;
+            }
+        }
+
+        public async Task<bool> deleteLeague(int leagueId)
+        {
+            try
+            {
+                return _leagueDAL.deleteLeague(leagueId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
     }
 }

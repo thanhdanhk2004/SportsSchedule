@@ -1,4 +1,5 @@
-﻿using SportSchedule.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using SportSchedule.Context;
 using SportSchedule.DataTranserferObject.Award;
 using SportSchedule.Model;
 
@@ -40,6 +41,8 @@ namespace SportSchedule.DataAccess
                                 ScoreAway = msa.Score,
                                 ScorePredictHome = g.PredictHomeScore,
                                 ScorePredictAway = g.PredictAwayScore,
+                                LogoHome = th.Logo,
+                                LogoAway = ta.Logo
                             }).ToList();
                 return data;
             }catch (Exception ex)
@@ -49,11 +52,28 @@ namespace SportSchedule.DataAccess
             }
         }
 
+        public List<AwardStatusDTOFEAdmin> getListAward()
+        {
+            try
+            {
+                var data = _context.Awards
+                    .Select(a => new AwardStatusDTOFEAdmin
+                    {
+                        GuessId = a.GuessId,
+                        Status = a.Status,
+                    }).ToList();
+                return data;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
         public bool addAward(int guessId)
         {
             try
             {
-                if (guessId == null)
+                if (guessId == null || _context.Awards.Any(a => a.GuessId == guessId))
                     return false;
                 AwardModel award = new AwardModel
                 {
@@ -72,13 +92,13 @@ namespace SportSchedule.DataAccess
             }
         }
 
-        public bool updateAward(int awardId)
+        public bool updateAward(int guessId)
         {
             try
             {
-                if (awardId == null)
+                if (guessId == null)
                     return false;
-                var award = _context.Awards.FirstOrDefault(a => a.AwardId == awardId);
+                var award = _context.Awards.FirstOrDefault(a => a.GuessId == guessId);
                 if (award == null)
                     return false;
                 award.Status = true;
@@ -91,6 +111,20 @@ namespace SportSchedule.DataAccess
             {
                 Console.WriteLine(ex.ToString());
                 return false;
+            }
+        }
+
+        public string getEmailUserGuess(int guessId)
+        {
+            try
+            {
+                if (guessId == null)
+                    return null!;
+                return _context.Guesses.Include(g => g.User).Where(g => g.GuessId == guessId).Select(g => g.User.Email).FirstOrDefault()!;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
             }
         }
     }

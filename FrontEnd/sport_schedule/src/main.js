@@ -13,6 +13,11 @@ import PredictMatch from "./Component/PredictMatchs";
 import ManagerUser from "./Component/Admin/ManagerUser";
 import ManagerArticle from "./Component/Admin/ManagerArticle";
 import ManagerPermission from "./Component/Admin/ManagerPermission";
+import ManagerMinigame from "./Component/Admin/ManagerMinigame";
+import ManagerGuess from "./Component/Admin/ManagerGuess";
+import ManagerAward from "./Component/Admin/ManagerAward";
+import ManagerRole from "./Component/Admin/ManagerRole"
+import ManagerLeague from "./Component/Admin/ManagerLeague"
 
 const Main = () => {
     return (
@@ -31,6 +36,11 @@ const Main = () => {
                     <Route path="/admin/users" element={<Protected roleNeed="Admin"><ManagerUser /></Protected>}/>
                     <Route path="/admin/article" element={<Protected roleNeed="Admin"><ManagerArticle /></Protected>}/>
                     <Route path="/admin/permissions" element={<Protected roleNeed="Admin"><ManagerPermission /></Protected>}/>
+                    <Route path="/admin/minigame" element={<Protected roleNeed="Admin"><ManagerMinigame /></Protected>}/>
+                    <Route path="/admin/guesses" element={<Protected roleNeed="Admin"><ManagerGuess /></Protected>}/>
+                    <Route path="/admin/award" element={<Protected roleNeed="Admin"><ManagerAward /></Protected>}/>
+                    <Route path="/admin/roles" element={<Protected roleNeed="Admin"><ManagerRole /></Protected>}/>
+                    <Route path="/admin/leagues" element={<Protected roleNeed="Admin"><ManagerLeague /></Protected>}/>
                 </Routes>
             </BrowserRouter>
         </>

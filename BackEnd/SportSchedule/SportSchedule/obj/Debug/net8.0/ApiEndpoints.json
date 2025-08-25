@@ -1,5 +1,26 @@
 [
   {
+    "ContainingType": "SportSchedule.Controllers.GuessControler",
+    "Method": "addGuess",
+    "RelativePath": "add/{matchId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guess",
+        "Type": "SportSchedule.DataTranserferObject.Guess.GuessDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.ArticleCotroller",
     "Method": "getArticleByPageAdmin",
     "RelativePath": "admin/articles/{page}",
@@ -13,6 +34,122 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "addAward",
+    "RelativePath": "admin/award/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guessId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "updateStatusAward",
+    "RelativePath": "admin/award/update/{guessId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "guessId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "getFixturesToPredict",
+    "RelativePath": "admin/fixtures/predict/{page}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "getGuessExactly",
+    "RelativePath": "admin/guess/exactly/{matchId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.GuessControler",
+    "Method": "getMatchsGuessAdmin",
+    "RelativePath": "admin/guess/fixtures/{page}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.LeagueController",
+    "Method": "getLeaguesAdmin",
+    "RelativePath": "admin/leagues",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.LeagueController",
+    "Method": "deleteLeague",
+    "RelativePath": "admin/leagues/delete/{leagueId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "leagueId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.AwardController",
+    "Method": "getListAward",
+    "RelativePath": "admin/list/award",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -75,12 +212,86 @@
   },
   {
     "ContainingType": "SportSchedule.Controllers.RoleController",
+    "Method": "addRole",
+    "RelativePath": "admin/role/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.RoleController",
+    "Method": "deleteRole",
+    "RelativePath": "admin/role/delete/{roleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.RoleController",
+    "Method": "updateRole",
+    "RelativePath": "admin/role/update/{roleId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "roleName",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.RoleController",
     "Method": "getRoles",
     "RelativePath": "admin/roles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "updateStatusPredict",
+    "RelativePath": "admin/update/predict/{matchId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "status",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {
@@ -221,38 +432,6 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SportSchedule.Controllers.AwardController",
-    "Method": "addAward",
-    "RelativePath": "award/add",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "guessId",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.AwardController",
-    "Method": "updateStatusAward",
-    "RelativePath": "award/update/{awardId}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "awardId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SportSchedule.Controllers.CommentController",
     "Method": "addComment",
     "RelativePath": "Comment",
@@ -338,41 +517,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "SportSchedule.Controllers.FixtureController",
-    "Method": "getFixturesToPredict",
-    "RelativePath": "fixtures/predict/{page}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "page",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.AwardController",
-    "Method": "getGuessExactly",
-    "RelativePath": "guess/{matchId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "matchId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "SportSchedule.Controllers.GuessControler",
     "Method": "getMatchsGuess",
-    "RelativePath": "guess/{time}",
+    "RelativePath": "guess/fixtures/{time}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -380,27 +527,6 @@
       {
         "Name": "time",
         "Type": "System.String",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.GuessControler",
-    "Method": "addGuess",
-    "RelativePath": "guess/add/{matchId}",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "guess",
-        "Type": "SportSchedule.DataTranserferObject.Guess.GuessDTO",
-        "IsRequired": true
-      },
-      {
-        "Name": "matchId",
-        "Type": "System.Int32",
         "IsRequired": true
       }
     ],
@@ -465,27 +591,6 @@
         "Name": "match_id",
         "Type": "System.Int32",
         "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "SportSchedule.Controllers.FixtureController",
-    "Method": "updateStatusPredict",
-    "RelativePath": "update/{matchId}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "matchId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "status",
-        "Type": "System.Boolean",
-        "IsRequired": false
       }
     ],
     "ReturnTypes": []

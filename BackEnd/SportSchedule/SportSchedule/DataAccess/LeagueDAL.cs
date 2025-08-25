@@ -33,5 +33,47 @@ namespace SportSchedule.DataAccess
             }
         }
         
+        //Chuc nang cua admin
+        //Lay cac giai dau do ra admin
+        public List<LeagueDTOFEAdmin> getLeaguesAdmin()
+        {
+            try
+            {
+                var data = _context.Leagues
+                    .Select(l => new LeagueDTOFEAdmin
+                    {
+                        LeagueId = l.LeagueId,
+                        LeagueName = l.Name,
+                        Country = l.Country,
+                        Logo = l.Logo
+                    }).ToList();
+                return data;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
+
+        //Xoa giai dau
+        public bool deleteLeague(int leagueId)
+        {
+            try
+            {
+                if (leagueId == null)
+                    return false;
+                var league = _context.Leagues.FirstOrDefault(l => l.LeagueId == leagueId);
+                if(league == null) return false;
+
+                _context.Leagues.Remove(league);
+                _context.SaveChanges();
+                return true;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
     }
 }

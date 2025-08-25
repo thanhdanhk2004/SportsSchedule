@@ -240,7 +240,7 @@
         }
       }
     },
-    "/award/add": {
+    "/admin/award/add": {
       "post": {
         "tags": [
           "Award"
@@ -262,7 +262,7 @@
         }
       }
     },
-    "/guess/{matchId}": {
+    "/admin/guess/exactly/{matchId}": {
       "get": {
         "tags": [
           "Award"
@@ -285,14 +285,26 @@
         }
       }
     },
-    "/award/update/{awardId}": {
+    "/admin/list/award": {
+      "get": {
+        "tags": [
+          "Award"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/award/update/{guessId}": {
       "patch": {
         "tags": [
           "Award"
         ],
         "parameters": [
           {
-            "name": "awardId",
+            "name": "guessId",
             "in": "path",
             "required": true,
             "schema": {
@@ -439,7 +451,7 @@
         }
       }
     },
-    "/fixtures/predict/{page}": {
+    "/admin/fixtures/predict/{page}": {
       "get": {
         "tags": [
           "Fixture"
@@ -462,7 +474,7 @@
         }
       }
     },
-    "/update/{matchId}": {
+    "/admin/update/predict/{matchId}": {
       "patch": {
         "tags": [
           "Fixture"
@@ -492,7 +504,7 @@
         }
       }
     },
-    "/guess/{time}": {
+    "/guess/fixtures/{time}": {
       "get": {
         "tags": [
           "GuessControler"
@@ -514,7 +526,7 @@
         }
       }
     },
-    "/guess/add/{matchId}": {
+    "/add/{matchId}": {
       "post": {
         "tags": [
           "GuessControler"
@@ -556,10 +568,68 @@
         }
       }
     },
+    "/admin/guess/fixtures/{page}": {
+      "get": {
+        "tags": [
+          "GuessControler"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/league": {
       "get": {
         "tags": [
           "League"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/leagues": {
+      "get": {
+        "tags": [
+          "League"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/leagues/delete/{leagueId}": {
+      "delete": {
+        "tags": [
+          "League"
+        ],
+        "parameters": [
+          {
+            "name": "leagueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -721,6 +791,80 @@
       "get": {
         "tags": [
           "Role"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/role/add": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/role/delete/{roleId}": {
+      "delete": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/admin/role/update/{roleId}": {
+      "patch": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "roleName",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {

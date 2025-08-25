@@ -13,7 +13,7 @@ namespace SportSchedule.Controllers
             _awardService = awardService;
         }
 
-        [HttpPost("/award/add")]
+        [HttpPost("/admin/award/add")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> addAward(int guessId)
         {
@@ -23,7 +23,7 @@ namespace SportSchedule.Controllers
             return BadRequest();
         }
 
-        [HttpGet("/guess/{matchId}")]
+        [HttpGet("/admin/guess/exactly/{matchId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> getGuessExactly(int matchId)
         {
@@ -33,11 +33,22 @@ namespace SportSchedule.Controllers
             return Ok(data);
         }
 
-        [HttpPatch("/award/update/{awardId}")]
+        [HttpGet("/admin/list/award")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> updateStatusAward(int awardId)
+        public async Task<IActionResult> getListAward()
         {
-            bool result = await _awardService.updateStatusAward(awardId);
+            var data = await _awardService.getListAward();
+            if (data == null)
+                return NotFound();
+            return Ok(data);
+        }
+
+
+        [HttpPatch("/admin/award/update/{guessId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updateStatusAward(int guessId)
+        {
+            bool result = await _awardService.updateStatusAward(guessId);
             if (result) 
                 return Ok();
             return BadRequest();

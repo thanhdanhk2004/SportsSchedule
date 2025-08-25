@@ -1,8 +1,7 @@
-import api, { endpoints, authApis } from "../Services/Apis"
+import  { endpoints, authApis } from "../Services/Apis"
 import { AuthContext } from "../Context/AuthContext"
 import { useContext, useEffect, useState } from "react"
 import { Card, Row, Col, Button, Form } from "react-bootstrap";
-import Login from "./Login"
 
 const PredictMatch = () => {
     const { isLogin } = useContext(AuthContext)
@@ -13,8 +12,7 @@ const PredictMatch = () => {
 
     const getMatchesGuess = async () => {
         try {
-            console.log(today.getDate().toString() + "/" + (today.getMonth() + 1).toString())
-            var res = await api.get(endpoints.getMatchesGuess(today.getDate().toString() + "-" + (today.getMonth() + 1).toString()))
+            var res = await authApis().get(endpoints.getMatchesGuess(today.getDate().toString() + "-" + (today.getMonth() + 1).toString()))
             if (res.status === 200)
                 setMatchesGuess(res.data)
         } catch (err) {

@@ -78,5 +78,47 @@ namespace SportSchedule.DataAccess
                 return null;
             }
         }
+
+        //Chức năng của admin
+        //Lấy các danh sách dự đoán đổ ra admin
+        public List<GuessDTOFEAdmin> getMatchsGuessAdmin(int page)
+        {
+            try
+            {
+                var data = (from m in _context.Matches
+                            join l in _context.Leagues on m.LeagueId equals l.LeagueId
+                            join th in _context.Teams on m.TeamIdHome equals th.TeamId
+                            join ta in _context.Teams on m.TeamIdAway equals ta.TeamId
+                            where m.Predict == true
+                            select new GuessDTOFEAdmin
+                            {
+                                MatchId = m.MatchId,
+                                LeagueName = l.Name,
+                                TeamNameHome = th.Name,
+                                TeamNameAway = ta.Name,
+                                MatchTime = m.Time.ToString(),
+                                LogoNameHome = th.Logo,
+                                LogoNameAway = ta.Logo,
+                                RepresentativeHome = (from tmh in _context.TeamMembers
+                                                      join mh in _context.Members on tmh.MemberId equals mh.MemberId
+                                                      where tmh.TeamId == th.TeamId && mh.Image != null
+                                                      select mh.Image
+                                                      ).FirstOrDefault(),
+                                RepresentativeAway = (from tma in _context.TeamMembers
+                                                      join ma in _context.Members on tma.MemberId equals ma.MemberId
+                                                      where tma.TeamId == ta.TeamId && ma.Image != null
+                                                      select ma.Image
+                                                      ).FirstOrDefault(),
+                            }).ToList();
+                var result = data.Skip((page - 1) * 10).Take(10).ToList();
+                result[0].TotalPage = (int)(Math.Ceiling((decimal)data.Count / 10));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
     }
 }

@@ -6,7 +6,9 @@
         public int? UserId { get; set; }
         public string? Email {  get; set; }
         public string? NameHome {  get; set; }
+        public string? LogoHome { get; set; }
         public string? NameAway { get; set; }
+        public string? LogoAway {  get; set; }
         public int? ScoreHome {  get; set; }
         public int? ScoreAway { get; set; }
         public int? ScorePredictHome { get; set; }

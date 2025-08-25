@@ -37,7 +37,7 @@ namespace SportSchedule.Controllers
             return NotFound();
         }
 
-        [HttpGet("/fixtures/predict/{page}")]
+        [HttpGet("/admin/fixtures/predict/{page}")]
         [Authorize(Roles="Admin")]
         public async Task<IActionResult> getFixturesToPredict(int page)
         {
@@ -47,7 +47,7 @@ namespace SportSchedule.Controllers
             return NotFound();
         }
 
-        [HttpPatch("/update/{matchId}")]
+        [HttpPatch("/admin/update/predict/{matchId}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> updateStatusPredict(int matchId, bool status)
         {

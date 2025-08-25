@@ -6,5 +6,7 @@ namespace SportSchedule.Services.Guess
     {
         Task<bool> addGuess(GuessDTO guess, string username, int matchId);
         Task<List<GuessDTOFE>> matchGuess(string time);
+        Task<List<GuessDTOFEAdmin>> matchGuessAdmin(int page);
+
     }
 }

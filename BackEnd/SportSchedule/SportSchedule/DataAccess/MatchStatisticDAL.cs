@@ -91,8 +91,8 @@ namespace SportSchedule.DataAccess
                                                 .Select(p => p.GoalAway)
                                                 .FirstOrDefault(),
                             }).FirstOrDefault();
-                data.PlayerHome = this.getPlayers(data.NameHome!);
-                data.PlayerAway = this.getPlayers(data.NameAway!);
+                data.PlayerHome = this.getPlayers(data.NameHome!, match_id);
+                data.PlayerAway = this.getPlayers(data.NameAway!, match_id);
                 data.CardsHome = this.getCards(match_id, data.NameHome!);
                 data.CardsAway = this.getCards(match_id, data.NameAway!);
                 data.SubHome = this.getSubs(match_id, data.NameHome!);
@@ -107,7 +107,7 @@ namespace SportSchedule.DataAccess
             }
         }
 
-        public List<PlayerDTOFE> getPlayers(string team_name)
+        public List<PlayerDTOFE> getPlayers(string team_name, int match_id)
         {
             try
             {
@@ -118,7 +118,7 @@ namespace SportSchedule.DataAccess
                                                  from player in groupPlayer.DefaultIfEmpty()
                                                  join pm in _context.PlayerMatchModels on player.PlayerId equals pm.PlayerId into groupPlayerMatch
                                                  from playerMatch in groupPlayerMatch.DefaultIfEmpty()
-                                                 where t.Name == team_name
+                                                 where t.Name == team_name && playerMatch.MatchId == match_id
                                                  select new PlayerDTOFE
                                                  {
                                                      Id = mb.MemberId,

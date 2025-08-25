@@ -147,19 +147,24 @@ namespace SportSchedule.DataAccess
                 if (page == 0)
                     return null;
                 var data = (from m in _context.Matches
+                            join l in _context.Leagues on m.LeagueId equals l.LeagueId
                             join th in _context.Teams on m.TeamIdHome equals th.TeamId
                             join ta in _context.Teams on m.TeamIdAway equals ta.TeamId
-                            where DateTime.UtcNow.AddDays(7) <= m.Time.Value
-                                 && DateTime.UtcNow.AddDays(14) >= m.Time.Value
+                            where DateTime.UtcNow.AddDays(5) <= m.Time.Value
+                                 && DateTime.UtcNow.AddDays(10) >= m.Time.Value
                             select new FixtureDTOFEAdmin
                             {
                                 MatchId = m.MatchId,
+                                NameLeague = l.Name,
                                 TeamHome = th.Name,
                                 TeamAway = ta.Name,
+                                LogoHome = th.Logo,
+                                LogoAway = ta.Logo,
                                 Time = m.Time.ToString(),
                                 Predict = m.Predict,
                             }).ToList();
                 var result = data.Skip((page-1)*10).Take(10).ToList();
+                result[0].TotalPage = (int)(Math.Ceiling((decimal)data.Count / 10));
                 return result;
             }
             catch (Exception ex)

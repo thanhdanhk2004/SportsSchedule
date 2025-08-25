@@ -30,5 +30,21 @@ namespace SportSchedule.Services.Guess
             return data;
         }
 
+
+        //Chức năng admin
+        public async Task<List<GuessDTOFEAdmin>> matchGuessAdmin(int page)
+        {
+            try
+            {
+                var data = _guessDAL.getMatchsGuessAdmin(page);
+                return data;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return null!;
+            }
+        }
+
     }
 }

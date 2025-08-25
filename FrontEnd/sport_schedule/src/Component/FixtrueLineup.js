@@ -47,7 +47,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                 <span className="number">{number}</span>
                 {sub === true && <FaArrowRightArrowLeft className="sub-icon" />}
             </div>
-            <div style={{ cursor: "pointer" }} onClick={() => { getPlayer(id); setShowModal(true) }} className="player-name">{name}</div>
+            <div style={{ cursor: "pointer" }} onClick={() => { getPlayer(id); setShowModal(true) }} className="player-name">{name && name}</div>
             <ModalPlayer show={showModal} close={() => setShowModal(false)} player={playerInfo} />
         </div>
     );
@@ -82,7 +82,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                                 <td style={{ fontWeight: "bold" }}>Tên cầu thủ</td>
                                 <td style={{ width: "25%", fontWeight: "bold" }}>Vị trí</td>
                             </tr>
-                            {playerHome.sort((a, b) => a.number - b.number).map((player) => (
+                            {playerHome && playerHome.sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
                                 (<>
                                     <tr>
@@ -95,9 +95,9 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                         </tbody>
                     </Table>
 
-                    <div className="fw-bold border text-center py-2" style={{ borderWidth: "2px", textTransform: "uppercase" }}>
-                        {(playerHome.find(player => player.position === "Huấn luyện viên")).name}
-                    </div>
+                    {/* <div className="fw-bold border text-center py-2" style={{ borderWidth: "2px", textTransform: "uppercase" }}>
+                        {(playerHome.find(player => player.position === "Huấn luyện viên"))?.name || "Chưa có HLV"}
+                    </div> */}
                 </Container>
             </div>
 
@@ -114,7 +114,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                         <div className="formation-lineup">
                             <div>
                                 {
-                                    playerHomeGrouped.map((players) => (
+                                    playerHomeGrouped && playerHomeGrouped.map((players) => (
                                         <Row className="formation-row-home justify-content-center">
                                             {players.map((player) => (
                                                 <Col xs="auto">
@@ -127,7 +127,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                             </div>
                             <div style={{ marginTop: "75px" }}>
                                 {
-                                    playerAwayGrouped.reverse().map((players) => (
+                                    playerAwayGrouped && playerAwayGrouped.reverse().map((players) => (
                                         <Row className="formation-row-away justify-content-center">
                                             {players.map((player) => (
                                                 <Col xs="auto">
@@ -161,7 +161,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                                 <td style={{ fontWeight: "bold" }}>Tên cầu thủ</td>
                                 <td style={{ width: "25%", fontWeight: "bold" }}>Vị trí</td>
                             </tr>
-                            {playerAway.sort((a, b) => a.number - b.number).map((player) => (
+                            { playerAway && playerAway.sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
                                 (<>
                                     <tr>
@@ -175,9 +175,9 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                         </tbody>
                     </Table>
 
-                    <div className="fw-bold border text-center py-2" style={{ borderWidth: "2px", textTransform: "uppercase" }}>
-                        {(playerAway.find(player => player.position === "Huấn luyện viên")).name}
-                    </div>
+                    {/* <div className="fw-bold border text-center py-2" style={{ borderWidth: "2px", textTransform: "uppercase" }}>
+                        {( playerAway.find(player => player.position === "Huấn luyện viên"))?.name || "Chưa có HLV"}
+                    </div> */}
                 </Container>
             </div>
         </div>

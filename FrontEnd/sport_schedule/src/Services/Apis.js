@@ -22,7 +22,7 @@ export const endpoints={
     'addComment': '/comment',
     'getComments':(postId) => `/Comment/comment/${postId}`,
     'getCommentsReply':(commentId) =>`/Comment/comment/reply/${commentId}`,
-    'getMatchesGuess':(time) => `/guess/${time}`,
+    'getMatchesGuess':(time) => `/guess/fixtures/${time}`,
     'addGuess':(matchId)  => `/guess/add/${matchId}`,
     'addAppointment':(matchId) => `/appointment/${matchId}`,
     'getMatchesAppointmented':'/appointmented',
@@ -35,7 +35,19 @@ export const endpoints={
     'addPermission':'/admin/permission/add',
     'deletePermission':(permissionId) => `/admin/permission/delete/${permissionId}`,
     "updatePermission": '/admin/permission/update',
-    'getRoles': '/admin/roles'
+    'getRoles': '/admin/roles',
+    'getFixturesPredict':(page) => `/admin/fixtures/predict/${page}`,
+    'updateStatusPredictFixture':(matchId) => `admin/update/predict/${matchId}`,
+    'getMatchesGuessAdmin':(page) => `/admin/guess/fixtures/${page}`,
+    'getGuessExactly': (matchId) => `/admin/guess/exactly/${matchId}`,
+    'getListAward': '/admin/list/award',
+    'addAward': '/admin/award/add',
+    'updateAward':(guessId) => `/admin/award/update/${guessId}`,
+    'addRole' : '/admin/role/add',
+    'deleteRole':(roleId) => `/admin/role/delete/${roleId}`,
+    'updateRole':(roleId) => `/admin/role/update/${roleId}`,
+    'getLeaguesAdmin': '/admin/leagues',
+    'deleteLeague':(leagueId) => `/admin/leagues/delete/${leagueId}`
 }
 
 export const authApis = () =>{
