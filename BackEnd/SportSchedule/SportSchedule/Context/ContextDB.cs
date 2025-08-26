@@ -14,7 +14,6 @@ namespace SportSchedule.Context
         public virtual DbSet<AccountModel> Accounts { get; set; }
         public virtual DbSet<PostModel> Posts { get; set; }
         public virtual DbSet<CommentModel> Comment { get; set; }
-        public virtual DbSet<MessageModel> Messages { get; set; }
         public virtual DbSet<TeamModel> Teams { get; set; }
         public virtual DbSet<MemberModel> Members { get; set; }
         public virtual DbSet<PlayerModel> Players { get; set; }
@@ -44,7 +43,6 @@ namespace SportSchedule.Context
             modelBuilder.ApplyConfiguration(new AccountConfiguration());
             modelBuilder.ApplyConfiguration(new PostConfiguration());
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
-            modelBuilder.ApplyConfiguration(new MessageConfiguration());
             modelBuilder.ApplyConfiguration(new TeamConfiguration());
             modelBuilder.ApplyConfiguration(new MemberConfiguration());
             modelBuilder.ApplyConfiguration(new PlayerConfiguration());

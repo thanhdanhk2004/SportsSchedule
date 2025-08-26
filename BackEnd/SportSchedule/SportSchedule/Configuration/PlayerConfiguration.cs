@@ -13,8 +13,6 @@ namespace SportSchedule.Configuration
             builder.Property(p => p.Weight).IsRequired();
             builder.Property(p => p.Height).IsRequired();
             builder.Property(p => p.status).IsRequired(false);
-
-           
         }
     }
 }

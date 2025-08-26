@@ -14,8 +14,6 @@ namespace SportSchedule.Model
         public AccountModel? Account { get; set; }
         public List<PostModel>? Posts { get; set; }
         public List<CommentModel>? Comments { get; set; }
-        public List<MessageModel>? MessageSends {  get; set; }
-        public List<MessageModel>? MessageRevices {  get; set; }
         public List<GuessModel>? Guess { get; set; }
         public List<AppointmentModel>? Appointments { get; set; }
 

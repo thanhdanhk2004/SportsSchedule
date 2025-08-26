@@ -23,7 +23,7 @@ namespace SportSchedule.DataAccess
                 {
                     PlayerModel player = new PlayerModel
                     {
-                        PlayerId = model.Id,
+                        PlayerId = player_id.MemberId ?? 0,
                         Height = model.Height,
                         Weight = model.Weight,
                         status = true,

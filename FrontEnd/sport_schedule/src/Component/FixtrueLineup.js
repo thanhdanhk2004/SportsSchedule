@@ -82,7 +82,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                                 <td style={{ fontWeight: "bold" }}>Tên cầu thủ</td>
                                 <td style={{ width: "25%", fontWeight: "bold" }}>Vị trí</td>
                             </tr>
-                            {playerHome && playerHome.sort((a, b) => a.number - b.number).map((player) => (
+                            {playerHome && [...playerHome].sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
                                 (<>
                                     <tr>
@@ -108,7 +108,6 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                         <div className="formation-header">
                             <img src={logoHome} alt="Logo" className="team-logo" />
                             <span>{nameHome}</span>
-                            <span className="formation-text">{statisticTeamHome.lineUp}</span>
                         </div>
 
                         <div className="formation-lineup">
@@ -127,11 +126,11 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                             </div>
                             <div style={{ marginTop: "75px" }}>
                                 {
-                                    playerAwayGrouped && playerAwayGrouped.reverse().map((players) => (
+                                    playerAwayGrouped && [...playerAwayGrouped].reverse().map((players) => (
                                         <Row className="formation-row-away justify-content-center">
                                             {players.map((player) => (
-                                                <Col xs="auto">
-                                                    <Player number={player.number} name={player.name} sub={subAway.find(sub => sub.nameOut === player.name) ? true : false} team="away" />
+                                                <Col xs="auto" key={player.id}>
+                                                    <Player id={player.id} number={player.number} name={player.name} sub={subAway.find(sub => sub.nameOut === player.name) ? true : false} team="away" />
                                                 </Col>
                                             ))}
                                         </Row>
@@ -144,7 +143,6 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                         <div className="formation-footer">
                             <img src={logoAway} alt="Logo" className="team-logo" />
                             <span>{nameAway}</span>
-                            <span className="formation-text">{statisticTeamAway.lineUp}</span>
                         </div>
                     </Container>
                 </Container>
@@ -161,7 +159,7 @@ const Lineup = ({ playerHome, playerAway, nameHome, nameAway, logoHome, logoAway
                                 <td style={{ fontWeight: "bold" }}>Tên cầu thủ</td>
                                 <td style={{ width: "25%", fontWeight: "bold" }}>Vị trí</td>
                             </tr>
-                            { playerAway && playerAway.sort((a, b) => a.number - b.number).map((player) => (
+                            { playerAway && [...playerAway].sort((a, b) => a.number - b.number).map((player) => (
                                 (player.status === false && player.position !== "Huấn luyện viên") &&
                                 (<>
                                     <tr>
