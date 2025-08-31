@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -45,10 +45,6 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "StatisticBackgroundService.cs",
@@ -56,7 +52,7 @@
               "RelativeDocumentMoniker": "SportSchedule\\Services\\Statistic\\StatisticBackgroundService.cs",
               "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Statistic\\StatisticBackgroundService.cs",
               "RelativeToolTip": "SportSchedule\\Services\\Statistic\\StatisticBackgroundService.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAEwFEAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAEwE8AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T16:02:42.603Z",
               "EditorCaption": ""
@@ -71,8 +67,7 @@
               "RelativeToolTip": "SportSchedule\\Controllers\\UserController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAYwCIAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T04:37:52.875Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-26T04:37:52.875Z"
             },
             {
               "$type": "Document",
@@ -109,6 +104,10 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-26T04:27:15.322Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
             }
           ]
         }
