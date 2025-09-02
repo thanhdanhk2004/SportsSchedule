@@ -1,9 +1,6 @@
-import { ca } from "date-fns/locale";
 import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { authApis, endpoints } from "../../Services/Apis";
-import Select from "react-select";
-import { use } from "react";
 
 
 function ModalUpdateRole({ show, onHide, role}) {

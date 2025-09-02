@@ -173,5 +173,64 @@ namespace SportSchedule.DataAccess
                 return null;
             }
         }
+
+        //Cap nhat thoi gian tran dau
+        public bool updateTimeFixture(int matchId, string time)
+        {
+            try
+            {
+                if (matchId == null)
+                    return false;
+                var match = _context.Matches.FirstOrDefault(m => m.MatchId == matchId);
+                if (match == null)
+                    return false;
+                match.Time = DateTime.SpecifyKind(DateTime.Parse(time).AddHours(-7), DateTimeKind.Utc);
+                _context.Matches.Update(match);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+        
+        //Lay cac tran dau de quan ly tran dau
+        public List<FixtureDTOFEAdmin> getFixturesAdmin(int leagueId, int page)
+        {
+            try
+            {
+                if (page == 0)
+                    return null;
+                var data = (from m in _context.Matches
+                            join l in _context.Leagues on m.LeagueId equals l.LeagueId
+                            join th in _context.Teams on m.TeamIdHome equals th.TeamId
+                            join ta in _context.Teams on m.TeamIdAway equals ta.TeamId
+                            where l.LeagueId == leagueId 
+                            && m.Time.Value >= DateTime.UtcNow
+                            && m.Time.Value <= DateTime.UtcNow.AddMonths(1)
+                            orderby m.Time.Value.Date
+                            select new FixtureDTOFEAdmin
+                            {
+                                MatchId = m.MatchId,
+                                NameLeague = l.Name,
+                                TeamHome = th.Name,
+                                TeamAway = ta.Name,
+                                LogoHome = th.Logo,
+                                LogoAway = ta.Logo,
+                                Time = m.Time.ToString(),
+                                Predict = m.Predict,
+                            }).ToList();
+                var result = data.Skip((page - 1) * 10).Take(10).ToList();
+                result[0].TotalPage = (int)(Math.Ceiling((decimal)data.Count / 10));
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null;
+            }
+        }
     }
 }

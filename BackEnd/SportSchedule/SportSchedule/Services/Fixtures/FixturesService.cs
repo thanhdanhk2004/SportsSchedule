@@ -135,5 +135,34 @@ namespace SportSchedule.Services.Fixtures
                 return null!;
             }
         }
+
+        //Thay doi thoi gian tran dau
+        public async Task<bool> updateTimeFixture(int match_id, string time)
+        {
+            try
+            {
+                return _matchDAL.updateTimeFixture(match_id, time);
+            }catch( Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
+
+        //Lay cac tran dau de quan ly
+        public async Task<List<FixtureDTOFEAdmin>> getFixturesAdmin(int leagueId, int page)
+        {
+            try
+            {
+                if (page == null)
+                    return null!;
+                return _matchDAL.getFixturesAdmin(leagueId, page);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return null!;
+            }
+        }
     }
 }

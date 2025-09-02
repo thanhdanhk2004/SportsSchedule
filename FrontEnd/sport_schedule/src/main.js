@@ -18,6 +18,7 @@ import ManagerGuess from "./Component/Admin/ManagerGuess";
 import ManagerAward from "./Component/Admin/ManagerAward";
 import ManagerRole from "./Component/Admin/ManagerRole"
 import ManagerLeague from "./Component/Admin/ManagerLeague"
+import ManagerFixture from "./Component/Admin/ManagerFixture";
 
 const Main = () => {
     return (
@@ -41,6 +42,7 @@ const Main = () => {
                     <Route path="/admin/award" element={<Protected roleNeed="Admin"><ManagerAward /></Protected>}/>
                     <Route path="/admin/roles" element={<Protected roleNeed="Admin"><ManagerRole /></Protected>}/>
                     <Route path="/admin/leagues" element={<Protected roleNeed="Admin"><ManagerLeague /></Protected>}/>
+                    <Route path="/admin/fixtures" element={<Protected roleNeed="Admin"><ManagerFixture /></Protected>}/>
                 </Routes>
             </BrowserRouter>
         </>

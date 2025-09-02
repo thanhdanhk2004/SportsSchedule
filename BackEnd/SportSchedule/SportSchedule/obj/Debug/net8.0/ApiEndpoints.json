@@ -85,6 +85,27 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "getFixturesAdmin",
+    "RelativePath": "admin/get/fixtures/{leagueId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "leagueId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.AwardController",
     "Method": "getGuessExactly",
     "RelativePath": "admin/guess/exactly/{matchId}",
@@ -306,6 +327,27 @@
         "Name": "article_id",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SportSchedule.Controllers.FixtureController",
+    "Method": "updateTimeFixture",
+    "RelativePath": "admin/update/time/{matchId}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "matchId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "time",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

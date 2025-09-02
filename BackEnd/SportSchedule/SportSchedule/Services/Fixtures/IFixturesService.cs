@@ -11,5 +11,8 @@ namespace SportSchedule.Services.Fixtures
         //Chuc nang admin
         Task<bool> updateStatusPredict(int match_id, bool status);
         Task<List<FixtureDTOFEAdmin>> getFixturesAdmin(int page);
+        Task<bool> updateTimeFixture(int match_id, string time);
+        Task<List<FixtureDTOFEAdmin>> getFixturesAdmin(int leagueId,int page);
+
     }
 }

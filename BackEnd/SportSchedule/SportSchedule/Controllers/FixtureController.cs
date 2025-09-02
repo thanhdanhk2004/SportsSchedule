@@ -56,5 +56,25 @@ namespace SportSchedule.Controllers
                 return Ok();
             return BadRequest();
         }
+
+        [HttpPatch("/admin/update/time/{matchId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> updateTimeFixture(int matchId, string time)
+        {
+            bool result = await _fixtureService.updateTimeFixture(matchId, time);
+            if(result)
+                return Ok();
+            return BadRequest();
+        }
+
+        [HttpGet("/admin/get/fixtures/{leagueId}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> getFixturesAdmin(int leagueId, int page)
+        {
+            var result = await _fixtureService.getFixturesAdmin(leagueId, page);
+            if (result != null)
+                return Ok(result);
+            return NotFound();
+        }
     }
 }

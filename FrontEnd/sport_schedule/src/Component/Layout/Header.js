@@ -38,6 +38,7 @@ const Header = () => {
                   <Nav.Link href="/admin/guesses">Quản lý dự đoán</Nav.Link>
                   <Nav.Link href="/admin/roles">Quản lý vai trò</Nav.Link>
                   <Nav.Link href="/admin/leagues">Quản lý giải đấu</Nav.Link>
+                  <Nav.Link href="/admin/fixtures">Quản lý trận đấu</Nav.Link>
                 </> :
                 <>
                   <Nav.Link href="/" className="text-warning">Lịch thi đấu</Nav.Link>
