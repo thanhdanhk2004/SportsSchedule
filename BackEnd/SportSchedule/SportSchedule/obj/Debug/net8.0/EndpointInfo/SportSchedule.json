@@ -934,6 +934,18 @@
         }
       }
     },
+    "/admin/season/add": {
+      "post": {
+        "tags": [
+          "Season"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/statistic/{match_id}": {
       "get": {
         "tags": [

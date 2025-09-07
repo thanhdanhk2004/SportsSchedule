@@ -12,6 +12,17 @@ namespace SportSchedule.DataAccess
             _context = context;
         }
 
+        public List<string> getLeaguesCode()
+        {
+            try
+            {
+                return _context.Leagues.Select(l => l.Code).ToList()!;
+            }catch (Exception ex)
+            {
+                return null!;
+            }
+        }
+
         public List<LeagueDTOFE> getLeagues(List<string> leagues)
         {
             try
@@ -74,6 +85,7 @@ namespace SportSchedule.DataAccess
                 return false;
             }
         }
+
 
     }
 }

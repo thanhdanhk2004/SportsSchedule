@@ -295,6 +295,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SportSchedule.Controllers.SeasonController",
+    "Method": "addSeason",
+    "RelativePath": "admin/season/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SportSchedule.Controllers.FixtureController",
     "Method": "updateStatusPredict",
     "RelativePath": "admin/update/predict/{matchId}",

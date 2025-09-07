@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\dataaccess\\matchdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\dataaccess\\matchdal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\season\\seasonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\season\\seasonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\controllers\\fixturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\controllers\\fixturecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\dataaccess\\seasondal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\dataaccess\\seasondal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\fixtures\\fixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\fixtures\\fixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\controllers\\seasoncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\fixtures\\ifixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\fixtures\\ifixturesservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\services\\season\\iseasonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\services\\season\\iseasonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\context\\seed\\dataseedfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\context\\seed\\dataseedfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|c:\\users\\add\\pictures\\sportsschedule\\backend\\sportschedule\\sportschedule\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2DD36597-151B-48EB-8D6B-EA469ED19807}|SportSchedule\\SportSchedule.csproj|solutionrelative:sportschedule\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,64 +46,68 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FixtureController.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\FixtureController.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Controllers\\FixtureController.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\FixtureController.cs",
-              "RelativeToolTip": "SportSchedule\\Controllers\\FixtureController.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAuwEgAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T09:51:19.713Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "DataSeedFixture.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Context\\Seed\\DataSeedFixture.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Context\\Seed\\DataSeedFixture.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Context\\Seed\\DataSeedFixture.cs",
-              "RelativeToolTip": "SportSchedule\\Context\\Seed\\DataSeedFixture.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Program.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Program.cs",
+              "RelativeToolTip": "SportSchedule\\Program.cs",
+              "ViewState": "AgIAALMAAAAAAAAAAAAAAJkAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T09:47:32.97Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FixturesService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Fixtures\\FixturesService.cs",
-              "ViewState": "AgIAAIkAAAAAAAAAAAAUwJgAAABbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T09:23:59.869Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MatchDAL.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\MatchDAL.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\MatchDAL.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\MatchDAL.cs",
-              "RelativeToolTip": "SportSchedule\\DataAccess\\MatchDAL.cs",
-              "ViewState": "AgIAAI4AAAAAAAAAAAAkwHYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T09:23:59.9Z",
+              "WhenOpened": "2025-09-07T15:35:50.755Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IFixturesService.cs",
-              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\IFixturesService.cs",
-              "RelativeDocumentMoniker": "SportSchedule\\Services\\Fixtures\\IFixturesService.cs",
-              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Fixtures\\IFixturesService.cs",
-              "RelativeToolTip": "SportSchedule\\Services\\Fixtures\\IFixturesService.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAQwA4AAABDAAAAAAAAAA==",
+              "Title": "ISeasonService.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Season\\ISeasonService.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Services\\Season\\ISeasonService.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Season\\ISeasonService.cs",
+              "RelativeToolTip": "SportSchedule\\Services\\Season\\ISeasonService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-02T09:42:07.216Z"
+              "WhenOpened": "2025-09-07T15:18:03.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SeasonService.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Season\\SeasonService.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Services\\Season\\SeasonService.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Services\\Season\\SeasonService.cs",
+              "RelativeToolTip": "SportSchedule\\Services\\Season\\SeasonService.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAuwBcAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T15:18:01.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SeasonDAL.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\SeasonDAL.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\DataAccess\\SeasonDAL.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\DataAccess\\SeasonDAL.cs",
+              "RelativeToolTip": "SportSchedule\\DataAccess\\SeasonDAL.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBUAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T15:15:58.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SeasonController.cs",
+              "DocumentMoniker": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\SeasonController.cs",
+              "RelativeDocumentMoniker": "SportSchedule\\Controllers\\SeasonController.cs",
+              "ToolTip": "C:\\Users\\add\\Pictures\\SportsSchedule\\BackEnd\\SportSchedule\\SportSchedule\\Controllers\\SeasonController.cs",
+              "RelativeToolTip": "SportSchedule\\Controllers\\SeasonController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAYwBUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-07T15:13:20.614Z",
+              "EditorCaption": ""
             }
           ]
         }

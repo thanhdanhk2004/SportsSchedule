@@ -19,6 +19,7 @@ import ManagerAward from "./Component/Admin/ManagerAward";
 import ManagerRole from "./Component/Admin/ManagerRole"
 import ManagerLeague from "./Component/Admin/ManagerLeague"
 import ManagerFixture from "./Component/Admin/ManagerFixture";
+import ManagerSeason from "./Component/Admin/ManagerSeason";
 
 const Main = () => {
     return (
@@ -43,6 +44,7 @@ const Main = () => {
                     <Route path="/admin/roles" element={<Protected roleNeed="Admin"><ManagerRole /></Protected>}/>
                     <Route path="/admin/leagues" element={<Protected roleNeed="Admin"><ManagerLeague /></Protected>}/>
                     <Route path="/admin/fixtures" element={<Protected roleNeed="Admin"><ManagerFixture /></Protected>}/>
+                    <Route path="/admin/season" element={<Protected roleNeed="Admin"><ManagerSeason /></Protected>}/>
                 </Routes>
             </BrowserRouter>
         </>

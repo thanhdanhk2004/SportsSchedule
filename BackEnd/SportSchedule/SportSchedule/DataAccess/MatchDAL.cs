@@ -4,6 +4,7 @@ using SportSchedule.DataTranserferObject.Fixture;
 using SportSchedule.DataTranserferObject.Guess;
 using SportSchedule.DataTranserferObject.Page;
 using SportSchedule.DataTranserferObject.Appointment;
+using SportSchedule.Model;
 
 namespace SportSchedule.DataAccess
 {
@@ -13,6 +14,23 @@ namespace SportSchedule.DataAccess
         public MatchDAL(ContextDB context)
         {
             _context = context;
+        }
+
+        //Them tran dau
+        public void addFixture(MatchModel match)
+        {
+            try
+            {
+                if(match == null)
+                    return;
+                _context.Matches.Add(match);
+                _context.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return;
+            }
         }
 
         //Lay cac tran dau theo ngay thi dau

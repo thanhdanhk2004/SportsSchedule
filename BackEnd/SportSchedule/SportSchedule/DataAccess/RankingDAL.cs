@@ -18,7 +18,11 @@ namespace SportSchedule.DataAccess
         {
             try
             {
-                var listTeamLeague = _context.LeagueTeams.ToList();
+                var listTeamLeague = _context.LeagueTeams.Include(lt => lt.League)
+                    .ThenInclude(l => l.LeagueSeasons)!
+                    .ThenInclude(ls => ls.Season)
+                    .Where(lt => lt.League!.LeagueSeasons!.Any(ls => ls.Season!.SeasonYear == DateTime.Now.Year.ToString()))
+                    .ToList();
                 var seasonId = _context.Seasons
                     .Where(s => s.SeasonYear == DateTime.Now.Year.ToString())
                     .Select(s => s.SeasonId).FirstOrDefault();

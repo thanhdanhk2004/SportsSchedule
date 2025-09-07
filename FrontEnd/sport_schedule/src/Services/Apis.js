@@ -49,7 +49,8 @@ export const endpoints={
     'getLeaguesAdmin': '/admin/leagues',
     'deleteLeague':(leagueId) => `/admin/leagues/delete/${leagueId}`,
     'getFixtureByLeagueAdmin':(leagueId) => `/admin/get/fixtures/${leagueId}`,
-    'updateTimeFixture':(matchId) => `/admin/update/time/${matchId}`
+    'updateTimeFixture':(matchId) => `/admin/update/time/${matchId}`,
+    'addSeason':'/admin/season/add',
 }
 
 export const authApis = () =>{
