@@ -1,2 +1,2 @@
-#<img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/1b994000-da41-4058-8098-b8a7da67b3f3" /> Mục tiêu
-
+# ✈️ Flight Booking Website
+Ứng dụng web cho phép khách hàng đặt vé máy bay trực tuyến, nhân viên bán vé, quản lý chuyến bay và admin xem báo cáo.
