@@ -6,7 +6,7 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
 - Tìm kiếm giải đáu, trận đấu
 - Xem thống kê của trận đấu
 - Đăng nhập, đăng ký
-- Xác thực và Phân quyền
+- Xác thực và phân quyền
 - Đăng, sửa, xóa bài viết
 - Bình luận bài viết
 - Tham gia minigame dự đoán tỷ số
