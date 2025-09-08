@@ -17,3 +17,6 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
 - **Frontend:** ReactJS, Bootstrap
 - **Database:** PostgreSQL
 - **Authentication:** JWT
+# ⚙️ Hướng dẫn cài đặt
+1. Clone dự án
+   
