@@ -37,5 +37,5 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
 - Phân tích dữ liệu đưa ra được dự đoán tỷ lệ thắng cho các trận đấu sắp diễn ra
 # 👨‍💻 Tác giả
 Lê Thanh Dân
-📧 Email: thanhdanhk2004@gmail.com
-💼 LinkedIn: https://www.linkedin.com/in/d%C3%A2n-l%C3%AA-thanh-77b229361/
+- 📧 Email: thanhdanhk2004@gmail.com
+-💼 LinkedIn: https://www.linkedin.com/in/d%C3%A2n-l%C3%AA-thanh-77b229361/
