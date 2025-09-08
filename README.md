@@ -27,7 +27,7 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
    - Microsoft.EntityFrameworkCore.Tools(9.0.0) (Gói này hỗ trợ cho Entity Framework Core)
    - Newtonsoft.Json (13.0.3) (Gói này dùng để xử lý JSON)
    - Npgsql.EntityFrameworkCore.PostgreSQL (9.0.1 (Gói này để làm việc với Postgre SQL)
-3 Cài đặt Fronted
+3. Cài đặt Fronted
 - npm install
 - npm install bootstrap react-bootstrap
 - npm start
