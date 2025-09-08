@@ -35,7 +35,6 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
 - Thêm một số giải đấu thế giới (World Cup, Euro ...)
 - Thêm một trang thương mại điện tử nhỏ bán các sán phẩm liên quan đến thể thao
 - Phân tích dữ liệu đưa ra được dự đoán tỷ lệ thắng cho các trận đấu sắp diễn ra
-# 👨‍💻 Tác giả
-Lê Thanh Dân
+# 👨‍💻 Tác giả: Lê Thanh Dân
 - 📧 Email: thanhdanhk2004@gmail.com
--💼 LinkedIn: https://www.linkedin.com/in/d%C3%A2n-l%C3%AA-thanh-77b229361/
+- 💼 LinkedIn: https://www.linkedin.com/in/d%C3%A2n-l%C3%AA-thanh-77b229361/
