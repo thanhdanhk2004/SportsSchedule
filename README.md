@@ -19,4 +19,11 @@ Dự án xây dựng website xem lịch thi đấu thể thao được thiết k
 - **Authentication:** JWT
 # ⚙️ Hướng dẫn cài đặt
 1. Clone dự án
-   
+   https://github.com/thanhdanhk2004/SportsSchedule.git
+2. Cài đặt các gói trong Backend
+   - BCrypt.Net-Next(4.0.3) (gói này dừng để hashing mật khẩu theo thuật toán bcrypt)
+   - Microsoft.AspNetCore.Authentication.JwtBearer(8.0.0) (gói này giúp sử dụng JWT để xác thực và phân quyền)
+   - Microsoft.EntityFrameworkCore(9.0.0) (Gói này để sử dụng Entity Framwork Core)
+   - Microsoft.EntityFrameworkCore.Tools(9.0.0) (Gói này hỗ trợ cho Entity Framework Core)
+   - Newtonsoft.Json (13.0.3) (Gói này dùng để xử lý JSON)
+   - Npgsql.EntityFrameworkCore.PostgreSQL (9.0.1 (Gói này để làm việc với Postgre SQL)
